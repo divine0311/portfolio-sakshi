@@ -1,0 +1,2306 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sakshi Gill — Digital Marketer, AI Developer &amp; Creative Strategist</title>
+  <meta name="description" content="Official portfolio of Sakshi Gill: Digital Marketer, AI Developer, Editor &amp; Creative Strategist." />
+  <meta property="og:title" content="Sakshi Gill — Digital Marketer, AI Developer &amp; Creative Strategist" />
+  <meta property="og:description" content="Official portfolio of Sakshi Gill: Digital Marketer, AI Developer, Editor &amp; Creative Strategist." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Google Fonts: Poppins (600, 700), Inter (400, line-height 1.7), and Playfair Display (editorial serif accents) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;1,400;1,600&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ==========================================================================
+       DESIGN SYSTEM & COLOR PALETTE
+       Strict Rule: Red appears ONLY in the hero section (#home) matching the video.
+       The rest of the site strictly uses: Charcoal (#1A1A1A), Warm Cream (#FFF8F0), 
+       and Accent Gold (#F4D03F).
+       ========================================================================== */
+    :root {
+      /* Hero-only Red: Calibrated to the exact background of sakshi-video.mp4 */
+      --hero-red: #CE1B1B;
+
+      /* Neutral Palette for entire site body */
+      --deep-charcoal: #1A1A1A;       /* Dark sections: Journey, Vision, Footer */
+      --card-charcoal: #242427;       /* Card surfaces on dark sections */
+      --warm-cream: #FFF8F0;          /* Light sections: Storytelling, Story, Capabilities, Connect */
+      --surface-white: #FFFFFF;       /* Clean cards and contrast containers */
+      
+      /* Accent Gold (used sparingly & consistently everywhere) */
+      --accent-gold: #F4D03F;         /* Active nav pills, CTA buttons, icons, timeline dots, quote marks */
+      --accent-gold-hover: #e5be2d;   /* Darker gold on hover */
+      --glow-highlight: #FFF8E0;      /* Near-white gold for hero name light-trail leading edge */
+      
+      /* Body Text & Neutrals */
+      --body-dark: #2B2320;           /* Warm dark brown-black on cream/white */
+      --muted-dark: #6E6662;          /* Secondary text on cream/white */
+      --border-light: rgba(43, 35, 32, 0.1);
+      --nav-pill-inactive: #2B2B2E;   /* Inactive floating navbar pill */
+
+      /* Typography */
+      --font-heading: 'Poppins', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --font-serif: 'Playfair Display', serif;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--body-dark);
+      background-color: var(--warm-cream);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, .font-heading {
+      font-family: var(--font-heading);
+      line-height: 1.25;
+    }
+
+    .font-serif {
+      font-family: var(--font-serif);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button, input, textarea {
+      font-family: inherit;
+    }
+
+    /* Container */
+    .container {
+      width: 100%;
+      max-width: 1160px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+
+    /* Generous spacing: 100px desktop, 60px mobile */
+    .section-spacing {
+      padding-top: 100px;
+      padding-bottom: 100px;
+    }
+
+    @media (max-width: 768px) {
+      .section-spacing {
+        padding-top: 60px;
+        padding-bottom: 60px;
+      }
+    }
+
+    /* ==========================================================================
+       1. FLOATING PILL NAVBAR
+       Fixed at bottom-center, separate individual rounded pills with small gaps
+       ========================================================================== */
+    .floating-nav-container {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9000;
+      width: auto;
+      max-width: calc(100vw - 32px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px;
+      border-radius: 9999px;
+      background: rgba(26, 26, 26, 0.55);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 12px 36px -8px rgba(0, 0, 0, 0.5);
+    }
+
+    .floating-nav-list {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      list-style: none;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      padding: 0 2px;
+    }
+
+    .floating-nav-list::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav-pill-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 9px 18px;
+      border-radius: 9999px;
+      background-color: var(--nav-pill-inactive);
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      border: 1px solid transparent;
+      user-select: none;
+    }
+
+    .nav-pill-btn:hover:not(.active):not(.cta-pill) {
+      background-color: #38383D;
+      color: #FFFFFF;
+      transform: translateY(-1px);
+    }
+
+    /* Active section button: gold background, dark text, subtle glow ring */
+    .nav-pill-btn.active {
+      background-color: var(--accent-gold) !important;
+      color: #1A1A1A !important;
+      font-weight: 600;
+      box-shadow: 0 0 18px rgba(244, 208, 63, 0.5);
+      border-color: rgba(255, 255, 255, 0.35);
+    }
+
+    /* Last item CTA: always gold filled (Visit Resume) */
+    .cta-pill {
+      background-color: var(--accent-gold) !important;
+      color: #1A1A1A !important;
+      font-weight: 600;
+      box-shadow: 0 2px 14px rgba(244, 208, 63, 0.35);
+      padding-left: 20px;
+      padding-right: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .cta-pill:hover {
+      background-color: var(--accent-gold-hover) !important;
+      box-shadow: 0 0 22px rgba(244, 208, 63, 0.65);
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 640px) {
+      .floating-nav-container {
+        bottom: 16px;
+        width: calc(100vw - 24px);
+        padding: 4px;
+      }
+      .nav-pill-btn {
+        padding: 7px 13px;
+        font-size: 0.75rem;
+      }
+      .cta-pill {
+        padding: 7px 14px;
+      }
+    }
+
+    /* ==========================================================================
+       2. WELCOME LOADER
+       Full-screen #1A1A1A overlay, staggered letter fade+slide, gold pop dot, 1.8s
+       ========================================================================== */
+    #welcome-loader {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      background-color: var(--deep-charcoal);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s;
+    }
+
+    #welcome-loader.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .loader-word {
+      display: flex;
+      font-family: var(--font-heading);
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      color: #FFFFFF;
+      overflow: hidden;
+    }
+
+    .loader-letter {
+      display: inline-block;
+      transform: translateY(110%);
+      opacity: 0;
+      animation: letterSlideUp 0.65s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+
+    .loader-dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--accent-gold);
+      border-radius: 50%;
+      margin-top: 18px;
+      transform: scale(0);
+      animation: dotPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.7s forwards;
+      box-shadow: 0 0 16px var(--accent-gold);
+    }
+
+    @keyframes letterSlideUp {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes dotPop {
+      to {
+        transform: scale(1);
+      }
+    }
+
+    /* ==========================================================================
+       3. FULL-SCREEN HERO SECTION (id="home")
+       Deep luxury crimson backdrop matching user's port. video 1.mp4 (#A31712).
+       Right: Continuous seamless looping video playing edge-to-edge on right side (no box, no frame).
+       Left: Matching typography (Poppins + Inter), gold accent eyebrow, glowing light-trail name,
+             gold typewriter identity, refined off-white tagline, domain chips, and CTAs.
+       ========================================================================== */
+    #home {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      background-color: var(--hero-red);
+      color: #FFFFFF;
+      display: flex;
+      overflow: hidden;
+    }
+
+    .hero-wrapper {
+      display: flex;
+      width: 100%;
+      min-height: 100vh;
+      align-items: center;
+    }
+
+    /* Left Half: Text Content matching portfolio branding */
+    .hero-left {
+      flex: 1.1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 5rem 2.5rem 5rem 6vw;
+      z-index: 10;
+      background: transparent;
+      position: relative;
+    }
+
+    /* Right Half: Seamless looping video directly on right side (no box, no borders) */
+    .hero-right {
+      flex: 0.95;
+      position: relative;
+      min-height: 100vh;
+      background-color: var(--hero-red);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      margin: 0;
+    }
+
+    /* Subtle seamless gradient blend on the left edge of right half */
+    .hero-right::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 120px;
+      background: linear-gradient(to right, var(--hero-red) 0%, rgba(163, 23, 18, 0.7) 45%, transparent 100%);
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    /* Fallback and primary looping animation */
+    .hero-portrait-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      display: block;
+      border: none;
+      outline: none;
+      box-shadow: none;
+      border-radius: 0;
+      z-index: 1;
+      image-rendering: -webkit-optimize-contrast;
+    }
+
+    /* Looping video element overlay */
+    .hero-video-element {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      display: block;
+      border: none;
+      outline: none;
+      box-shadow: none;
+      border-radius: 0;
+      background-color: transparent;
+      z-index: 2;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .hero-video-element.is-active {
+      opacity: 1;
+    }
+
+    /* Eyebrow label */
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-heading);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      color: var(--accent-gold);
+      text-transform: uppercase;
+      margin-bottom: 0.9rem;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: fadeInEyebrow 0.8s ease forwards 1.9s;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 24px;
+      height: 2px;
+      background-color: var(--accent-gold);
+      box-shadow: 0 0 8px var(--accent-gold);
+    }
+
+    @keyframes fadeInEyebrow {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* SVG Name Reveal with Glowing Light-Trail */
+    .hero-svg-title-wrap {
+      width: 100%;
+      max-width: 580px;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-name-svg {
+      width: 100%;
+      height: auto;
+      overflow: visible;
+      display: block;
+    }
+
+    /* Light-trail animated stroke outline */
+    .trail-stroke {
+      fill: none;
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke: url(#goldTrailGrad);
+      stroke-dasharray: 600;
+      stroke-dashoffset: 600;
+      filter: url(#glowFilter);
+      animation: drawTrail 2s cubic-bezier(0.16, 1, 0.3, 1) forwards 2.1s;
+    }
+
+    /* Settled solid white text with soft shadow */
+    .name-fill-text {
+      fill: #FFFFFF;
+      opacity: 0;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 64px;
+      letter-spacing: -0.02em;
+      animation: fillSettle 0.8s ease forwards 3.6s;
+    }
+
+    @keyframes drawTrail {
+      0% {
+        stroke-dashoffset: 600;
+        opacity: 1;
+      }
+      85% {
+        stroke-dashoffset: 0;
+        opacity: 1;
+      }
+      100% {
+        stroke-dashoffset: 0;
+        opacity: 0.25;
+      }
+    }
+
+    @keyframes fillSettle {
+      0% {
+        opacity: 0;
+        filter: drop-shadow(0 0 25px rgba(244, 208, 63, 0.9));
+      }
+      40% {
+        opacity: 1;
+        filter: drop-shadow(0 0 18px rgba(244, 208, 63, 0.7));
+      }
+      100% {
+        opacity: 1;
+        filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.25));
+      }
+    }
+
+    /* Typewriter rotating identity line */
+    .hero-typewriter-container {
+      display: flex;
+      align-items: baseline;
+      min-height: 2.4rem;
+      margin-bottom: 1.1rem;
+      font-family: var(--font-heading);
+      font-size: clamp(1.3rem, 2.4vw, 1.85rem);
+      font-weight: 600;
+      color: #FFFFFF;
+    }
+
+    .typewriter-text {
+      color: var(--accent-gold);
+      border-right: 2.5px solid var(--accent-gold);
+      padding-right: 5px;
+      white-space: nowrap;
+      animation: blinkCursor 0.75s step-end infinite;
+      text-shadow: 0 0 16px rgba(244, 208, 63, 0.4);
+    }
+
+    @keyframes blinkCursor {
+      from, to { border-color: transparent; }
+      50% { border-color: var(--accent-gold); }
+    }
+
+    /* Short static tagline matching portfolio typography & palette */
+    .hero-tagline {
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: #E2E2E8;
+      max-width: 520px;
+      margin-bottom: 1.6rem;
+      font-weight: 400;
+    }
+
+    /* Portfolio domain highlight chips */
+    .hero-chips-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 2.2rem;
+    }
+
+    .hero-chip {
+      display: inline-flex;
+      align-items: center;
+      font-family: var(--font-heading);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #F4D03F;
+      background: rgba(244, 208, 63, 0.09);
+      border: 1px solid rgba(244, 208, 63, 0.28);
+      padding: 4px 13px;
+      border-radius: 9999px;
+      letter-spacing: 0.03em;
+      transition: all 0.25s ease;
+    }
+
+    .hero-chip:hover {
+      background: rgba(244, 208, 63, 0.16);
+      border-color: rgba(244, 208, 63, 0.55);
+      transform: translateY(-2px);
+    }
+
+    /* Hero CTA Button group */
+    .hero-cta-group {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-gold-solid {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      background-color: var(--accent-gold);
+      color: #111111;
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      font-weight: 700;
+      padding: 0.85rem 1.85rem;
+      border-radius: 9999px;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35), 0 0 16px rgba(244, 208, 63, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .btn-gold-solid:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4), 0 0 24px rgba(244, 208, 63, 0.65);
+      background-color: var(--glow-highlight);
+    }
+
+    .btn-frosted-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      background: rgba(244, 208, 63, 0.08);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: #FFFFFF;
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 0.85rem 1.85rem;
+      border-radius: 9999px;
+      border: 1.5px solid rgba(244, 208, 63, 0.45);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .btn-frosted-outline:hover {
+      transform: scale(1.05);
+      background: rgba(244, 208, 63, 0.18);
+      border-color: var(--accent-gold);
+      box-shadow: 0 0 18px rgba(244, 208, 63, 0.3);
+    }
+
+    /* Bouncing scroll-down chevron */
+    .hero-scroll-chevron {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 20;
+      color: rgba(255, 255, 255, 0.75);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      animation: bounceSoft 2.2s infinite;
+      transition: color 0.2s;
+    }
+
+    .hero-scroll-chevron:hover {
+      color: var(--accent-gold);
+    }
+
+    @keyframes bounceSoft {
+      0%, 20%, 50%, 80%, 100% { transform: translate(-50%, 0); }
+      40% { transform: translate(-50%, -9px); }
+      60% { transform: translate(-50%, -4px); }
+    }
+
+    @media (max-width: 992px) {
+      .hero-wrapper {
+        flex-direction: row; /* Video remains on the right side, never goes under the text */
+        min-height: 100vh;
+        align-items: center;
+      }
+      .hero-left {
+        flex: 1.1;
+        padding: 4rem 1.5rem 5rem 5vw;
+        z-index: 10;
+      }
+      .hero-right {
+        flex: 0.9;
+        min-height: 100vh;
+        padding: 0;
+        margin: 0;
+      }
+      .hero-scroll-chevron {
+        display: none;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .hero-wrapper {
+        position: relative;
+        flex-direction: row;
+        min-height: 100vh;
+        overflow: hidden;
+      }
+      .hero-left {
+        flex: 1;
+        padding: 3.5rem 1rem 5rem 4vw;
+        z-index: 10;
+        max-width: 62%;
+      }
+      .hero-right {
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 48%;
+        min-height: 100%;
+        z-index: 2;
+        padding: 0;
+      }
+      .hero-right::after {
+        width: 70px;
+        background: linear-gradient(to right, var(--hero-red) 0%, rgba(163, 23, 18, 0.7) 45%, transparent 100%);
+      }
+    }
+
+    /* ==========================================================================
+       SCROLL ANIMATION UTILITIES
+       Fade-up and slide-in via Intersection Observer
+       ========================================================================== */
+    .reveal-on-scroll {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Neutral section label */
+    .section-label {
+      display: inline-block;
+      font-family: var(--font-heading);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--muted-dark);
+      margin-bottom: 0.75rem;
+    }
+
+    /* ==========================================================================
+       4. STORYTELLING INTRO SECTION (NEUTRAL - NO RED)
+       Warm cream background (#FFF8F0), editorial narrative, large serif accent
+       ========================================================================== */
+    .section-intro {
+      background-color: var(--warm-cream);
+      position: relative;
+    }
+
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.25rem;
+      max-width: 860px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .editorial-quote-accent {
+      font-family: var(--font-serif);
+      font-size: clamp(1.6rem, 3.2vw, 2.35rem);
+      font-style: italic;
+      color: var(--deep-charcoal);
+      line-height: 1.4;
+      margin-bottom: 1.75rem;
+    }
+
+    .narrative-body {
+      font-size: 1.12rem;
+      line-height: 1.85;
+      color: var(--body-dark);
+      text-align: left;
+      margin-bottom: 1.25rem;
+    }
+
+    /* ==========================================================================
+       5. MY STORY / QUALIFICATIONS (id="my-story", ROADMAP DIAGRAM LAYOUT)
+       Surrounding section: Cream/white background (#FFF8F0 / #FFFFFF)
+       Spine: Bold continuous center connecting line with subtle gold dash track
+       Nodes: Gold (#F4D03F) circular markers with connecting stems
+       Cards: Rich true black (#0D0D0D), white text (#FFFFFF), gold accent border
+       ========================================================================== */
+    #my-story {
+      background-color: var(--surface-white);
+      position: relative;
+      border-top: 1px solid rgba(43, 35, 32, 0.06);
+    }
+
+    .roadmap-wrapper {
+      position: relative;
+      max-width: 1060px;
+      margin: 4.5rem auto 1rem auto;
+      padding: 1.5rem 0;
+    }
+
+    /* Central vertical roadmap spine (desktop) */
+    .roadmap-wrapper::before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      bottom: 25px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 3.5px;
+      background: linear-gradient(
+        to bottom,
+        var(--accent-gold) 0%,
+        #1A1A1A 12%,
+        #1A1A1A 88%,
+        var(--accent-gold) 100%
+      );
+      border-radius: 4px;
+      z-index: 1;
+    }
+
+    /* Subtle dashed track along the spine for diagram feel */
+    .roadmap-track-dash {
+      position: absolute;
+      top: 25px;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1px;
+      background: repeating-linear-gradient(
+        to bottom,
+        var(--accent-gold) 0px,
+        var(--accent-gold) 7px,
+        transparent 7px,
+        transparent 15px
+      );
+      opacity: 0.55;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* Individual Roadmap Node / Stop */
+    .roadmap-node {
+      position: relative;
+      margin-bottom: 4.25rem;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      z-index: 3;
+    }
+
+    .roadmap-node:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Alternating desktop placement */
+    .roadmap-node.node-left {
+      justify-content: flex-start;
+    }
+
+    .roadmap-node.node-right {
+      justify-content: flex-end;
+    }
+
+    /* Central Waypoint Circular Marker (Gold #F4D03F) */
+    .roadmap-marker {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background-color: var(--accent-gold);
+      border: 4px solid #0D0D0D;
+      box-shadow: 0 0 0 3px rgba(244, 208, 63, 0.42), 0 0 18px rgba(244, 208, 63, 0.5);
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 0.72rem;
+      color: #0D0D0D;
+      letter-spacing: -0.02em;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+    }
+
+    .roadmap-node:hover .roadmap-marker {
+      transform: translate(-50%, -50%) scale(1.22);
+      background-color: var(--glow-highlight);
+      box-shadow: 0 0 0 5px rgba(244, 208, 63, 0.65), 0 0 24px rgba(244, 208, 63, 0.85);
+    }
+
+    /* Connecting Branch / Stem linking marker to card */
+    .roadmap-stem {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 2px;
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    .node-left .roadmap-stem {
+      right: calc(50% + 19px);
+      width: calc(50% - 46% - 19px + 0.5%);
+      background: linear-gradient(to left, var(--accent-gold), rgba(244, 208, 63, 0.45));
+    }
+
+    .node-left .roadmap-stem::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent-gold);
+      box-shadow: 0 0 6px var(--accent-gold);
+    }
+
+    .node-right .roadmap-stem {
+      left: calc(50% + 19px);
+      width: calc(50% - 46% - 19px + 0.5%);
+      background: linear-gradient(to right, var(--accent-gold), rgba(244, 208, 63, 0.45));
+    }
+
+    .node-right .roadmap-stem::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent-gold);
+      box-shadow: 0 0 6px var(--accent-gold);
+    }
+
+    /* Qualification Cards: Bright, deep, rich solid true black (#0D0D0D) */
+    .roadmap-card {
+      width: 45.5%;
+      background-color: #0D0D0D;
+      color: #FFFFFF;
+      border-radius: 18px;
+      padding: 2.25rem 2rem;
+      position: relative;
+      border: 1px solid rgba(244, 208, 63, 0.28);
+      box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.45), 0 4px 12px rgba(0, 0, 0, 0.25);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease;
+      overflow: hidden;
+    }
+
+    /* Subtle gold accent border facing the timeline axis */
+    .node-left .roadmap-card {
+      border-right: 4px solid var(--accent-gold);
+    }
+
+    .node-right .roadmap-card {
+      border-left: 4px solid var(--accent-gold);
+    }
+
+    /* Subtle gold top-edge light gradient for premium polish */
+    .roadmap-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1.5px;
+      background: linear-gradient(90deg, transparent, rgba(244, 208, 63, 0.4), transparent);
+    }
+
+    /* Card Hover Lift and Soft Gold Glow */
+    .roadmap-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(244, 208, 63, 0.65);
+      box-shadow: 0 20px 44px -10px rgba(0, 0, 0, 0.7), 0 0 28px rgba(244, 208, 63, 0.25);
+    }
+
+    .node-left .roadmap-card:hover {
+      border-right-color: var(--glow-highlight);
+    }
+
+    .node-right .roadmap-card:hover {
+      border-left-color: var(--glow-highlight);
+    }
+
+    /* Card Header Meta */
+    .roadmap-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .roadmap-year-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-heading);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--accent-gold);
+      background: rgba(244, 208, 63, 0.12);
+      border: 1px solid rgba(244, 208, 63, 0.35);
+      padding: 4px 13px;
+      border-radius: 9999px;
+    }
+
+    .roadmap-step-badge {
+      font-family: var(--font-heading);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.42);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* Card Typography (Strong contrast against black #0D0D0D) */
+    .roadmap-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-bottom: 0.35rem;
+      line-height: 1.35;
+      letter-spacing: -0.01em;
+    }
+
+    .roadmap-institution {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #E2E2E8;
+      margin-bottom: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .roadmap-institution::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--accent-gold);
+      box-shadow: 0 0 6px var(--accent-gold);
+    }
+
+    .roadmap-takeaway {
+      font-size: 0.98rem;
+      color: #F5F5F5;
+      line-height: 1.72;
+      font-weight: 400;
+    }
+
+    /* Mobile Roadmap (<= 899px): Single column, line on the left, card on right */
+    @media (max-width: 899px) {
+      .roadmap-wrapper {
+        padding-left: 0;
+        margin-top: 3rem;
+      }
+
+      .roadmap-wrapper::before {
+        left: 20px;
+        transform: none;
+      }
+
+      .roadmap-track-dash {
+        left: 20px;
+        transform: none;
+      }
+
+      .roadmap-node {
+        margin-bottom: 2.75rem;
+        justify-content: flex-start !important;
+        padding-left: 3.5rem;
+      }
+
+      .roadmap-marker {
+        left: 20px;
+        top: 2.25rem;
+        transform: translateX(-50%);
+        width: 32px;
+        height: 32px;
+        font-size: 0.68rem;
+      }
+
+      .roadmap-node:hover .roadmap-marker {
+        transform: translateX(-50%) scale(1.18);
+      }
+
+      .roadmap-stem {
+        left: 20px !important;
+        right: auto !important;
+        top: 2.25rem !important;
+        width: 2.25rem !important;
+        background: linear-gradient(to right, var(--accent-gold), rgba(244, 208, 63, 0.45)) !important;
+      }
+
+      .node-left .roadmap-stem::after,
+      .node-right .roadmap-stem::after {
+        right: 0;
+        left: auto;
+      }
+
+      .roadmap-card {
+        width: 100% !important;
+        border-left: 4px solid var(--accent-gold) !important;
+        border-right: 1px solid rgba(244, 208, 63, 0.28) !important;
+        padding: 1.85rem 1.45rem;
+      }
+    }
+
+    /* ==========================================================================
+       6. MY JOURNEY (id="journey", DARK NEUTRAL)
+       Deep charcoal (#1A1A1A) background, motivational quote lines, gold quote mark
+       ========================================================================== */
+    #journey {
+      background-color: var(--deep-charcoal);
+      color: #FFFFFF;
+      position: relative;
+    }
+
+    .journey-box {
+      max-width: 860px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    /* Gold quotation mark icon */
+    .quote-icon-gold {
+      width: 44px;
+      height: 44px;
+      color: var(--accent-gold);
+      margin: 0 auto 1.5rem auto;
+      display: block;
+      opacity: 0.95;
+    }
+
+    .journey-quotes-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-bottom: 2.75rem;
+    }
+
+    .journey-quote {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(1.4rem, 2.7vw, 1.95rem);
+      color: #FFFFFF;
+      line-height: 1.45;
+      font-weight: 400;
+    }
+
+    .journey-quote-highlight {
+      color: var(--accent-gold);
+    }
+
+    .journey-narrative {
+      font-size: 1.1rem;
+      line-height: 1.85;
+      color: rgba(255, 255, 255, 0.86);
+      max-width: 740px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    /* ==========================================================================
+       7. CAPABILITIES (id="capabilities", NEUTRAL)
+       Cream background (#FFF8F0), 3-4 column card grid, hover lift + gold icon shift
+       ========================================================================== */
+    #capabilities {
+      background-color: var(--warm-cream);
+      position: relative;
+    }
+
+    .capabilities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.75rem;
+      margin-top: 3.25rem;
+    }
+
+    .capability-card {
+      background: var(--surface-white);
+      border: 1px solid var(--border-light);
+      border-radius: 16px;
+      padding: 2.2rem 1.85rem;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.02);
+    }
+
+    .capability-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 36px -8px rgba(43, 35, 32, 0.1);
+      border-color: rgba(244, 208, 63, 0.6);
+    }
+
+    /* Card icon box: neutral background, shifts to gold on card hover */
+    .capability-icon-wrap {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      background-color: rgba(26, 26, 26, 0.06);
+      color: var(--deep-charcoal);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+      transition: all 0.3s ease;
+    }
+
+    .capability-card:hover .capability-icon-wrap {
+      background-color: var(--accent-gold);
+      color: #1A1A1A;
+      box-shadow: 0 0 18px rgba(244, 208, 63, 0.5);
+    }
+
+    .capability-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--deep-charcoal);
+      margin-bottom: 0.6rem;
+    }
+
+    .capability-desc {
+      font-size: 0.95rem;
+      color: var(--muted-dark);
+      line-height: 1.6;
+    }
+
+    /* ==========================================================================
+       8. VISION (id="vision", DARK NEUTRAL - NOT RED)
+       Full deep charcoal (#1A1A1A) background, white text, centered, large typography
+       ========================================================================== */
+    #vision {
+      background-color: var(--deep-charcoal);
+      color: #FFFFFF;
+      position: relative;
+      text-align: center;
+      overflow: hidden;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .vision-container {
+      max-width: 860px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .vision-subheading {
+      font-family: var(--font-heading);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      color: var(--accent-gold);
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+    }
+
+    .vision-headline {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 2rem;
+      color: #FFFFFF;
+    }
+
+    .vision-paragraph {
+      font-size: clamp(1.1rem, 2vw, 1.35rem);
+      line-height: 1.85;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 2.2rem;
+      font-weight: 400;
+    }
+
+    /* ==========================================================================
+       9. CONNECT (id="connect", NEUTRAL)
+       Warm cream background (#FFF8F0), polished form, contact details with SVG icons
+       ========================================================================== */
+    #connect {
+      background-color: var(--warm-cream);
+      position: relative;
+    }
+
+    .connect-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3.5rem;
+      margin-top: 2.75rem;
+    }
+
+    .connect-intro-text {
+      font-size: 1.1rem;
+      line-height: 1.75;
+      color: var(--body-dark);
+      margin-bottom: 2rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+      padding: 1.1rem;
+      border-radius: 12px;
+      background: var(--surface-white);
+      border: 1px solid var(--border-light);
+      transition: all 0.25s ease;
+    }
+
+    .contact-item:hover {
+      border-color: var(--accent-gold);
+      transform: translateX(4px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+    }
+
+    .contact-icon-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background-color: rgba(26, 26, 26, 0.06);
+      color: var(--deep-charcoal);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.25s ease;
+    }
+
+    .contact-item:hover .contact-icon-box {
+      background-color: var(--accent-gold);
+      color: #1A1A1A;
+    }
+
+    .contact-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--muted-dark);
+    }
+
+    .contact-value {
+      font-size: 1.02rem;
+      font-weight: 600;
+      color: var(--deep-charcoal);
+    }
+
+    /* Form styling */
+    .contact-form {
+      background: var(--surface-white);
+      border: 1px solid var(--border-light);
+      border-radius: 20px;
+      padding: 2.5rem;
+      box-shadow: 0 10px 30px -10px rgba(43, 35, 32, 0.06);
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--deep-charcoal);
+      margin-bottom: 0.4rem;
+    }
+
+    .form-input, .form-textarea {
+      width: 100%;
+      padding: 0.85rem 1.1rem;
+      border-radius: 10px;
+      border: 1.5px solid rgba(43, 35, 32, 0.15);
+      background-color: #FAFAFA;
+      font-size: 0.95rem;
+      color: var(--deep-charcoal);
+      transition: all 0.2s ease;
+      outline: none;
+    }
+
+    .form-input:focus, .form-textarea:focus {
+      border-color: var(--deep-charcoal);
+      background-color: #FFFFFF;
+      box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.1);
+    }
+
+    .btn-submit-gold {
+      width: 100%;
+      background-color: var(--accent-gold);
+      color: #1A1A1A;
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 0.95rem 1.5rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 16px rgba(244, 208, 63, 0.35);
+    }
+
+    .btn-submit-gold:hover {
+      background-color: var(--accent-gold-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 22px rgba(244, 208, 63, 0.5);
+    }
+
+    .form-feedback {
+      display: none;
+      margin-top: 1rem;
+      padding: 0.85rem;
+      border-radius: 8px;
+      background-color: #E8F5E9;
+      color: #1B5E20;
+      font-size: 0.9rem;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    @media (max-width: 860px) {
+      .connect-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .contact-form {
+        padding: 1.75rem;
+      }
+    }
+
+    /* ==========================================================================
+       10. FOOTER (DARK NEUTRAL)
+       Deep charcoal (#1A1A1A), clean copyright, social links, back to top
+       ========================================================================== */
+    footer {
+      background-color: var(--deep-charcoal);
+      color: #FFFFFF;
+      padding: 4rem 1.5rem 6.5rem 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .footer-brand {
+      font-family: var(--font-heading);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+    }
+
+    .footer-brand span {
+      color: var(--accent-gold);
+    }
+
+    .footer-copy {
+      font-size: 0.88rem;
+      color: rgba(255, 255, 255, 0.65);
+    }
+
+    .footer-social-links {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .footer-icon-link {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      color: rgba(255, 255, 255, 0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .footer-icon-link:hover {
+      background-color: var(--accent-gold);
+      color: #1A1A1A;
+      transform: translateY(-2px);
+    }
+
+    .back-to-top-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.75);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .back-to-top-btn:hover {
+      color: var(--accent-gold);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================================================================
+       2. WELCOME LOADER OVERLAY
+       Full-screen #1A1A1A overlay, staggered letter fade+slide-up, gold pop dot
+       ========================================================================= -->
+  <div id="welcome-loader" aria-hidden="true">
+    <div class="loader-word" id="loader-word">
+      <span class="loader-letter" style="animation-delay: 0.05s;">W</span>
+      <span class="loader-letter" style="animation-delay: 0.12s;">E</span>
+      <span class="loader-letter" style="animation-delay: 0.19s;">L</span>
+      <span class="loader-letter" style="animation-delay: 0.26s;">C</span>
+      <span class="loader-letter" style="animation-delay: 0.33s;">O</span>
+      <span class="loader-letter" style="animation-delay: 0.40s;">M</span>
+      <span class="loader-letter" style="animation-delay: 0.47s;">E</span>
+    </div>
+    <div class="loader-dot"></div>
+  </div>
+
+  <!-- =========================================================================
+       1. FLOATING PILL NAVBAR
+       Fixed at bottom-center, separate individual rounded pills with small gaps.
+       Active section detected by Intersection Observer and highlighted in gold.
+       ========================================================================= -->
+  <nav class="floating-nav-container" aria-label="Main Navigation">
+    <ul class="floating-nav-list" id="nav-pill-list">
+      <li><a href="#home" class="nav-pill-btn active" data-target="home">Home</a></li>
+      <li><a href="#my-story" class="nav-pill-btn" data-target="my-story">My Story</a></li>
+      <li><a href="#journey" class="nav-pill-btn" data-target="journey">Journey</a></li>
+      <li><a href="#capabilities" class="nav-pill-btn" data-target="capabilities">Capabilities</a></li>
+      <li><a href="#vision" class="nav-pill-btn" data-target="vision">Vision</a></li>
+      <li><a href="#connect" class="nav-pill-btn" data-target="connect">Connect</a></li>
+      <!-- Last item: distinct CTA, always gold filled -->
+      <li>
+        <a href="#connect" class="nav-pill-btn cta-pill" id="nav-cta-btn" title="Visit Resume / Connect">
+          <span>Visit Resume</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14"></path>
+            <path d="m12 5 7 7-7 7"></path>
+          </svg>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- =========================================================================
+       3. FULL-SCREEN HERO SECTION (id="home")
+       - LEFT: Text content matching portfolio branding & palette
+       - RIGHT: Character cursor tracking animation inside premium showcase frame
+       ========================================================================= -->
+  <section id="home" aria-label="Hero Introduction">
+    <div class="hero-wrapper">
+      
+      <!-- LEFT HALF: Text Content -->
+      <div class="hero-left">
+        <div class="hero-eyebrow">THIS IS</div>
+
+        <!-- SVG Name Reveal with Glowing Light-Trail Animation -->
+        <div class="hero-svg-title-wrap">
+          <svg class="hero-name-svg" viewBox="0 0 540 100" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <!-- Gradient for light trail from leading white-gold to accent gold -->
+              <linearGradient id="goldTrailGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#F4D03F" />
+                <stop offset="70%" stop-color="#F4D03F" />
+                <stop offset="100%" stop-color="#FFF8E0" />
+              </linearGradient>
+
+              <!-- SVG Glow Filter: feGaussianBlur + feMerge -->
+              <filter id="glowFilter" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation="3.5" result="blur1" />
+                <feGaussianBlur stdDeviation="8" result="blur2" />
+                <feMerge>
+                  <feMergeNode in="blur2" />
+                  <feMergeNode in="blur1" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
+
+            <!-- Light trail animated stroke outline -->
+            <text x="0" y="74" class="trail-stroke" font-family="'Poppins', sans-serif" font-size="64" font-weight="700" letter-spacing="-0.02em">
+              Sakshi Gill
+            </text>
+
+            <!-- Settled solid white text with soft shadow -->
+            <text x="0" y="74" class="name-fill-text">
+              Sakshi Gill
+            </text>
+          </svg>
+        </div>
+
+        <!-- Continuously rotating typewriter-effect identity line -->
+        <div class="hero-typewriter-container">
+          <span class="typewriter-text" id="typewriter">I'm a Digital Marketer</span>
+        </div>
+
+        <!-- Short static tagline matching portfolio typography & tone -->
+        <p class="hero-tagline">
+          Merging strategic digital marketing, cutting-edge AI technologies, and visual craft to design high-impact stories and digital experiences that resonate.
+        </p>
+
+        <!-- Portfolio Domain Highlight Chips -->
+        <div class="hero-chips-wrap">
+          <span class="hero-chip">✦ Creative Strategy</span>
+          <span class="hero-chip">✦ AI Workflows</span>
+          <span class="hero-chip">✦ Digital Growth</span>
+        </div>
+
+        <!-- CTA Buttons -->
+        <div class="hero-cta-group">
+          <!-- Resume CTA -->
+          <a href="#connect" class="btn-gold-solid">
+            <span>Resume</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14"></path>
+              <path d="m12 5 7 7-7 7"></path>
+            </svg>
+          </a>
+
+          <!-- Let's Connect CTA -->
+          <a href="#connect" class="btn-frosted-outline">
+            <span>Let's Connect</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- RIGHT HALF: Looping character animation seamlessly on the right side (no box, no frame) -->
+      <div class="hero-right">
+        <!-- Poster image from user's port. video 1.mp4 -->
+        <img
+          id="hero-portrait-img"
+          class="hero-portrait-img"
+          src="port-video-poster.jpg"
+          alt="Sakshi Gill Character Animation"
+          onerror="if(this.src.indexOf('Character_head_tracking_animation_20260923172045.jpeg') === -1) { this.src='Character_head_tracking_animation_20260923172045.jpeg'; }"
+        />
+
+        <!-- High-res video element overlay running continuously in loop -->
+        <video
+          id="hero-video"
+          class="hero-video-element"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="auto"
+          poster="port-video-poster.jpg"
+          aria-label="Character animation of Sakshi Gill"
+        >
+          <source src="port-video-1.mp4" type="video/mp4" />
+          <source src="port.%20video%201.mp4" type="video/mp4" />
+          <source src="/port-video-1.mp4" type="video/mp4" />
+          <source src="/port. video 1.mp4" type="video/mp4" />
+          <source src="public/port. video 1.mp4" type="video/mp4" />
+        </video>
+      </div>
+
+    </div>
+
+    <!-- Bouncing scroll-down chevron indicator at bottom center -->
+    <a href="#my-story" class="hero-scroll-chevron" aria-label="Scroll down to story">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m6 9 6 6 6-6"></path>
+      </svg>
+    </a>
+  </section>
+
+  <!-- =========================================================================
+       4. STORYTELLING INTRO SECTION (NEUTRAL - NO RED)
+       Warm cream background (#FFF8F0), editorial narrative, large serif accent
+       ========================================================================= -->
+  <section class="section-intro section-spacing" aria-label="Introduction">
+    <div class="container">
+      <div class="intro-grid reveal-on-scroll">
+        <div>
+          <span class="section-label">The Foundation</span>
+          <h2 class="editorial-quote-accent">
+            "Every career has a story. Mine began with an insatiable curiosity for how human emotion and intelligent technology converge."
+          </h2>
+        </div>
+
+        <div>
+          <!-- Narrative text: Replace or customize as desired -->
+          <p class="narrative-body">
+            I don’t just execute campaigns or deploy AI pipelines — I build purposeful bridges between innovative vision and real-world results. In an era where digital noise grows louder every second, true impact requires more than algorithms: it demands authentic storytelling, sharp editorial intuition, and bold strategic vision.
+          </p>
+          <p class="narrative-body" style="color: var(--muted-dark);">
+            From engineering modern generative workflows to orchestrating full-funnel digital marketing strategies, I operate at the intersection of creative direction and technical rigor.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       5. MY STORY / QUALIFICATIONS (id="my-story", ROADMAP DIAGRAM)
+       Surrounding section: Cream/white background (#FFF8F0 / #FFFFFF)
+       Spine: Continuous center connecting line with gold dashes
+       Nodes: Circular gold markers, connecting stems, and rich jet black cards (#0D0D0D)
+       ========================================================================= -->
+  <section id="my-story" class="section-spacing" aria-label="My Story and Qualifications">
+    <div class="container">
+      <div style="text-align: center; max-width: 680px; margin: 0 auto;" class="reveal-on-scroll">
+        <span class="section-label">Milestones &amp; Academics</span>
+        <h2 style="font-size: clamp(2rem, 3.5vw, 2.75rem); color: var(--deep-charcoal); margin-bottom: 1rem;">
+          Qualifications &amp; Roadmap
+        </h2>
+        <p style="color: var(--muted-dark); font-size: 1.05rem;">
+          A visual roadmap of continuous mastery, strategic milestones, and creative problem solving.
+        </p>
+      </div>
+
+      <!-- Roadmap Visual Diagram -->
+      <div class="roadmap-wrapper">
+        <!-- Subtle dashed track along the spine -->
+        <div class="roadmap-track-dash" aria-hidden="true"></div>
+
+        <!-- Node 1: Left Side -->
+        <div class="roadmap-node node-left reveal-on-scroll">
+          <div class="roadmap-marker" title="Milestone 01">01</div>
+          <div class="roadmap-stem" aria-hidden="true"></div>
+          <div class="roadmap-card">
+            <div class="roadmap-card-header">
+              <span class="roadmap-year-badge">2024 — PRESENT</span>
+              <span class="roadmap-step-badge">NODE 01</span>
+            </div>
+            <h3 class="roadmap-title">Lead Digital Strategist &amp; AI Developer</h3>
+            <div class="roadmap-institution">Strategic Creative &amp; Growth Initiatives</div>
+            <p class="roadmap-takeaway">
+              Pioneered AI-assisted creative workflows, decreasing production turnaround by 40% while driving double-digit engagement growth across omni-channel campaigns.
+            </p>
+          </div>
+        </div>
+
+        <!-- Node 2: Right Side -->
+        <div class="roadmap-node node-right reveal-on-scroll">
+          <div class="roadmap-marker" title="Milestone 02">02</div>
+          <div class="roadmap-stem" aria-hidden="true"></div>
+          <div class="roadmap-card">
+            <div class="roadmap-card-header">
+              <span class="roadmap-year-badge">2022 — 2024</span>
+              <span class="roadmap-step-badge">NODE 02</span>
+            </div>
+            <h3 class="roadmap-title">Senior Creative Content Editor &amp; Brand Lead</h3>
+            <div class="roadmap-institution">Media &amp; Digital Communications</div>
+            <p class="roadmap-takeaway">
+              Curated brand narratives and high-conversion video assets that reached millions of viewers, refining editorial voice and tone across diverse brand portfolios.
+            </p>
+          </div>
+        </div>
+
+        <!-- Node 3: Left Side -->
+        <div class="roadmap-node node-left reveal-on-scroll">
+          <div class="roadmap-marker" title="Milestone 03">03</div>
+          <div class="roadmap-stem" aria-hidden="true"></div>
+          <div class="roadmap-card">
+            <div class="roadmap-card-header">
+              <span class="roadmap-year-badge">2020 — 2022</span>
+              <span class="roadmap-step-badge">NODE 03</span>
+            </div>
+            <h3 class="roadmap-title">Bachelor of Science / Media &amp; Digital Marketing</h3>
+            <div class="roadmap-institution">University Honors Graduate</div>
+            <p class="roadmap-takeaway">
+              Graduated with top academic standing, focusing research on digital audience behavioral psychographics, automated workflows, and modern media ethics.
+            </p>
+          </div>
+        </div>
+
+        <!-- Node 4: Right Side -->
+        <div class="roadmap-node node-right reveal-on-scroll">
+          <div class="roadmap-marker" title="Milestone 04">04</div>
+          <div class="roadmap-stem" aria-hidden="true"></div>
+          <div class="roadmap-card">
+            <div class="roadmap-card-header">
+              <span class="roadmap-year-badge">CERTIFICATIONS</span>
+              <span class="roadmap-step-badge">NODE 04</span>
+            </div>
+            <h3 class="roadmap-title">Certified AI Practitioner &amp; Growth Architect</h3>
+            <div class="roadmap-institution">Industry Accreditations</div>
+            <p class="roadmap-takeaway">
+              Specialized in Large Language Model integrations, prompt engineering, generative video/imagery pipelines, and performance analytics.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       6. MY JOURNEY (id="journey", DARK NEUTRAL)
+       Deep charcoal (#1A1A1A) background, motivational serif quotes, gold quotation mark
+       ========================================================================= -->
+  <section id="journey" class="section-spacing" aria-label="My Journey">
+    <div class="container">
+      <div class="journey-box reveal-on-scroll">
+        
+        <!-- Gold quotation mark icon -->
+        <svg class="quote-icon-gold" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-8.983z"></path>
+        </svg>
+
+        <!-- Quotes: Replace or customize as desired -->
+        <div class="journey-quotes-wrap">
+          <blockquote class="journey-quote">
+            "Creativity is no longer just intuition; it is <span class="journey-quote-highlight">amplified imagination</span> guided by data."
+          </blockquote>
+          <blockquote class="journey-quote" style="font-size: clamp(1.2rem, 2.2vw, 1.6rem); color: rgba(255,255,255,0.85);">
+            "The boldest stories are written by those willing to dismantle yesterday’s assumptions."
+          </blockquote>
+        </div>
+
+        <p class="journey-narrative">
+          Every phase of my progression has been shaped by an obsession with mastery: diving into emerging AI tools before they became mainstream, deconstructing what makes narrative stick, and constantly testing new creative frameworks. Growth is not an accident — it is an intentional, relentless practice.
+        </p>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       7. CAPABILITIES (id="capabilities", NEUTRAL)
+       Cream background (#FFF8F0), grid of cards, hover lift + icon shift to gold
+       ========================================================================= -->
+  <section id="capabilities" class="section-spacing" aria-label="Capabilities and AI Tools">
+    <div class="container">
+      <div style="text-align: center; max-width: 680px; margin: 0 auto;" class="reveal-on-scroll">
+        <span class="section-label">Toolkit &amp; Expertise</span>
+        <h2 style="font-size: clamp(2rem, 3.5vw, 2.75rem); color: var(--deep-charcoal); margin-bottom: 1rem;">
+          Capabilities &amp; AI Craft
+        </h2>
+        <p style="color: var(--muted-dark); font-size: 1.05rem;">
+          A curated ecosystem of digital marketing mastery, AI-driven architectures, and high-fidelity editorial production.
+        </p>
+      </div>
+
+      <div class="capabilities-grid">
+        
+        <!-- Capability Card 1: Replace placeholder text as needed -->
+        <div class="capability-card reveal-on-scroll">
+          <div class="capability-icon-wrap">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m3 3 7.07 16.97 2.51-7.39 7.39-2.51L3 3z"></path>
+              <path d="m13 13 6 6"></path>
+            </svg>
+          </div>
+          <h3 class="capability-title">Digital Marketing &amp; Growth</h3>
+          <p class="capability-desc">
+            End-to-end performance marketing, organic brand positioning, CAC optimization, and data-driven audience acquisition funnels.
+          </p>
+        </div>
+
+        <!-- Capability Card 2: Replace placeholder text as needed -->
+        <div class="capability-card reveal-on-scroll">
+          <div class="capability-icon-wrap">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="18" height="18" x="3" y="3" rx="2"></rect>
+              <path d="M9 3v18"></path>
+              <path d="m16 15-3-3 3-3"></path>
+            </svg>
+          </div>
+          <h3 class="capability-title">AI Tooling &amp; Development</h3>
+          <p class="capability-desc">
+            Deploying LLM agents, Gemini API pipelines, automated creative synthesis, and custom prompt architectures for enterprise workflows.
+          </p>
+        </div>
+
+        <!-- Capability Card 3: Replace placeholder text as needed -->
+        <div class="capability-card reveal-on-scroll">
+          <div class="capability-icon-wrap">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m22 8-6 4 6 4V8Z"></path>
+              <rect width="14" height="12" x="2" y="6" rx="2"></rect>
+            </svg>
+          </div>
+          <h3 class="capability-title">High-Impact Video Editing</h3>
+          <p class="capability-desc">
+            Pacing, color science, sound staging, and editorial rhythm that captivates audiences in the critical first three seconds.
+          </p>
+        </div>
+
+        <!-- Capability Card 4: Replace placeholder text as needed -->
+        <div class="capability-card reveal-on-scroll">
+          <div class="capability-icon-wrap">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="m4.93 4.93 4.24 4.24"></path>
+              <path d="m14.83 9.17 4.24-4.24"></path>
+              <path d="m14.83 14.83 4.24 4.24"></path>
+              <path d="m9.17 14.83-4.24 4.24"></path>
+            </svg>
+          </div>
+          <h3 class="capability-title">Generative Visual Systems</h3>
+          <p class="capability-desc">
+            Harnessing Midjourney, Stable Diffusion, and neural voice synthesis to scale bespoke creative assets with speed and aesthetic rigor.
+          </p>
+        </div>
+
+        <!-- Capability Card 5: Replace placeholder text as needed -->
+        <div class="capability-card reveal-on-scroll">
+          <div class="capability-icon-wrap">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 20h9"></path>
+              <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"></path>
+            </svg>
+          </div>
+          <h3 class="capability-title">Brand Narrative Architecture</h3>
+          <p class="capability-desc">
+            Crafting singular editorial voices, visual style guides, and unforgettable brand positioning across consumer and tech verticals.
+          </p>
+        </div>
+
+        <!-- Capability Card 6: Replace placeholder text as needed -->
+        <div class="capability-card reveal-on-scroll">
+          <div class="capability-icon-wrap">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 3v18h18"></path>
+              <path d="m19 9-5 5-4-4-3 3"></path>
+            </svg>
+          </div>
+          <h3 class="capability-title">Analytics &amp; CRO</h3>
+          <p class="capability-desc">
+            Rigorous A/B split testing, retention modeling, heatmaps, and funnel analytics to turn engagement into sustained revenue.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       8. VISION SECTION (id="vision", DARK NEUTRAL - NOT RED)
+       Full deep charcoal (#1A1A1A) background, white text, centered, large elegant typography
+       ========================================================================= -->
+  <section id="vision" class="section-spacing" aria-label="Vision">
+    <div class="container">
+      <div class="vision-container reveal-on-scroll">
+        <span class="vision-subheading">Looking Forward</span>
+        <h2 class="vision-headline">
+          The Future Belongs to Storytellers Who Master Intelligent Machines.
+        </h2>
+        <p class="vision-paragraph">
+          My vision is to architect campaigns and digital platforms that don’t merely adapt to the AI revolution — they shape its cultural trajectory. By uniting human vulnerability and machine intelligence, we can build brands that inspire enduring loyalty and profound resonance.
+        </p>
+        <div style="margin-top: 2.5rem;">
+          <a href="#connect" class="btn-gold-solid" style="font-size: 1.05rem; padding: 0.95rem 2.2rem;">
+            <span>Collaborate With Me</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14"></path>
+              <path d="m12 5 7 7-7 7"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       9. CONNECT / ENQUIRY SECTION (id="connect", NEUTRAL)
+       Warm cream background, form with Name, Email, Message, gold submit button
+       ========================================================================= -->
+  <section id="connect" class="section-spacing" aria-label="Connect and Contact">
+    <div class="container">
+      <div style="text-align: center; max-width: 720px; margin: 0 auto;" class="reveal-on-scroll">
+        <span class="section-label">Start A Conversation</span>
+        <h2 style="font-size: clamp(2rem, 3.5vw, 2.75rem); color: var(--deep-charcoal); margin-bottom: 1rem;">
+          If you'd like to begin this journey together, I'd love to hear from you.
+        </h2>
+        <p style="color: var(--muted-dark); font-size: 1.05rem;">
+          Whether you're looking to scale an AI product, revolutionize your digital marketing, or direct an unforgettable campaign — my inbox is open.
+        </p>
+      </div>
+
+      <div class="connect-grid">
+        
+        <!-- Left: Contact Information (Replace placeholder email/social as needed) -->
+        <div class="reveal-on-scroll">
+          <p class="connect-intro-text">
+            Available for select full-time opportunities, high-impact consulting, creative direction, and speaking engagements worldwide.
+          </p>
+
+          <!-- Email -->
+          <a href="mailto:divinesakshi03gmail.com@gmail.com" class="contact-item" target="_blank" rel="noopener">
+            <div class="contact-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+              </svg>
+            </div>
+            <div>
+              <div class="contact-label">Direct Email</div>
+              <div class="contact-value">divinesakshi03gmail.com@gmail.com</div>
+            </div>
+          </a>
+
+          <!-- LinkedIn -->
+          <a href="https://linkedin.com" target="_blank" rel="noopener" class="contact-item">
+            <div class="contact-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                <rect width="4" height="12" x="2" y="9"></rect>
+                <circle cx="4" cy="4" r="2"></circle>
+              </svg>
+            </div>
+            <div>
+              <div class="contact-label">Professional Network</div>
+              <div class="contact-value">linkedin.com/in/sakshigill</div>
+            </div>
+          </a>
+
+          <!-- Location & Availability -->
+          <div class="contact-item">
+            <div class="contact-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+            </div>
+            <div>
+              <div class="contact-label">Availability &amp; Base</div>
+              <div class="contact-value">Available Globally / Remote &amp; Hybrid</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Message Form -->
+        <div class="reveal-on-scroll">
+          <form class="contact-form" id="contact-form" onsubmit="handleFormSubmit(event)">
+            <div class="form-group">
+              <label for="name" class="form-label">Your Name</label>
+              <input type="text" id="name" name="name" class="form-input" placeholder="Alex Morgan" required />
+            </div>
+
+            <div class="form-group">
+              <label for="email" class="form-label">Email Address</label>
+              <input type="email" id="email" name="email" class="form-input" placeholder="alex@company.com" required />
+            </div>
+
+            <div class="form-group">
+              <label for="message" class="form-label">Your Message</label>
+              <textarea id="message" name="message" rows="4" class="form-textarea" placeholder="Tell me about your project, vision, or timeline..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit-gold" id="submit-btn">
+              <span>Send Message</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+            </button>
+
+            <div class="form-feedback" id="form-feedback">
+              Thank you! Your message has been received. I'll get back to you within 24 hours.
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       10. FOOTER (DARK NEUTRAL)
+       Deep charcoal (#1A1A1A) background, white text, copyright, social icons, back to top
+       ========================================================================= -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <div class="footer-brand">Sakshi <span>Gill</span></div>
+          <div class="footer-copy">&copy; <span id="current-year">2026</span> Sakshi Gill. Crafted with passion, storytelling &amp; AI.</div>
+        </div>
+
+        <div class="footer-social-links">
+          <!-- LinkedIn -->
+          <a href="https://linkedin.com" target="_blank" rel="noopener" class="footer-icon-link" aria-label="LinkedIn Profile">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+              <rect width="4" height="12" x="2" y="9"></rect>
+              <circle cx="4" cy="4" r="2"></circle>
+            </svg>
+          </a>
+
+          <!-- Email -->
+          <a href="mailto:divinesakshi03gmail.com@gmail.com" class="footer-icon-link" aria-label="Send Direct Email">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+            </svg>
+          </a>
+
+          <!-- GitHub / Code -->
+          <a href="https://github.com" target="_blank" rel="noopener" class="footer-icon-link" aria-label="GitHub Portfolio">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
+              <path d="M9 18c-4.51 2-5-2-7-2"></path>
+            </svg>
+          </a>
+        </div>
+
+        <div>
+          <button class="back-to-top-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="Scroll back to top">
+            <span>Back to top</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m18 15-6-6-6 6"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =========================================================================
+       VANILLA JAVASCRIPT LOGIC
+       - Welcome loader fade-out (~1.8s)
+       - Rotating typewriter-effect identity line
+       - Intersection Observer for scroll reveal animations
+       - Intersection Observer for floating navbar active-state pill highlighting
+       - Plain HTML5 video playback management
+       - Interactive contact form submission handler
+       ========================================================================= -->
+  <script>
+    (function () {
+      'use strict';
+
+      // 1. WELCOME LOADER (Auto fades out after ~1.8s)
+      window.addEventListener('load', function () {
+        const loader = document.getElementById('welcome-loader');
+        setTimeout(function () {
+          if (loader) {
+            loader.classList.add('hidden');
+          }
+        }, 1800);
+      });
+
+      // 2. HERO TYPEWRITER ROTATING IDENTITY LINE
+      // Cycles: "I'm a Digital Marketer" / "I'm an AI Developer" / "I'm an Editor" / "I'm skilled with AI Tools"
+      const phrases = [
+        "I'm a Digital Marketer",
+        "I'm an AI Developer",
+        "I'm an Editor",
+        "I'm skilled with AI Tools"
+      ];
+
+      const typewriterElem = document.getElementById('typewriter');
+      let phraseIdx = 0;
+      let charIdx = phrases[0].length;
+      let isDeleting = false;
+      const typeSpeed = 75;
+      const deleteSpeed = 40;
+      const pauseEnd = 2000; // pauses ~2s at completion
+
+      function stepTypewriter() {
+        const currentPhrase = phrases[phraseIdx];
+
+        if (isDeleting) {
+          charIdx--;
+          typewriterElem.textContent = currentPhrase.substring(0, charIdx);
+          if (charIdx <= 0) {
+            isDeleting = false;
+            phraseIdx = (phraseIdx + 1) % phrases.length;
+            setTimeout(stepTypewriter, 350);
+            return;
+          }
+          setTimeout(stepTypewriter, deleteSpeed);
+        } else {
+          charIdx++;
+          typewriterElem.textContent = currentPhrase.substring(0, charIdx);
+          if (charIdx === currentPhrase.length) {
+            isDeleting = true;
+            setTimeout(stepTypewriter, pauseEnd);
+            return;
+          }
+          setTimeout(stepTypewriter, typeSpeed);
+        }
+      }
+
+      // Start typewriter after welcome reveal
+      setTimeout(stepTypewriter, 2600);
+
+      // 3. SCROLL REVEAL ANIMATIONS (Intersection Observer)
+      const revealElements = document.querySelectorAll('.reveal-on-scroll');
+      if ('IntersectionObserver' in window) {
+        const revealObserver = new IntersectionObserver(function (entries, observer) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.12,
+          rootMargin: '0px 0px -40px 0px'
+        });
+
+        revealElements.forEach(function (el) {
+          revealObserver.observe(el);
+        });
+      } else {
+        revealElements.forEach(function (el) {
+          el.classList.add('is-visible');
+        });
+      }
+
+      // 4. FLOATING NAVBAR ACTIVE SECTION DETECTION
+      // Section IDs matching navbar exactly: #home, #my-story, #journey, #capabilities, #vision, #connect
+      const sectionIds = ['home', 'my-story', 'journey', 'capabilities', 'vision', 'connect'];
+      const navButtons = document.querySelectorAll('.nav-pill-btn[data-target]');
+
+      function setActiveNav(targetId) {
+        navButtons.forEach(function (btn) {
+          if (btn.getAttribute('data-target') === targetId) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        });
+      }
+
+      if ('IntersectionObserver' in window) {
+        const sectionObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              const currentId = entry.target.getAttribute('id');
+              if (currentId) {
+                setActiveNav(currentId);
+              }
+            }
+          });
+        }, {
+          threshold: 0.35,
+          rootMargin: '-10% 0px -40% 0px'
+        });
+
+        sectionIds.forEach(function (id) {
+          const sectionEl = document.getElementById(id);
+          if (sectionEl) {
+            sectionObserver.observe(sectionEl);
+          }
+        });
+      }
+
+      // 5. VIDEO PLAYBACK: CONTINUOUS SEAMLESS LOOP ON RIGHT SIDE
+      const heroVideo = document.getElementById('hero-video');
+      if (heroVideo) {
+        heroVideo.muted = true;
+        heroVideo.loop = true;
+        heroVideo.setAttribute('playsinline', '');
+
+        heroVideo.addEventListener('playing', function () {
+          heroVideo.classList.add('is-active');
+        });
+
+        heroVideo.addEventListener('ended', function () {
+          heroVideo.currentTime = 0;
+          heroVideo.play().catch(function () {});
+        });
+
+        const playPromise = heroVideo.play();
+        if (playPromise !== undefined) {
+          playPromise.then(function () {
+            heroVideo.classList.add('is-active');
+          }).catch(function () {
+            // If autoplay is delayed, GIF fallback animates seamlessly
+          });
+        }
+      }
+
+      // Dynamic year in footer
+      const yearEl = document.getElementById('current-year');
+      if (yearEl) {
+        yearEl.textContent = new Date().getFullYear();
+      }
+
+    })();
+
+    // 6. FORM SUBMISSION INTERACTION
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      const submitBtn = document.getElementById('submit-btn');
+      const feedback = document.getElementById('form-feedback');
+      const form = document.getElementById('contact-form');
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span>Sending Message...</span>';
+      }
+
+      setTimeout(function () {
+        if (feedback) {
+          feedback.style.display = 'block';
+        }
+        if (submitBtn) {
+          submitBtn.innerHTML = '<span>Message Sent!</span>';
+          submitBtn.style.backgroundColor = '#2E7D32';
+          submitBtn.style.color = '#FFFFFF';
+        }
+        form.reset();
+        setTimeout(function () {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<span>Send Message</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>';
+            submitBtn.style.backgroundColor = '';
+            submitBtn.style.color = '';
+          }
+        }, 4000);
+      }, 700);
+    }
+  </script>
+
+</body>
+</html>
