@@ -1094,6 +1094,62 @@
     }
 
     /* ==========================================================================
+       6. MY JOURNEY (Journey panel closing #my-story, HERO RED PANEL)
+       Was a standalone near-black section; restored here as a deep red panel
+       at the end of "My Journey" - serif quotes, gold quotation mark.
+       ========================================================================== */
+    .journey-box {
+      max-width: 860px;
+      margin: 5.5rem auto 0;
+      text-align: center;
+      background-color: var(--deep-charcoal);
+      color: #FFFFFF;
+      border-radius: 18px;
+      padding: 2.25rem 2rem;
+      border: 1.5px solid rgba(0, 0, 0, 0.4);
+      box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.35), 0 4px 12px rgba(163, 23, 18, 0.25);
+    }
+
+    /* Gold quotation mark icon */
+    .quote-icon-gold {
+      width: 44px;
+      height: 44px;
+      color: #F4D03F;
+      margin: 0 auto 1.5rem auto;
+      display: block;
+      opacity: 0.95;
+    }
+
+    .journey-quotes-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-bottom: 2.75rem;
+    }
+
+    .journey-quote {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(1.4rem, 2.7vw, 1.95rem);
+      color: #FFFFFF;
+      line-height: 1.45;
+      font-weight: 400;
+    }
+
+    .journey-quote-highlight {
+      color: #F4D03F;
+    }
+
+    .journey-narrative {
+      font-size: 1.1rem;
+      line-height: 1.85;
+      color: rgba(255, 255, 255, 0.86);
+      max-width: 740px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    /* ==========================================================================
        6. MY PROJECTS (id="projects", COMPACT LIGHT THEME - NO BLACK)
        Compact white cards, short bullet-point benefits, warm cream background,
        no black colors, crisp crimson & gold accents.
@@ -1114,12 +1170,197 @@
       position: relative;
     }
 
+    /* =========================================================================
+       PROJECTS SECTION LAYOUT
+       Row 1: two medium square cards (game / website)
+       Row 2: two live preview boxes
+       Row 3: AI video vertical boxes
+       Warm cream stage, red accents, no carousel.
+       ========================================================================= */
+    .projects-stack {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Small centred sub-heading used above each row */
+    .pj-subhead {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto 1.6rem auto;
+    }
+
+    .pj-subhead-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 2.4vw, 2rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--deep-charcoal);
+      margin: 0 0 0.5rem;
+    }
+
+    .pj-subhead-text {
+      color: var(--muted-dark);
+      font-size: 0.94rem;
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    /* ---- Row 1: two medium square cards ---- */
+    .projects-pair-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.6rem;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 700px) {
+      .projects-pair-grid {
+        grid-template-columns: 1fr;
+        max-width: 320px;
+        gap: 1.15rem;
+      }
+    }
+
+    /* Medium square card - mirrors the Capabilities cards.
+       Light cream surface on the cream section, so it relies on a red-tinted
+       border and a soft shadow to stay readable as a distinct card. */
+    .pj-tile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      padding: 1.6rem 1.35rem;
+      background: #FFF8F0;
+      color: var(--deep-charcoal);
+      border: 1.5px solid rgba(163, 23, 18, 0.22);
+      border-radius: 20px;
+      box-shadow: 0 10px 26px -10px rgba(163, 23, 18, 0.18);
+      font-family: var(--font-heading);
+      text-align: center;
+      text-decoration: none;
+      outline: none;
+      user-select: none;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+        border-color 0.28s ease, box-shadow 0.28s ease;
+    }
+
+    .pj-tile::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 0%, rgba(244, 208, 63, 0.22), transparent 62%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .pj-tile:hover {
+      transform: translateY(-5px);
+      border-color: var(--hero-red);
+      box-shadow: 0 16px 36px -8px rgba(163, 23, 18, 0.18), 0 0 22px rgba(163, 23, 18, 0.12);
+    }
+
+    .pj-tile:hover::after {
+      opacity: 1;
+    }
+
+    .pj-tile:focus-visible {
+      outline: 2px solid var(--hero-red);
+      outline-offset: 3px;
+    }
+
+    .pj-tile-kicker {
+      font-family: var(--font-heading);
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #A31712;
+    }
+
+    .pj-tile-icon {
+      width: 62px;
+      height: 62px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(244, 208, 63, 0.24);
+      border: 1.5px solid rgba(163, 23, 18, 0.22);
+      color: #A31712;
+      margin-bottom: 0.15rem;
+      transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .pj-tile:hover .pj-tile-icon {
+      transform: scale(1.06) rotate(-4deg);
+    }
+
+    .pj-tile-title {
+      font-size: 1.28rem;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      line-height: 1.2;
+      color: var(--deep-charcoal);
+    }
+
+    .pj-tile-sub {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--muted-dark);
+      line-height: 1.35;
+    }
+
+    .pj-tile-cta {
+      margin-top: 0.5rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0.5rem 0.95rem;
+      border-radius: 999px;
+      background: #A31712;
+      color: #FFFFFF;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      box-shadow: 0 4px 12px rgba(163, 23, 18, 0.2);
+    }
+
+    /* ---- Row 2: two live preview boxes ---- */
+    .projects-live-row {
+      margin-top: 3.25rem;
+      padding-top: 2.25rem;
+      border-top: 1.5px dashed rgba(163, 23, 18, 0.18);
+      position: relative;
+    }
+
+    .projects-live-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.6rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 880px) {
+      .projects-live-grid {
+        grid-template-columns: 1fr;
+        max-width: 500px;
+      }
+    }
+
     /* Compact Showcase Row */
     .project-showcase-row {
       display: grid;
-      grid-template-columns: 280px 1fr;
+      grid-template-columns: 265px 1fr;
       gap: 1.4rem;
-      align-items: stretch;
+      align-items: center;
       margin-bottom: 1.6rem;
     }
 
@@ -1131,18 +1372,20 @@
       }
     }
 
-    /* Vertical Button Box - Compact & Clean White (No black) */
+    /* Small Link Box - name on top, visit button below */
     .project-vertical-btn-box {
       background: #FFFFFF;
       color: var(--deep-charcoal);
       border: 1.5px solid rgba(163, 23, 18, 0.12);
-      border-radius: 18px;
-      padding: 1.35rem 1.2rem;
+      border-radius: 16px;
+      padding: 1.05rem 1.1rem;
       box-shadow: 0 4px 16px -4px rgba(0, 0, 0, 0.04);
       font-family: var(--font-heading);
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      align-items: stretch;
+      gap: 0.7rem;
+      text-align: center;
       position: relative;
       transition: all 0.25s ease;
       text-decoration: none;
@@ -1164,147 +1407,18 @@
       margin-bottom: 0.35rem;
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 5px;
     }
 
     .project-box-title {
-      font-size: 1.25rem;
+      font-size: 1.12rem;
       font-weight: 700;
       color: var(--deep-charcoal);
       letter-spacing: -0.01em;
-      margin-bottom: 0.85rem;
+      margin: 0;
       line-height: 1.25;
       font-family: var(--font-heading);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .project-box-title svg {
-      color: #A31712;
-      transition: transform 0.2s ease;
-    }
-
-    .project-vertical-btn-box:hover .project-box-title svg {
-      transform: translate(2px, -2px);
-    }
-
-    /* Light Mini Preview Box (Warm cream, no black) */
-    .project-box-preview-light {
-      background: #FFF8F0;
-      border-radius: 12px;
-      padding: 0.85rem;
-      color: var(--deep-charcoal);
-      margin-bottom: 1rem;
-      border: 1px solid rgba(163, 23, 18, 0.1);
-    }
-
-    /* Typing Rush Mini Light HUD */
-    .typing-hud-light-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-bottom: 0.45rem;
-      border-bottom: 1px solid rgba(163, 23, 18, 0.1);
-      margin-bottom: 0.55rem;
-    }
-
-    .typing-live-badge-light {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 0.66rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      color: #059669;
-      text-transform: uppercase;
-    }
-
-    .typing-live-dot-green {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #10B981;
-    }
-
-    .typing-stats-light-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.35rem;
-      text-align: center;
-    }
-
-    .typing-stat-light-item {
-      background: #FFFFFF;
-      border: 1px solid rgba(163, 23, 18, 0.08);
-      border-radius: 6px;
-      padding: 0.35rem 0.2rem;
-    }
-
-    .typing-stat-light-num {
-      font-family: var(--font-heading);
-      font-size: 0.98rem;
-      font-weight: 700;
-      color: #A31712;
-      line-height: 1.1;
-    }
-
-    .typing-stat-light-lbl {
-      font-size: 0.58rem;
-      color: var(--muted-dark);
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      margin-top: 1px;
-    }
-
-    /* Gyanix Light Mini Browser Header */
-    .browser-header-light {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 0.5rem;
-    }
-
-    .browser-dot-light {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-    }
-
-    .browser-url-pill-light {
-      background: #FFFFFF;
-      border: 1px solid rgba(163, 23, 18, 0.1);
-      border-radius: 5px;
-      padding: 2px 7px;
-      font-size: 0.64rem;
-      color: var(--muted-dark);
-      font-family: monospace;
-      flex-grow: 1;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .gyanix-banner-light {
-      background: #FFFFFF;
-      border-radius: 8px;
-      padding: 0.6rem 0.5rem;
-      border: 1px solid rgba(163, 23, 18, 0.08);
-      text-align: center;
-    }
-
-    .gyanix-banner-light-title {
-      font-size: 0.88rem;
-      font-weight: 700;
-      color: var(--deep-charcoal);
-      font-family: var(--font-heading);
-    }
-
-    .gyanix-banner-light-tag {
-      font-size: 0.66rem;
-      color: #A31712;
-      font-weight: 600;
-      margin-top: 2px;
     }
 
     /* Compact Link Button */
@@ -1312,12 +1426,12 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 7px;
+      gap: 6px;
       width: 100%;
-      padding: 0.75rem 1rem;
+      padding: 0.62rem 0.8rem;
       border-radius: 10px;
       font-family: var(--font-heading);
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       font-weight: 700;
       letter-spacing: 0.02em;
       text-decoration: none;
@@ -1335,78 +1449,96 @@
       transform: translateY(-1px);
     }
 
-    /* Side Beneficial Card - Compact, Keypoints only, No Black */
-    .project-beneficial-card {
-      background: #FFFFFF;
-      border: 1.5px solid rgba(163, 23, 18, 0.12);
+    /* Project Block Wrapper (Small Link Box + Live Preview) */
+    .project-block {
+      margin-bottom: 1.9rem;
+    }
+
+    .project-block .project-showcase-row {
+      margin-bottom: 0;
+    }
+
+    /* Box B: Live Running App (Iframe) - White & Warm Cream, No Black */
+    .project-live-box {
+      background: #A31712;
+      border: 1.5px solid rgba(255, 248, 240, 0.28);
       border-radius: 18px;
-      padding: 1.35rem 1.6rem;
-      box-shadow: 0 4px 16px -4px rgba(0, 0, 0, 0.04);
+      padding: 0.9rem 0.95rem 0.8rem 0.95rem;
+      box-shadow: 0 10px 26px -8px rgba(163, 23, 18, 0.32);
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      gap: 0.55rem;
+      min-width: 0;
       position: relative;
       transition: all 0.25s ease;
     }
 
-    .project-beneficial-card:hover {
-      border-color: #A31712;
-      box-shadow: 0 8px 24px -4px rgba(163, 23, 18, 0.08);
+    .project-live-box:hover {
+      border-color: #F4D03F;
+      box-shadow: 0 16px 34px -10px rgba(163, 23, 18, 0.45);
     }
 
-    .beneficial-kicker {
+    .project-live-box__head {
+      display: flex;
+      align-items: center;
+      gap: 6px;
       font-family: var(--font-heading);
-      font-size: 0.68rem;
+      font-size: 0.66rem;
       font-weight: 700;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: #A31712;
-      margin-bottom: 0.25rem;
-      display: flex;
-      align-items: center;
-      gap: 5px;
+      color: #FFF8F0;
     }
 
-    .beneficial-title {
-      font-size: clamp(1.15rem, 1.8vw, 1.4rem);
-      font-weight: 700;
-      color: var(--deep-charcoal);
-      margin-bottom: 0.85rem;
-      letter-spacing: -0.01em;
-      font-family: var(--font-heading);
-    }
-
-    /* Keypoints Bullet List */
-    .benefit-keypoints-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-    }
-
-    .benefit-keypoint-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 9px;
-      font-size: 0.88rem;
-      line-height: 1.45;
-      color: var(--deep-charcoal);
-    }
-
-    .benefit-dot-bullet {
+    .project-live-dot {
       width: 7px;
       height: 7px;
       border-radius: 50%;
-      background: #A31712;
+      background: #F4D03F;
       flex-shrink: 0;
-      margin-top: 6px;
+      box-shadow: 0 0 0 3px rgba(244, 208, 63, 0.22);
     }
 
-    .benefit-keypoint-row strong {
-      color: #A31712;
+    .project-live-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #FFF8F0;
+      border: 1px solid rgba(255, 248, 240, 0.34);
+    }
+
+    .project-live-frame iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    .project-live-fallback {
+      margin: 0;
+      font-family: var(--font-heading);
+      font-size: 0.68rem;
+      color: rgba(255, 248, 240, 0.78);
+    }
+
+    .project-live-fallback-link {
+      color: #F4D03F;
       font-weight: 700;
+      text-decoration: none;
+    }
+
+    .project-live-fallback-link:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 860px) {
+      .project-live-frame {
+        aspect-ratio: 16 / 11;
+      }
     }
 
     /* ==========================================================================
@@ -2194,6 +2326,11 @@
       font-size: 0.9rem;
       text-align: center;
       font-weight: 500;
+    }
+
+    .form-feedback.is-error {
+      background-color: #FDECEA;
+      color: #B3261E;
     }
 
     @media (max-width: 860px) {
@@ -3044,14 +3181,39 @@
         </div>
 
       </div>
+
+      <!-- Part C: My Journey (Journey panel, gold quote mark) -->
+      <div class="journey-box reveal-on-scroll">
+
+        <!-- Gold quotation mark icon -->
+        <svg class="quote-icon-gold" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-8.983z"></path>
+        </svg>
+
+        <!-- Quotes: static fallback; superseded by site_content.journey_quotes when present -->
+        <div class="journey-quotes-wrap">
+          <blockquote class="journey-quote">
+            "Creativity is no longer just intuition; it is <span class="journey-quote-highlight">amplified imagination</span> guided by data."
+          </blockquote>
+          <blockquote class="journey-quote" style="font-size: clamp(1.2rem, 2.2vw, 1.6rem); color: rgba(255,255,255,0.85);">
+            "The boldest stories are written by those willing to dismantle yesterday’s assumptions."
+          </blockquote>
+        </div>
+
+        <p class="journey-narrative">
+          Every phase of my progression has been shaped by an obsession with mastery: diving into emerging AI tools before they became mainstream, deconstructing what makes narrative stick, and constantly testing new creative frameworks. Growth is not an accident — it is an intentional, relentless practice.
+        </p>
+
+      </div>
     </div>
   </section>
 
   <!-- =========================================================================
-       6. MY PROJECTS (id="projects", WARM CREAM EDITORIAL SHOWCASE)
-       Styled seamlessly like Capabilities section: warm cream background,
-       clean white vertical button boxes (matching capability button color & font),
-       side-by-side benefit breakdowns, and dedicated AI Videos showcase below.
+       6. MY PROJECTS (id="projects", HORIZONTAL CAROUSEL)
+       A single horizontal sliding track holding four items in order:
+       Typing Rush game tile, Gyanix Academy website tile, then two tilted
+       polaroid cards for the AI video loops. Warm cream stage, hero red
+       accents, arrow buttons on desktop and dot indicators below.
        ========================================================================= -->
   <section id="projects" class="section-spacing" aria-label="My Projects">
     <div class="container">
@@ -3067,345 +3229,286 @@
         </p>
       </div>
 
-      <!-- PROJECT 1: GAME (TYPING RUSH) -->
-      <div class="project-showcase-row reveal-on-scroll">
-        
-        <!-- Side A: Compact Vertical Button Box (White & Warm Cream - No Black) -->
-        <div class="project-vertical-btn-box">
-          <div>
-            <div class="project-box-kicker">
-              <span>⚡</span>
-              <span>Project 01 · Game</span>
-            </div>
-            <h3 class="project-box-title">
-              <span>Typing Rush</span>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="7" y1="17" x2="17" y2="7"></line>
-                <polyline points="7 7 17 7 17 17"></polyline>
+      <div class="projects-stack">
+
+        <!-- =========================================================================
+             ROW 1: GAME & WEBSITE CARDS
+             ========================================================================= -->
+        <div class="projects-pair-grid reveal-on-scroll">
+
+          <!-- Game Card -->
+          <a
+            class="pj-tile"
+            href="https://typing-rush-game.vercel.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            id="btn-play-typing-rush"
+            title="Open Typing Rush Game"
+          >
+            <span class="pj-tile-kicker">Live Game</span>
+            <span class="pj-tile-icon" aria-hidden="true">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="6" width="20" height="12" rx="3"></rect>
+                <line x1="6" y1="10" x2="6" y2="10"></line>
+                <line x1="9.5" y1="10" x2="9.5" y2="10"></line>
+                <line x1="6" y1="14" x2="6" y2="14"></line>
+                <line x1="9.5" y1="14" x2="9.5" y2="14"></line>
+                <line x1="15.5" y1="11.5" x2="18.5" y2="11.5"></line>
+                <line x1="17" y1="10" x2="17" y2="13"></line>
               </svg>
-            </h3>
-
-            <!-- Mini Light Preview (No Black) -->
-            <div class="project-box-preview-light">
-              <div class="typing-hud-light-top">
-                <span class="typing-live-badge-light">
-                  <span class="typing-live-dot-green"></span>
-                  Live Speed Test
-                </span>
-                <span style="font-size: 0.64rem; color: var(--muted-dark); font-family: monospace;">v1.0</span>
-              </div>
-              
-              <div class="typing-stats-light-grid">
-                <div class="typing-stat-light-item">
-                  <div class="typing-stat-light-num">118</div>
-                  <div class="typing-stat-light-lbl">WPM</div>
-                </div>
-                <div class="typing-stat-light-item">
-                  <div class="typing-stat-light-num">99.4%</div>
-                  <div class="typing-stat-light-lbl">Acc</div>
-                </div>
-                <div class="typing-stat-light-item">
-                  <div class="typing-stat-light-num">x24</div>
-                  <div class="typing-stat-light-lbl">Streak</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Direct Link Button -->
-          <div>
-            <a
-              href="https://typing-rush-game.vercel.app"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="project-box-action-btn"
-              id="btn-play-typing-rush"
-              title="Open Typing Rush Game"
-            >
-              <span>Play Typing Rush</span>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                <polyline points="15 3 21 3 21 9"></polyline>
-                <line x1="10" y1="14" x2="21" y2="3"></line>
+            </span>
+            <span class="pj-tile-title">Typing Rush</span>
+            <span class="pj-tile-sub">Let&rsquo;s Play Game</span>
+            <span class="pj-tile-cta">
+              <span>Play Now</span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h13"></path>
+                <polyline points="12 5 19 12 12 19"></polyline>
               </svg>
-            </a>
-          </div>
-        </div>
+            </span>
+          </a>
 
-        <!-- Side B: Beneficial Card (Concise Keypoints Only) -->
-        <div class="project-beneficial-card">
-          <div class="beneficial-kicker">
-            <span>✦</span>
-            <span>Key Benefits</span>
-          </div>
-          <h4 class="beneficial-title">
-            Why Typing Rush Is Beneficial
-          </h4>
-
-          <!-- Keypoints List -->
-          <ul class="benefit-keypoints-list">
-            <li class="benefit-keypoint-row">
-              <span class="benefit-dot-bullet"></span>
-              <div><strong>Reflex &amp; Speed:</strong> Sharpens hand-eye coordination and increases keystroke velocity by up to 2x under real-time time constraints.</div>
-            </li>
-            <li class="benefit-keypoint-row">
-              <span class="benefit-dot-bullet"></span>
-              <div><strong>Accuracy &amp; Muscle Memory:</strong> Trains instinctive touch-typing patterns to drastically reduce typos in daily writing and coding.</div>
-            </li>
-            <li class="benefit-keypoint-row">
-              <span class="benefit-dot-bullet"></span>
-              <div><strong>Focus &amp; Flow State:</strong> Sprint rounds demand complete presence, eliminating distractions and conditioning mental endurance.</div>
-            </li>
-            <li class="benefit-keypoint-row">
-              <span class="benefit-dot-bullet"></span>
-              <div><strong>Live Benchmark Metrics:</strong> Real-time WPM analytics and multiplier streaks provide clear, measurable self-improvement.</div>
-            </li>
-          </ul>
-        </div>
-
-      </div>
-
-      <!-- PROJECT 2: WEBSITE (GYANIX ACADEMY) -->
-      <div class="project-showcase-row reveal-on-scroll">
-        
-        <!-- Side A: Compact Vertical Button Box (White & Warm Cream - No Black) -->
-        <div class="project-vertical-btn-box">
-          <div>
-            <div class="project-box-kicker">
-              <span>✦</span>
-              <span>Project 02 · Website</span>
-            </div>
-            <h3 class="project-box-title">
-              <span>Gyanix Academy</span>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="7" y1="17" x2="17" y2="7"></line>
-                <polyline points="7 7 17 7 17 17"></polyline>
+          <!-- Website Card -->
+          <a
+            class="pj-tile"
+            href="https://gyanix-acedemy-gyanix-academy-8bqc.vercel.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            id="btn-visit-gyanix"
+            title="Visit Gyanix Academy Website"
+          >
+            <span class="pj-tile-kicker">Live Website</span>
+            <span class="pj-tile-icon" aria-hidden="true">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9"></circle>
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <path d="M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18z"></path>
               </svg>
-            </h3>
-
-            <!-- Mini Light Browser Preview (No Black) -->
-            <div class="project-box-preview-light">
-              <div class="browser-header-light">
-                <span class="browser-dot-light" style="background: #FF5F56;"></span>
-                <span class="browser-dot-light" style="background: #FFBD2E;"></span>
-                <span class="browser-dot-light" style="background: #27C93F;"></span>
-                <div class="browser-url-pill-light">gyanix-acedemy.vercel.app</div>
-              </div>
-
-              <div class="gyanix-banner-light">
-                <div class="gyanix-banner-light-title">Gyanix Academy</div>
-                <div class="gyanix-banner-light-tag">Digital Skills &amp; AI Courses</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Direct Link Button -->
-          <div>
-            <a
-              href="https://gyanix-acedemy-gyanix-academy-8bqc.vercel.app"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="project-box-action-btn"
-              id="btn-visit-gyanix"
-              title="Visit Gyanix Academy Website"
-            >
+            </span>
+            <span class="pj-tile-title">Gyanix Academy</span>
+            <span class="pj-tile-sub">Explore the Learning Website</span>
+            <span class="pj-tile-cta">
               <span>Visit Website</span>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
                 <polyline points="15 3 21 3 21 9"></polyline>
                 <line x1="10" y1="14" x2="21" y2="3"></line>
               </svg>
-            </a>
+            </span>
+          </a>
+
+        </div>
+
+        <!-- =========================================================================
+             ROW 2: LIVE PREVIEWS - game & website running side by side
+             ========================================================================= -->
+        <div class="projects-live-row reveal-on-scroll">
+          <div class="pj-subhead">
+            <span class="section-label" style="background: rgba(163, 23, 18, 0.08); color: #A31712; border: 1px solid rgba(163, 23, 18, 0.16);">Running Live</span>
+            <h3 class="pj-subhead-title">Live Previews</h3>
+            <p class="pj-subhead-text">
+              Both deployments are live right now &mdash; play the game and browse the academy platform without leaving the page.
+            </p>
           </div>
-        </div>
 
-        <!-- Side B: Beneficial Card (Concise Keypoints Only) -->
-        <div class="project-beneficial-card">
-          <div class="beneficial-kicker">
-            <span>✦</span>
-            <span>Key Benefits</span>
-          </div>
-          <h4 class="beneficial-title">
-            Why Gyanix Academy Is Beneficial
-          </h4>
+          <div class="projects-live-grid">
 
-          <!-- Keypoints List -->
-          <ul class="benefit-keypoints-list">
-            <li class="benefit-keypoint-row">
-              <span class="benefit-dot-bullet"></span>
-              <div><strong>In-Demand AI Curriculum:</strong> Teaches cutting-edge generative AI tools, full-funnel digital marketing, and content systems.</div>
-            </li>
-            <li class="benefit-keypoint-row">
-              <span class="benefit-dot-bullet"></span>
-              <div><strong>Job &amp; Client Readiness:</strong> Emphasizes actionable portfolio projects and practical execution over passive theoretical lectures.</div>
-            </li>
-            <li class="benefit-keypoint-row">
-              <span class="benefit-dot-bullet"></span>
-              <div><strong>Self-Paced Learning:</strong> Modular tracks allow students and busy professionals to master high-income skills on their schedule.</div>
-            </li>
-            <li class="benefit-keypoint-row">
-              <span class="benefit-dot-bullet"></span>
-              <div><strong>High-Speed UX Architecture:</strong> Lightweight and responsive design delivers instant load times and frictionless navigation on mobile.</div>
-            </li>
-          </ul>
-        </div>
-
-      </div>
-
-      <!-- =========================================================================
-           AI VIDEOS: ANIMATED VERTICAL 2-BOX SHOWCASE (RED & LIGHT CREAM THEME)
-           Clean heading 'AI Videos', two vertical boxes opening from left & right,
-           continuous seamless loops, red & light cream coloring, no black color.
-           ========================================================================= -->
-      <div class="ai-videos-wrapper">
-        <!-- Clean Main Heading: AI Videos -->
-        <div class="ai-videos-heading-area reveal-on-scroll">
-          <span class="section-label" style="background: rgba(163, 23, 18, 0.08); color: #A31712; border: 1px solid rgba(163, 23, 18, 0.16);">Motion &amp; Cinematic Direction</span>
-          <h3 class="ai-videos-main-title">AI Videos</h3>
-          <p class="ai-videos-main-subtitle">
-            Dynamic generative reels engineered with neural diffusion and real-time character landmark tracking.
-          </p>
-        </div>
-
-        <!-- 2 Vertical Animated Boxes (Unfolding Left & Right) -->
-        <div class="ai-vertical-videos-grid">
-          
-          <!-- Box 1: Left Animated Vertical Box -->
-          <div class="ai-vertical-card card-left reveal-on-scroll">
-            <div class="ai-vertical-card-header">
-              <span class="ai-loop-live-badge">
-                <span class="ai-loop-dot"></span>
-                <span>AI Loop 01</span>
-              </span>
-              <span class="ai-video-fps-tag">60 FPS · LIVE</span>
-            </div>
-
-            <div class="ai-vertical-media-wrap">
-              <div class="ai-vertical-controls">
-                <button
-                  type="button"
-                  class="ai-micro-sound-btn btn-toggle-sound"
-                  data-video-id="ai-vid-1"
-                  title="Toggle Audio"
-                  aria-label="Toggle Audio"
-                >
-                  <svg class="icon-muted" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                    <line x1="23" y1="9" x2="17" y2="15"></line>
-                    <line x1="17" y1="9" x2="23" y2="15"></line>
-                  </svg>
-                  <svg class="icon-unmuted" style="display: none;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-                  </svg>
-                </button>
+            <!-- Live Game -->
+            <div class="project-live-box">
+              <div class="project-live-box__head">
+                <span class="project-live-dot"></span>
+                <span>Typing Rush &middot; Live</span>
               </div>
-
-              <video
-                id="ai-vid-1"
-                autoplay
-                muted
-                loop
-                playsinline
-                preload="auto"
-                poster="port-video-poster.jpg"
-              >
-                <source src="port-video-1.mp4" type="video/mp4" />
-                <source src="port.%20video%201.mp4" type="video/mp4" />
-              </video>
+              <div class="project-live-frame">
+                <iframe
+                  src="https://typing-rush-game.vercel.app"
+                  title="Typing Rush - live game"
+                  loading="lazy"
+                  allow="fullscreen; autoplay; clipboard-write"
+                  referrerpolicy="no-referrer"
+                ></iframe>
+              </div>
+              <p class="project-live-fallback">
+                Preview not loading?
+                <a class="project-live-fallback-link" href="https://typing-rush-game.vercel.app" target="_blank" rel="noopener noreferrer">Open in new tab</a>
+              </p>
             </div>
 
-            <div class="ai-vertical-card-footer">
-              <span class="ai-vertical-kicker">Interactive Avatar &amp; Motion</span>
-              <h4 class="ai-vertical-title">Character Head-Tracking &amp; Gaze Rig</h4>
-              
-              <div class="ai-vertical-action-bar">
-                <button
-                  type="button"
-                  class="btn-vertical-playtoggle"
-                  data-video-id="ai-vid-1"
-                >
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
-                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                  </svg>
-                  <span class="play-state-text">Playing Loop</span>
-                </button>
-                <span class="ai-badge-loop-pill">
-                  <span>✦</span>
-                  <span>Infinite Loop</span>
+            <!-- Live Website -->
+            <div class="project-live-box">
+              <div class="project-live-box__head">
+                <span class="project-live-dot"></span>
+                <span>Gyanix Academy &middot; Live</span>
+              </div>
+              <div class="project-live-frame">
+                <iframe
+                  src="https://gyanix-acedemy-gyanix-academy-8bqc.vercel.app"
+                  title="Gyanix Academy - live website"
+                  loading="lazy"
+                  allow="fullscreen; autoplay; clipboard-write"
+                  referrerpolicy="no-referrer"
+                ></iframe>
+              </div>
+              <p class="project-live-fallback">
+                Preview not loading?
+                <a class="project-live-fallback-link" href="https://gyanix-acedemy-gyanix-academy-8bqc.vercel.app" target="_blank" rel="noopener noreferrer">Open in new tab</a>
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- =========================================================================
+             ROW 3: AI VIDEOS (vertical 2-box showcase, red & light cream)
+             ========================================================================= -->
+        <div class="ai-videos-wrapper">
+          <div class="ai-videos-heading-area reveal-on-scroll">
+            <span class="section-label" style="background: rgba(163, 23, 18, 0.08); color: #A31712; border: 1px solid rgba(163, 23, 18, 0.16);">Motion &amp; Cinematic Direction</span>
+            <h3 class="ai-videos-main-title">AI Videos</h3>
+            <p class="ai-videos-main-subtitle">
+              Dynamic generative reels engineered with neural diffusion and real-time character landmark tracking.
+            </p>
+          </div>
+
+          <div class="ai-vertical-videos-grid">
+
+            <!-- Box 1: Left Animated Vertical Box -->
+            <div class="ai-vertical-card card-left reveal-on-scroll">
+              <div class="ai-vertical-card-header">
+                <span class="ai-loop-live-badge">
+                  <span class="ai-loop-dot"></span>
+                  <span>AI Loop 01</span>
                 </span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Box 2: Right Animated Vertical Box -->
-          <div class="ai-vertical-card card-right reveal-on-scroll">
-            <div class="ai-vertical-card-header">
-              <span class="ai-loop-live-badge">
-                <span class="ai-loop-dot"></span>
-                <span>AI Loop 02</span>
-              </span>
-              <span class="ai-video-fps-tag">UHD CINEMA</span>
-            </div>
-
-            <div class="ai-vertical-media-wrap">
-              <div class="ai-vertical-controls">
-                <button
-                  type="button"
-                  class="ai-micro-sound-btn btn-toggle-sound"
-                  data-video-id="ai-vid-2"
-                  title="Toggle Audio"
-                  aria-label="Toggle Audio"
-                >
-                  <svg class="icon-muted" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                    <line x1="23" y1="9" x2="17" y2="15"></line>
-                    <line x1="17" y1="9" x2="23" y2="15"></line>
-                  </svg>
-                  <svg class="icon-unmuted" style="display: none;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-                  </svg>
-                </button>
+                <span class="ai-video-fps-tag">60 FPS &middot; LIVE</span>
               </div>
 
-              <video
-                id="ai-vid-2"
-                autoplay
-                muted
-                loop
-                playsinline
-                preload="auto"
-                poster="sakshi-video-poster.jpg"
-              >
-                <source src="sakshi-video.mp4" type="video/mp4" />
-                <source src="port-video-1.mp4" type="video/mp4" />
-              </video>
+              <div class="ai-vertical-media-wrap">
+                <div class="ai-vertical-controls">
+                  <button
+                    type="button"
+                    class="ai-micro-sound-btn btn-toggle-sound"
+                    data-video-id="ai-vid-1"
+                    title="Unmute Audio"
+                    aria-label="Toggle Audio"
+                  >
+                    <svg class="icon-muted" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                      <line x1="23" y1="9" x2="17" y2="15"></line>
+                      <line x1="17" y1="9" x2="23" y2="15"></line>
+                    </svg>
+                    <svg class="icon-unmuted" style="display: none;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                      <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                    </svg>
+                  </button>
+                </div>
+
+                <video
+                  id="ai-vid-1"
+                  autoplay
+                  muted
+                  loop
+                  playsinline
+                  preload="auto"
+                  poster="port-video-poster.jpg"
+                >
+                  <source src="port-video-1.mp4" type="video/mp4" />
+                  <source src="port.%20video%201.mp4" type="video/mp4" />
+                </video>
+              </div>
+
+              <div class="ai-vertical-card-footer">
+                <span class="ai-vertical-kicker">Interactive Avatar &amp; Motion</span>
+                <h4 class="ai-vertical-title">Character Head-Tracking &amp; Gaze Rig</h4>
+
+                <div class="ai-vertical-action-bar">
+                  <button
+                    type="button"
+                    class="btn-vertical-playtoggle"
+                    data-video-id="ai-vid-1"
+                  >
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                      <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                    <span class="play-state-text">Playing Loop</span>
+                  </button>
+                  <span class="ai-badge-loop-pill">
+                    <span>✦</span>
+                    <span>Infinite Loop</span>
+                  </span>
+                </div>
+              </div>
             </div>
 
-            <div class="ai-vertical-card-footer">
-              <span class="ai-vertical-kicker">Diffusion Synthesis &amp; Pacing</span>
-              <h4 class="ai-vertical-title">Generative Video Storytelling</h4>
-              
-              <div class="ai-vertical-action-bar">
-                <button
-                  type="button"
-                  class="btn-vertical-playtoggle"
-                  data-video-id="ai-vid-2"
-                >
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
-                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                  </svg>
-                  <span class="play-state-text">Playing Loop</span>
-                </button>
-                <span class="ai-badge-loop-pill">
-                  <span>✦</span>
-                  <span>Infinite Loop</span>
+            <!-- Box 2: Right Animated Vertical Box -->
+            <div class="ai-vertical-card card-right reveal-on-scroll">
+              <div class="ai-vertical-card-header">
+                <span class="ai-loop-live-badge">
+                  <span class="ai-loop-dot"></span>
+                  <span>AI Loop 02</span>
                 </span>
+                <span class="ai-video-fps-tag">UHD CINEMA</span>
+              </div>
+
+              <div class="ai-vertical-media-wrap">
+                <div class="ai-vertical-controls">
+                  <button
+                    type="button"
+                    class="ai-micro-sound-btn btn-toggle-sound"
+                    data-video-id="ai-vid-2"
+                    title="Unmute Audio"
+                    aria-label="Toggle Audio"
+                  >
+                    <svg class="icon-muted" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                      <line x1="23" y1="9" x2="17" y2="15"></line>
+                      <line x1="17" y1="9" x2="23" y2="15"></line>
+                    </svg>
+                    <svg class="icon-unmuted" style="display: none;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                      <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                    </svg>
+                  </button>
+                </div>
+
+                <video
+                  id="ai-vid-2"
+                  autoplay
+                  muted
+                  loop
+                  playsinline
+                  preload="auto"
+                  poster="sakshi-video-poster.jpg"
+                >
+                  <source src="sakshi-video.mp4" type="video/mp4" />
+                  <source src="port-video-1.mp4" type="video/mp4" />
+                </video>
+              </div>
+
+              <div class="ai-vertical-card-footer">
+                <span class="ai-vertical-kicker">Diffusion Synthesis &amp; Pacing</span>
+                <h4 class="ai-vertical-title">Generative Video Storytelling</h4>
+
+                <div class="ai-vertical-action-bar">
+                  <button
+                    type="button"
+                    class="btn-vertical-playtoggle"
+                    data-video-id="ai-vid-2"
+                  >
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                      <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                    <span class="play-state-text">Playing Loop</span>
+                  </button>
+                  <span class="ai-badge-loop-pill">
+                    <span>✦</span>
+                    <span>Infinite Loop</span>
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
 
+          </div>
         </div>
 
       </div>
@@ -3642,9 +3745,7 @@
               </svg>
             </button>
 
-            <div class="form-feedback" id="form-feedback">
-              Thank you! Your message has been received. I'll get back to you within 24 hours.
-            </div>
+            <div class="form-feedback" id="form-feedback" role="status" aria-live="polite"></div>
           </form>
         </div>
 
@@ -4806,41 +4907,130 @@
       renderBlogPosts('all');
       handleRoute();
 
+      // 8. PROJECTS DATA (Supabase-backed; rows are served as JSON for now)
+      // Kept null so the static markup below stays the visible fallback.
+      let projectsData = null;
+
+      window.__portfolio = {capabilitiesData, blogPostsData, projectsData, renderBlogPosts, phrases};
+
     })();
 
     // 6. FORM SUBMISSION INTERACTION
+    // The real Supabase write lives in src/lib/contact.ts and is published on
+    // window.__portfolioSubmitContact by src/site/portfolioContent.ts (this
+    // inline script cannot import modules). Until that module has booted we
+    // fall back to a mailto: draft so a visitor is never left with a dead form.
+    var CONTACT_FALLBACK_EMAIL = 'divinesakshi03gmail.com@gmail.com';
+
+    function contactButtonMarkup(label) {
+      return (
+        '<span>' + label + '</span>' +
+        '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">' +
+        '<line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>'
+      );
+    }
+
+    function showContactFeedback(message, isError) {
+      var feedback = document.getElementById('form-feedback');
+      if (!feedback) return;
+      feedback.textContent = message;
+      feedback.classList.toggle('is-error', !!isError);
+      feedback.style.display = 'block';
+    }
+
+    function clearContactFeedback() {
+      var feedback = document.getElementById('form-feedback');
+      if (!feedback) return;
+      feedback.style.display = 'none';
+      feedback.textContent = '';
+      feedback.classList.remove('is-error');
+    }
+
+    function resolveContactEmail() {
+      var anchor = document.querySelector('a.contact-item[href^="mailto:"]');
+      var href = anchor && anchor.getAttribute('href');
+      if (href) {
+        var fromHref = href.replace(/^mailto:/i, '').split('?')[0].trim();
+        if (fromHref) return decodeURIComponent(fromHref);
+      }
+      return CONTACT_FALLBACK_EMAIL;
+    }
+
+    function openMailtoDraft(name, email, message) {
+      var subject = 'Portfolio enquiry from ' + name;
+      var body = message + '\n\n---\nFrom: ' + name + '\nEmail: ' + email;
+      window.location.href =
+        'mailto:' + resolveContactEmail() +
+        '?subject=' + encodeURIComponent(subject) +
+        '&body=' + encodeURIComponent(body);
+    }
+
     function handleFormSubmit(e) {
       e.preventDefault();
-      const submitBtn = document.getElementById('submit-btn');
-      const feedback = document.getElementById('form-feedback');
-      const form = document.getElementById('contact-form');
 
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '<span>Sending Message...</span>';
+      var submitBtn = document.getElementById('submit-btn');
+      var form = document.getElementById('contact-form');
+      if (!form || !submitBtn) return;
+
+      var nameInput = document.getElementById('name');
+      var emailInput = document.getElementById('email');
+      var messageInput = document.getElementById('message');
+
+      var payload = {
+        name: (nameInput && nameInput.value) || '',
+        email: (emailInput && emailInput.value) || '',
+        message: (messageInput && messageInput.value) || ''
+      };
+
+      clearContactFeedback();
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = contactButtonMarkup('Sending Message...');
+
+      var sender = window.__portfolioSubmitContact;
+      if (typeof sender !== 'function') {
+        openMailtoDraft(payload.name, payload.email, payload.message);
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = contactButtonMarkup('Send Message');
+        showContactFeedback('Opening your email app so your message is not lost.', true);
+        return;
       }
 
-      setTimeout(function () {
-        if (feedback) {
-          feedback.style.display = 'block';
-        }
-        if (submitBtn) {
+      sender(payload).then(function (result) {
+        if (result && result.ok) {
+          form.reset();
+          submitBtn.disabled = false;
           submitBtn.innerHTML = '<span>Message Sent!</span>';
           submitBtn.style.backgroundColor = '#2E7D32';
           submitBtn.style.color = '#FFFFFF';
-        }
-        form.reset();
-        setTimeout(function () {
-          if (submitBtn) {
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = '<span>Send Message</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>';
+          var notified = result.notify === 'sent';
+          showContactFeedback(
+            notified
+              ? "Thank you! Your message has been received and emailed to me. I'll get back to you within 24 hours."
+              : "Thank you! Your message has been saved. Please also email me directly so I do not miss it.",
+            !notified
+          );
+          setTimeout(function () {
+            submitBtn.innerHTML = contactButtonMarkup('Send Message');
             submitBtn.style.backgroundColor = '';
             submitBtn.style.color = '';
-          }
-        }, 4000);
-      }, 700);
+          }, 4000);
+          return;
+        }
+
+        var reason = (result && result.error) || 'Something went wrong. Please try again.';
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = contactButtonMarkup('Send Message');
+        showContactFeedback(reason, true);
+        if (messageInput) messageInput.focus();
+      }).catch(function () {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = contactButtonMarkup('Send Message');
+        showContactFeedback('Your message could not be sent. Please email me directly instead.', true);
+      });
     }
   </script>
+
+  <script type="module" src="/src/site/portfolioContent.ts"></script>
 
 </body>
 </html>
