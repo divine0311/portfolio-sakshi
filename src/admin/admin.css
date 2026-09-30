@@ -448,6 +448,11 @@ body {
   color: #8a4b1d;
 }
 
+.studio-note--ok {
+  background: #e8f5ec;
+  color: #1d6b39;
+}
+
 .studio-imagerow {
   display: flex;
   align-items: center;

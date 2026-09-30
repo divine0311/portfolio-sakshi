@@ -106,3 +106,28 @@ export const SLOT_DEFAULTS: Record<ImageSlot, string> = {
   about: '/Character_head_tracking_animation_20260923172045.jpeg',
   journey: '/sakshi_portrait.jpg',
 };
+
+/**
+ * True only when the slot points at a file that was actually uploaded through
+ * the Admin Panel.
+ *
+ * The seeded defaults above are existing project files, so a plain
+ * `url !== default` check cannot tell "left as seeded" apart from "chose this
+ * on purpose". The About and Journey pictures are optional, so they only
+ * render once a real upload replaces the default.
+ */
+export function isUploadedImageUrl(url: string | null | undefined): boolean {
+  const clean = String(url ?? '')
+    .trim()
+    .split('?')[0]
+    .split('#')[0]
+    .toLowerCase();
+  if (clean === '') return false;
+  return (
+    clean.includes('/storage/v1/object/') ||
+    clean.includes('/site-images/') ||
+    clean.includes('/hero/') ||
+    clean.includes('/about/') ||
+    clean.includes('/journey/')
+  );
+}

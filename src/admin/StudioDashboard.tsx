@@ -4,6 +4,7 @@ import {
   Image as ImageIcon,
   LayoutDashboard,
   LogOut,
+  Newspaper,
   Search,
   Settings,
   Sparkles,
@@ -13,11 +14,13 @@ import {
 } from 'lucide-react';
 import {isSupabaseConfigured} from '../lib/supabase';
 import {
-  loadCapabilities,
+loadCapabilities,
+  loadBlogPosts,
   loadProjects,
   loadSiteContent,
   type Capability,
   type Project,
+  type BlogPost,
   type SiteContent,
   type SiteContentUpdate,
 } from '../lib/content';
@@ -28,6 +31,7 @@ import ProjectsSection from './sections/ProjectsSection';
 import ImagesSection from './sections/ImagesSection';
 import QualificationsSection from './sections/QualificationsSection';
 import CapabilitiesSection from './sections/CapabilitiesSection';
+import BlogSection from './sections/BlogSection';
 import VisionSection from './sections/VisionSection';
 import SettingsSection from './sections/SettingsSection';
 
@@ -38,6 +42,7 @@ const NAV = [
   {id: 'qualifications', label: 'Qualifications', Icon: Sparkles},
   {id: 'capabilities', label: 'Capabilities', Icon: Target},
   {id: 'vision', label: 'Vision', Icon: Telescope},
+  {id: 'blog', label: 'Blog', Icon: Newspaper},
   {id: 'settings', label: 'Settings', Icon: Settings},
 ] as const;
 
@@ -54,6 +59,9 @@ export default function StudioDashboard({onLogout, email}: StudioDashboardProps)
   const [capabilities, setCapabilities] = useState<Capability[]>(DEFAULT_CAPABILITIES);
   const [projects, setProjects] = useState<Project[]>(DEFAULT_PROJECTS);
   const [images, setImages] = useState<SiteImage[]>([]);
+  // The Admin always mirrors the real database. The bundled seed is a public
+  // fallback for the blog pages only, never a stand-in for stored rows.
+  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
   const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(true);
   const [offline, setOffline] = useState(!isSupabaseConfigured);
@@ -61,18 +69,20 @@ export default function StudioDashboard({onLogout, email}: StudioDashboardProps)
   useEffect(() => {
     let cancelled = false;
     (async () => {
-      const [site, caps, projs, imgs] = await Promise.all([
+      const [site, caps, projs, imgs, posts] = await Promise.all([
         loadSiteContent(),
         loadCapabilities(),
         loadProjects(),
-        loadSiteImages(),
-      ]);
+loadSiteImages(),
+          loadBlogPosts(),
+        ]);
       if (cancelled) return;
       if (site) setContent({...DEFAULT_SITE_CONTENT, ...site});
       else setOffline(true);
       if (caps && caps.length > 0) setCapabilities(caps);
       if (projs && projs.length > 0) setProjects(projs);
       if (imgs) setImages(imgs);
+        if (posts) setBlogPosts(posts);
       setLoading(false);
     })();
     return () => {
@@ -218,7 +228,8 @@ export default function StudioDashboard({onLogout, email}: StudioDashboardProps)
             <CapabilitiesSection capabilities={capabilities} onChange={setCapabilities} />
           ) : null}
           {activeTab === 'vision' ? <VisionSection content={content} onPatch={handlePatch} /> : null}
-          {activeTab === 'settings' ? <SettingsSection email={email} /> : null}
+          {activeTab === 'blog' ? <BlogSection posts={blogPosts} onChange={setBlogPosts} /> : null}
+      {activeTab === 'settings' ? <SettingsSection email={email} /> : null}
         </section>
       </main>
     </div>

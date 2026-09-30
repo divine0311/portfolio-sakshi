@@ -1,5 +1,5 @@
 import {useRef, useState, type ReactNode} from 'react';
-import {RotateCcw, Trash2, Upload} from 'lucide-react';
+import {RefreshCw, RotateCcw, Save, Trash2, Upload} from 'lucide-react';
 import {Field, RepeatList, SaveBar, StudioInput, StudioTextarea} from '../fields';
 import {
   saveSiteContent,
@@ -10,6 +10,7 @@ import {
 import {
   deleteSiteImage,
   IMAGE_SLOTS,
+  isUploadedImageUrl,
   MAX_UPLOAD_BYTES,
   saveSiteImage,
   SLOT_DEFAULTS,
@@ -109,6 +110,7 @@ export default function ImagesSection({
   const inputs = useRef<Partial<Record<ImageSlot, HTMLInputElement | null>>>({});
   const [busySlot, setBusySlot] = useState<ImageSlot | null>(null);
   const [drafts, setDrafts] = useState<Partial<Record<ImageSlot, Meta>>>({});
+  const [urlDrafts, setUrlDrafts] = useState<Partial<Record<ImageSlot, string>>>({});
   const [notice, setNotice] = useState<{tone: 'ok' | 'bad'; text: string} | null>(null);
 
   const flash = (tone: 'ok' | 'bad', text: string) => {
@@ -152,12 +154,35 @@ export default function ImagesSection({
     flash('ok', 'Image uploaded. Remember to press Save to keep the text too.');
   };
 
+  /** Writes whatever URL is in the "Picture URL" box straight to the database. */
+  const handleUrlUpdate = async (slot: ImageSlot): Promise<void> => {
+    const current = find(slot);
+    const typed = (urlDrafts[slot] ?? current?.url ?? '').trim();
+    setBusySlot(slot);
+    const result = await saveSiteImage({
+      slot,
+      url: typed,
+      storage_path: '',
+      alt: meta(slot).alt,
+      heading: meta(slot).heading,
+      description: meta(slot).description,
+    });
+    setBusySlot(null);
+    if (!result.ok) {
+      flash('bad', result.error);
+      return;
+    }
+    applyRow(slot, {url: typed, storage_path: ''});
+    setUrlDrafts((current2) => ({...current2, [slot]: typed}));
+    flash('ok', 'Picture URL saved.');
+  };
+
   const handleDelete = async (slot: ImageSlot) => {
     const current = find(slot);
     if (!current) return;
     if (
       !window.confirm(
-        'Delete this image and restore the default? The heading, alt text and body text you set will be kept.',
+        'Hide this picture from the site? The file is deleted and the section goes back to text only. Your heading, alt text and body text are kept.',
       )
     ) {
       return;
@@ -170,8 +195,9 @@ export default function ImagesSection({
       flash('bad', result.error);
       return;
     }
-    applyRow(slot, {url: SLOT_DEFAULTS[slot], storage_path: ''});
-    flash('ok', 'Image removed, default restored.');
+    applyRow(slot, {url: slot === 'hero' ? SLOT_DEFAULTS[slot] : '', storage_path: ''});
+    setUrlDrafts((c) => ({...c, [slot]: ''}));
+    flash('ok', 'Picture deleted and hidden from the site.');
   };
 
   /** Saves the image caption row and the matching body text in one go. */
@@ -213,7 +239,10 @@ export default function ImagesSection({
 
       {IMAGE_SLOTS.map(({id: slot, label, hint}) => {
         const current = find(slot);
-        const url = current?.url || SLOT_DEFAULTS[slot];
+        const live = slot === 'hero' || isUploadedImageUrl(current?.url);
+        // Optional slots have no fallback picture, so an empty preview makes it
+        // obvious that nothing is on the site.
+        const url = live ? current?.url || SLOT_DEFAULTS[slot] : '';
         const value = meta(slot);
         const busy = busySlot === slot;
 
@@ -222,9 +251,24 @@ export default function ImagesSection({
             <legend className="studio-group__legend">{label}</legend>
             <p className="studio-note">{hint}</p>
 
+            {slot === 'hero' ? null : isUploadedImageUrl(current?.url) ? (
+              <p className="studio-note studio-note--ok">
+                This picture is <strong>live on the site</strong>, placed under the heading in this section.
+              </p>
+            ) : (
+              <p className="studio-note studio-note--warn">
+                No picture is showing in this section. The slot still points at the seeded default file, so
+                the site hides it. <strong>Upload a picture below and it will appear automatically.</strong>
+              </p>
+            )}
+
             <div className="studio-imagerow">
               <div className="studio-imagerow__preview">
-                <img src={url} alt={value.alt || label} />
+                {url ? (
+                  <img src={url} alt={value.alt || label} />
+                ) : (
+                  <p className="studio-empty">No picture on the site</p>
+                )}
               </div>
 
               <div className="studio-imagerow__actions">
@@ -240,6 +284,8 @@ export default function ImagesSection({
                     event.target.value = '';
                   }}
                 />
+
+                {/* 1. Edit picture - choose a new file from the computer. */}
                 <button
                   type="button"
                   className="studio-btn"
@@ -247,28 +293,63 @@ export default function ImagesSection({
                   onClick={() => inputs.current[slot]?.click()}
                 >
                   <Upload size={16} strokeWidth={2} aria-hidden="true" />
-                  <span>
-                    {busy ? 'Uploading…' : current?.storage_path ? 'Replace image' : 'Upload image'}
-                  </span>
+                  <span>{busy ? 'Uploading…' : 'Edit picture'}</span>
                 </button>
-                {current?.storage_path ? (
+
+                {/* 2. Update picture - save the URL typed below straight to the database. */}
+                <button
+                  type="button"
+                  className="studio-btn studio-btn--secondary"
+                  disabled={busy || !storageReady}
+                  onClick={() => void handleUrlUpdate(slot)}
+                >
+                  <RefreshCw size={16} strokeWidth={2} aria-hidden="true" />
+                  <span>{busy ? 'Updating…' : 'Update picture URL'}</span>
+                </button>
+
+                {/* 3. Save picture - write the heading, alt text and description. */}
+                <button
+                  type="button"
+                  className="studio-btn studio-btn--secondary"
+                  disabled={busy}
+                  onClick={() => void handleSave(slot)}
+                >
+                  <Save size={16} strokeWidth={2} aria-hidden="true" />
+                  <span>Save picture details</span>
+                </button>
+
+                {/* 4. Delete picture - remove the file and hide the slot. */}
+                {current?.storage_path || url ? (
                   <button
                     type="button"
-                    className="studio-btn studio-btn--secondary"
+                    className="studio-btn studio-btn--danger"
                     disabled={busy}
                     onClick={() => handleDelete(slot)}
                   >
                     <Trash2 size={16} strokeWidth={2} aria-hidden="true" />
-                    <span>Remove image</span>
+                    <span>Delete picture</span>
                   </button>
                 ) : (
-                  <span className="studio-badge">Using default</span>
+                  <span className="studio-badge">
+                    {slot === 'hero' ? 'Using default' : 'Not shown'}
+                  </span>
                 )}
                 <p className="studio-hint">
                   JPG, PNG, WebP, GIF or AVIF. Max {Math.round(MAX_UPLOAD_BYTES / (1024 * 1024))} MB.
                 </p>
               </div>
             </div>
+
+            <Field
+              label="Picture URL"
+              hint="Paste any image link here instead of uploading a file, then press Update picture URL."
+            >
+              <StudioInput
+                value={urlDrafts[slot] ?? current?.url ?? ''}
+                placeholder="https://example.com/photo.jpg"
+                onChange={(next) => setUrlDrafts((c) => ({...c, [slot]: next}))}
+              />
+            </Field>
 
             <Field label="Image heading" hint="Shown as the label next to the image.">
               <StudioInput
@@ -299,20 +380,20 @@ export default function ImagesSection({
               onSave={() => handleSave(slot)}
             />
 
-            {current?.storage_path ? (
+            {slot === 'hero' || !current?.storage_path ? null : (
               <button
                 type="button"
                 className="studio-linkbtn"
                 onClick={() => {
-                  applyRow(slot, {url: SLOT_DEFAULTS[slot], storage_path: ''});
+                  applyRow(slot, {url: '', storage_path: ''});
                   forgetDraft(slot);
-                  flash('ok', 'Preview reset locally — press Save to keep it.');
+                  flash('ok', 'Preview cleared — press Save to keep it.');
                 }}
               >
                 <RotateCcw size={14} strokeWidth={2} aria-hidden="true" />
-                Reset preview to default
+                Clear preview
               </button>
-            ) : null}
+            )}
           </fieldset>
         );
       })}

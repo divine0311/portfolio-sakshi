@@ -1,7 +1,9 @@
 import {submitContactMessage} from '../lib/contact';
 import {loadBlogPosts, loadCapabilities, loadProjects, loadSiteContent} from '../lib/content';
 import type {BlogPost, Capability, Project, SiteContent} from '../lib/content';
+import {isUploadedImageUrl, loadSiteImages, type SiteImage} from '../lib/images';
 import {DEFAULT_PROJECTS} from '../lib/defaults';
+import {mountTrackingCharacter} from './trackingCharacter';
 
 /* ------------------------------------------------------------------ *
  * Bridge to the inline <script> IIFE in index.html.
@@ -575,8 +577,15 @@ function applyProjectRow(row: Element, project: Project): void {
     const fallback = row.querySelector('.project-live-fallback-link');
     if (fallback) fallback.setAttribute('href', url);
 
+    // Held in data-src so the live preview stays unloaded - and silent -
+    // until the visitor presses play. See installLivePreviewCovers().
     const frame = row.querySelector('.project-live-frame iframe');
-    if (frame) frame.setAttribute('src', url);
+    if (frame) {
+      frame.setAttribute('data-src', url);
+      frame.removeAttribute('src');
+      const frameWrap = frame.closest('.project-live-frame');
+      if (frameWrap) frameWrap.classList.remove('is-live');
+    }
   }
 
   setText(row.querySelector('.beneficial-title'), text(project.beneficial_title));
@@ -630,17 +639,175 @@ function applyVision(content: SiteContent): void {
  * so a null result simply means "leave the page exactly as it is".
  * ------------------------------------------------------------------ */
 
+/* ------------------------------------------------------------------ *
+ * 7. CMS-managed images (admin panel > Images)
+ *
+ * The hero already has an <img> on the page, so that slot is applied
+ * directly. The About and Journey slots are dormant: until a picture is
+ * uploaded their url is empty and nothing is added to the page at all.
+ * As soon as an image is saved in the admin panel the markup is created
+ * and inserted into that section; clearing the image removes it again.
+ * All markup and CSS for this is injected from here so index.html stays
+ * untouched.
+ * ------------------------------------------------------------------ */
+
+const SLOT_STYLE_ID = 'cms-slot-image-styles';
+
+/** Where each optional slot's image belongs, and how it should look. */
+const SLOT_MOUNTS: Record<
+  string,
+  { find: () => Element | null; place: (parent: Element, node: Element) => void; dark: boolean }
+> = {
+  about: {
+    // First cell of the "Who Am I" grid - sits under the section heading.
+    find: function () {
+      return document.querySelector('.intro-grid > div');
+    },
+    place: function (parent, node) {
+      parent.appendChild(node);
+    },
+    dark: false,
+  },
+  journey: {
+    // Top of the dark journey box, above the gold quote icon.
+    find: function () {
+      return document.querySelector('.journey-box');
+    },
+    place: function (parent, node) {
+      parent.insertBefore(node, parent.firstChild);
+    },
+    dark: true,
+  },
+};
+
+function ensureSlotStyles(): void {
+  if (document.getElementById(SLOT_STYLE_ID)) return;
+  const style = document.createElement('style');
+  style.id = SLOT_STYLE_ID;
+  style.textContent = [
+    // The frames these slots originally used are 1376x768. Locking the box to
+    // that ratio keeps an uploaded picture exactly the size the section was
+    // designed around, whatever shape the new file happens to be.
+    '.cms-slot-image{display:block;width:100%;aspect-ratio:1376/768;margin:1.5rem 0;',
+    'border-radius:24px;overflow:hidden;',
+    'box-shadow:0 18px 40px rgba(28,11,11,.14);}',
+    '.cms-slot-photo{display:block;width:100%;height:100%;object-fit:cover;}',
+    '.journey-box .cms-slot-image{border-radius:28px;}',
+    '.cms-slot-heading{margin:0 0 1rem;font-family:var(--font-display);',
+    'font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;}',
+    '.cms-slot-heading[data-dark]{color:rgba(255,255,255,.72);}',
+    '.cms-slot-heading:not([data-dark]){color:var(--muted-dark);}',
+  ].join('');
+  document.head.appendChild(style);
+}
+
+/**
+ * The optional About and Journey pictures only render when they point at a
+ * file that was actually uploaded through the Admin Panel.
+ *
+ * `supabase/part-b-images.sql` seeds both slots with an existing project file,
+ * which made a picture appear under "Who Am I" and inside the red journey box.
+ * See `isUploadedImageUrl` for the shared rule.
+ */
+function mountSlotImage(slot: string, row: SiteImage | undefined): void {
+  const config = SLOT_MOUNTS[slot];
+  if (!config) return;
+  const parent = config.find();
+  if (!parent) return;
+
+  const existing = parent.querySelector('.cms-slot-image') as HTMLElement | null;
+  const raw = row ? row.url.trim() : '';
+  const url = isUploadedImageUrl(raw) ? raw : '';
+
+  if (url === '') {
+    // No picture for this slot - keep the page exactly as it is.
+    if (existing) existing.remove();
+    return;
+  }
+
+  ensureSlotStyles();
+
+  let figure = existing;
+  if (!figure) {
+    figure = document.createElement('figure');
+    figure.className = 'cms-slot-image';
+    figure.style.margin = '0';
+    config.place(parent, figure);
+  }
+
+  let img = figure.querySelector('img');
+  if (!img) {
+    img = document.createElement('img');
+    img.className = 'cms-slot-photo';
+    img.loading = 'lazy';
+    img.decoding = 'async';
+    figure.appendChild(img);
+  }
+  if (img.getAttribute('src') !== url) img.setAttribute('src', url);
+
+  const alt = (row ? row.alt : '').trim();
+  img.setAttribute('alt', alt || 'Sakshi Gill');
+
+  // Caption is optional - only rendered when the admin filled one in.
+  let heading = figure.querySelector('.cms-slot-heading');
+  const label = (row ? row.heading : '').trim();
+  if (label === '') {
+    if (heading) heading.remove();
+  } else {
+    if (!heading) {
+      heading = document.createElement('figcaption');
+      heading.className = 'cms-slot-heading';
+      figure.appendChild(heading);
+    }
+    if (heading.textContent !== label) heading.textContent = label;
+    if (config.dark) heading.setAttribute('data-dark', '');
+    else heading.removeAttribute('data-dark');
+  }
+}
+
+function applyImages(images: SiteImage[] | null): void {
+  if (!images || images.length === 0) return;
+  const bySlot = new Map(
+    images.map(function (row) {
+      return [row.slot, row] as const;
+    }),
+  );
+
+  // The hero portrait doubles as the looping video's poster, so an upload
+  // shows up in both places immediately.
+  const hero = bySlot.get('hero');
+  if (hero && hero.url.trim() !== '') {
+    const portrait = document.getElementById('hero-portrait-img') as HTMLImageElement | null;
+    if (portrait) {
+      portrait.src = hero.url;
+      if (hero.alt) portrait.alt = hero.alt;
+    }
+    const video = document.getElementById('hero-video') as HTMLVideoElement | null;
+    if (video) video.setAttribute('poster', hero.url);
+  }
+
+  mountSlotImage('about', bySlot.get('about'));
+  mountSlotImage('journey', bySlot.get('journey'));
+}
+
 function run(): void {
   const bridge = getBridge();
   if (!bridge) return;
 
-  Promise.all([loadSiteContent(), loadCapabilities(), loadBlogPosts(), loadProjects()]).then(function (
+  Promise.all([
+    loadSiteContent(),
+    loadCapabilities(),
+    loadBlogPosts(),
+    loadProjects(),
+    loadSiteImages(),
+  ]).then(function (
     results,
   ) {
     const content = results[0];
     const capabilities = results[1];
     const posts = results[2];
     const projects = results[3];
+    const images = results[4];
 
     if (content) {
       applyHero(content, bridge);
@@ -649,6 +816,7 @@ function run(): void {
       applyContact(content);
       applyVision(content);
     }
+    applyImages(images);
     applyProjects(projects ?? bridge.projectsData, content);
     if (capabilities && capabilities.length > 0) {
       applyCapabilities(capabilities, bridge);
@@ -670,5 +838,35 @@ type ContactSubmit = (input: {name: string; email: string; message: string}) => 
 
 const contactGlobal = window as unknown as {__portfolioSubmitContact?: ContactSubmit};
 contactGlobal.__portfolioSubmitContact = submitContactMessage;
+
+/* ------------------------------------------------------------------ *
+ * Live preview covers.
+ *
+ * The game and the academy page are cross-origin iframes. Loading one on
+ * page load would start its audio before the visitor has touched anything,
+ * so each src waits behind a Play button and `autoplay` is not granted to
+ * the frame. Once played, the frame keeps running until the page reloads.
+ * ------------------------------------------------------------------ */
+
+function installLivePreviewCovers(): void {
+  const frames = document.querySelectorAll<HTMLIFrameElement>('.project-live-frame iframe');
+
+  frames.forEach(function (frame) {
+    const wrap = frame.closest('.project-live-frame');
+    const cover = wrap ? wrap.querySelector<HTMLButtonElement>('[data-live-play]') : null;
+    if (!wrap || !cover) return;
+
+    cover.addEventListener('click', function () {
+      const held = frame.getAttribute('data-src');
+      if (held && !frame.getAttribute('src')) frame.setAttribute('src', held);
+      wrap.classList.add('is-live');
+      frame.focus();
+    });
+  });
+}
+
+installLivePreviewCovers();
+
+mountTrackingCharacter();
 
 run();

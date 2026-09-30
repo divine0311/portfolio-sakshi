@@ -6,3 +6,9 @@ coverage/
 *.log
 .env*
 !.env.example
+dev.log
+dev.err.log
+
+# Local analysis scripts and generated preview images
+tools/
+

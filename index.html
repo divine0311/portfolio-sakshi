@@ -13,7 +13,7 @@
   <!-- Google Fonts: Poppins (600, 700), Inter (400, line-height 1.7), and Playfair Display (editorial serif accents) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;1,400;1,600&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,400;1,600&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />
 
   <style>
     /* ==========================================================================
@@ -366,6 +366,34 @@
     }
 
     /* Looping video element overlay */
+    .hero-tracking-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border: none;
+      outline: none;
+      box-shadow: none;
+      border-radius: 0;
+      background-color: var(--hero-red);
+      z-index: 2;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .hero-tracking-canvas.is-ready {
+      opacity: 1;
+    }
+
+    /* Frosted glass nav - kept on top, never transformed. */
+    .nav-pill-btn,
+    .nav-link {
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
     .hero-video-element {
       position: absolute;
       inset: 0;
@@ -1533,6 +1561,77 @@
 
     .project-live-fallback-link:hover {
       text-decoration: underline;
+    }
+
+    /* Click-to-load cover.
+       The live previews are cross-origin iframes, so a game inside one will
+       start playing audio as soon as it loads. Holding the src back until the
+       visitor presses play keeps the page silent until someone actually plays. */
+    .project-live-cover {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      padding: 1.25rem;
+      text-align: center;
+      border: 0;
+      cursor: pointer;
+      font: inherit;
+      color: #FFFFFF;
+      background:
+        radial-gradient(circle at 50% 38%, rgba(163, 23, 18, 0.55), rgba(26, 8, 8, 0.92) 62%),
+        #1A0808;
+      transition: background 0.25s ease;
+    }
+
+    .project-live-cover:hover {
+      background:
+        radial-gradient(circle at 50% 38%, rgba(163, 23, 18, 0.7), rgba(26, 8, 8, 0.9) 62%),
+        #1A0808;
+    }
+
+    .project-live-cover__icon {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: #F5E6C8;
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.35);
+    }
+
+    .project-live-cover__icon::before {
+      content: '';
+      display: block;
+      margin-left: 4px;
+      border-style: solid;
+      border-width: 11px 0 11px 18px;
+      border-color: transparent transparent transparent #1A0808;
+    }
+
+    .project-live-cover__label {
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+
+    .project-live-cover__hint {
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      color: rgba(245, 230, 200, 0.72);
+    }
+
+    .project-live-cover:focus-visible {
+      outline: 3px solid #F4D03F;
+      outline-offset: -3px;
+    }
+
+    .project-live-frame.is-live .project-live-cover {
+      display: none;
     }
 
     @media (max-width: 860px) {
@@ -2931,6 +3030,135 @@
         padding-right: 1.4rem;
       }
     }
+  /* ==========================================================================
+     MY PROJECTS — ported from reference/project-cards-preview.html
+     Design is verbatim; every selector is prefixed .pj3d- so nothing here can
+     reach the rest of the page. The reference html/body/reset rules were
+     deliberately NOT copied.
+     ========================================================================== */
+    .pj3d-sec {
+      --red: #A31515;
+      --bg: #FFF8F0;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 72px 20px 96px;
+      text-align: center;
+    }
+
+    .pj3d-eyebrow { font-size: 13px; font-weight: 700; letter-spacing: .3em; color: #555; }
+    .pj3d-title { font-size: clamp(38px, 6vw, 56px); font-weight: 800; color: var(--red); margin: 10px 0 14px; line-height: 1.1; }
+    .pj3d-sub { max-width: 660px; margin: 0 auto; color: #666; font-size: 18px; line-height: 1.6; }
+
+    .pj3d-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; margin-top: 56px; padding-bottom: 20px; }
+
+    .pj3d-card {
+      width: min(330px, 88vw);
+      height: 410px;
+      perspective: 900px;
+      animation: pj3d-rise .8s cubic-bezier(.2, .7, .2, 1) both, pj3d-float 6s ease-in-out infinite;
+      animation-delay: calc(var(--i) * .15s), calc(.9s + var(--i) * .6s);
+    }
+
+    .pj3d-face {
+      position: relative;
+      height: 100%;
+      border-radius: 26px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      transform-style: preserve-3d;
+      transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+      transition: transform .2s ease-out, scale .25s ease;
+      box-shadow: 0 30px 40px -16px var(--sh), 0 8px 14px rgba(26, 8, 8, .18);
+      text-align: center;
+      color: #fff;
+    }
+
+    @media (hover: hover) { .pj3d-card:hover .pj3d-face { scale: 1.03; } }
+
+    .pj3d-bg { position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(150deg, var(--a), var(--sh)); overflow: hidden; }
+
+    .pj3d-bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(120deg, rgba(255, 255, 255, .34), rgba(255, 255, 255, 0) 45%); }
+
+    .pj3d-bg::before {
+      content: "";
+      position: absolute; top: 0; left: -60%; width: 40%; height: 100%;
+      background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .28), transparent);
+      transform: skewX(-15deg);
+      animation: pj3d-sweep 5s ease-in-out infinite;
+      animation-delay: calc(var(--i) * 1.5s);
+    }
+
+    .pj3d-tag {
+      position: relative; align-self: flex-start; display: flex; align-items: center; gap: 8px;
+      font-size: 12px; font-weight: 700; letter-spacing: .12em; padding: 7px 13px; border-radius: 999px;
+      background: rgba(0, 0, 0, .3); border: 1px solid rgba(255, 255, 255, .4);
+      backdrop-filter: blur(6px); transform: translateZ(30px);
+    }
+
+    .pj3d-tag i { width: 8px; height: 8px; border-radius: 50%; background: #4ADE80; box-shadow: 0 0 0 0 rgba(74, 222, 128, .7); animation: pj3d-pulse 1.8s infinite; }
+
+    .pj3d-cube {
+      position: absolute; left: 50%; top: 84px; width: 84px; height: 84px; margin-left: -42px;
+      transform-style: preserve-3d;
+      transform: translateZ(60px) rotateX(-20deg) rotateY(30deg);
+      animation: pj3d-spin 10s linear infinite;
+    }
+
+    .pj3d-cube b {
+      position: absolute; inset: 0; display: grid; place-items: center; font-size: 38px;
+      background: linear-gradient(135deg, var(--o1), var(--o2));
+      border: 1px solid rgba(255, 255, 255, .55); font-weight: 400;
+    }
+
+    .pj3d-cube b:nth-child(1) { transform: translateZ(42px); }
+    .pj3d-cube b:nth-child(2) { transform: rotateY(180deg) translateZ(42px); filter: brightness(.6); }
+    .pj3d-cube b:nth-child(3) { transform: rotateY(90deg) translateZ(42px); filter: brightness(.8); }
+    .pj3d-cube b:nth-child(4) { transform: rotateY(-90deg) translateZ(42px); filter: brightness(.7); }
+    .pj3d-cube b:nth-child(5) { transform: rotateX(90deg) translateZ(42px); filter: brightness(1.25); }
+    .pj3d-cube b:nth-child(6) { transform: rotateX(-90deg) translateZ(42px); filter: brightness(.5); }
+
+    .pj3d-chip {
+      position: absolute; width: 42px; height: 42px; border-radius: 13px; display: grid; place-items: center;
+      font-weight: 800; font-size: 16px; background: rgba(255, 255, 255, .18);
+      border: 1px solid rgba(255, 255, 255, .5); backdrop-filter: blur(6px);
+      box-shadow: 0 10px 16px rgba(0, 0, 0, .25);
+      transform: translateZ(50px);
+      animation: pj3d-bob 3.4s ease-in-out infinite;
+    }
+
+    .pj3d-c1 { left: 30px; top: 108px; }
+    .pj3d-c2 { right: 28px; top: 96px; animation-delay: -1.1s; }
+    .pj3d-c3 { right: 56px; top: 190px; animation-delay: -2.2s; }
+
+    .pj3d-panel {
+      position: relative; margin-top: auto; padding: 20px 18px 22px; border-radius: 20px;
+      background: rgba(8, 3, 3, .4); border: 1px solid rgba(255, 255, 255, .28);
+      backdrop-filter: blur(10px); transform: translateZ(40px);
+    }
+
+    .pj3d-panel h3 { margin: 0 0 6px; font-size: 28px; font-weight: 800; text-shadow: 0 2px 10px rgba(0, 0, 0, .5); }
+    .pj3d-panel p { margin: 0; font-size: 16px; font-weight: 600; color: rgba(255, 255, 255, .94); }
+
+    .pj3d-btn {
+      display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; padding: 12px 26px;
+      border-radius: 999px; background: #fff; color: var(--sh); font-weight: 800; font-size: 15px;
+      text-decoration: none; transition: transform .2s, box-shadow .2s;
+    }
+
+    .pj3d-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 18px rgba(0, 0, 0, .3); }
+    .pj3d-btn:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+
+    @keyframes pj3d-rise { from { opacity: 0; translate: 0 50px; } to { opacity: 1; translate: 0 0; } }
+    @keyframes pj3d-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
+    @keyframes pj3d-spin { to { transform: translateZ(60px) rotateX(-20deg) rotateY(390deg); } }
+    @keyframes pj3d-bob { 0%, 100% { translate: 0 0; } 50% { translate: 0 -10px; } }
+    @keyframes pj3d-sweep { 0%, 60% { left: -60%; } 100% { left: 130%; } }
+    @keyframes pj3d-pulse { 70% { box-shadow: 0 0 0 9px rgba(74, 222, 128, 0); } 100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); } }
+
+    @media (prefers-reduced-motion: reduce) {
+      .pj3d-sec *, .pj3d-sec { animation: none !important; transition: none !important; }
+    }
   </style>
 </head>
 
@@ -3058,27 +3286,16 @@
           class="hero-portrait-img"
           src="port-video-poster.jpg"
           alt="Sakshi Gill Character Animation"
-          onerror="if(this.src.indexOf('Character_head_tracking_animation_20260923172045.jpeg') === -1) { this.src='Character_head_tracking_animation_20260923172045.jpeg'; }"
         />
 
-        <!-- High-res video element overlay running continuously in loop -->
-        <video
-          id="hero-video"
-          class="hero-video-element"
-          autoplay
-          muted
-          loop
-          playsinline
-          preload="auto"
-          poster="port-video-poster.jpg"
-          aria-label="Character animation of Sakshi Gill"
-        >
-          <source src="port-video-1.mp4" type="video/mp4" />
-          <source src="port.%20video%201.mp4" type="video/mp4" />
-          <source src="/port-video-1.mp4" type="video/mp4" />
-          <source src="/port. video 1.mp4" type="video/mp4" />
-          <source src="public/port. video 1.mp4" type="video/mp4" />
-        </video>
+        <!-- Cursor-tracking character. Frames are pre-rendered WebP stills in
+             public/frames, so nothing is decoded or seeked at runtime. -->
+        <canvas
+          id="hero-tracking"
+          class="hero-tracking-canvas"
+          role="img"
+          aria-label="Animated portrait of Sakshi Gill that follows the cursor"
+        ></canvas>
       </div>
 
     </div>
@@ -3242,141 +3459,53 @@
             href="https://typing-rush-game.vercel.app"
             target="_blank"
             rel="noopener noreferrer"
-            id="btn-play-typing-rush"
-            title="Open Typing Rush Game"
-          >
-            <span class="pj-tile-kicker">Live Game</span>
-            <span class="pj-tile-icon" aria-hidden="true">
-              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="6" width="20" height="12" rx="3"></rect>
-                <line x1="6" y1="10" x2="6" y2="10"></line>
-                <line x1="9.5" y1="10" x2="9.5" y2="10"></line>
-                <line x1="6" y1="14" x2="6" y2="14"></line>
-                <line x1="9.5" y1="14" x2="9.5" y2="14"></line>
-                <line x1="15.5" y1="11.5" x2="18.5" y2="11.5"></line>
-                <line x1="17" y1="10" x2="17" y2="13"></line>
-              </svg>
-            </span>
-            <span class="pj-tile-title">Typing Rush</span>
-            <span class="pj-tile-sub">Let&rsquo;s Play Game</span>
-            <span class="pj-tile-cta">
-              <span>Play Now</span>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M5 12h13"></path>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
-            </span>
-          </a>
 
-          <!-- Website Card -->
-          <a
-            class="pj-tile"
-            href="https://gyanix-acedemy-gyanix-academy-8bqc.vercel.app"
-            target="_blank"
-            rel="noopener noreferrer"
-            id="btn-visit-gyanix"
-            title="Visit Gyanix Academy Website"
-          >
-            <span class="pj-tile-kicker">Live Website</span>
-            <span class="pj-tile-icon" aria-hidden="true">
-              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="9"></circle>
-                <line x1="3" y1="12" x2="21" y2="12"></line>
-                <path d="M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18z"></path>
-              </svg>
-            </span>
-            <span class="pj-tile-title">Gyanix Academy</span>
-            <span class="pj-tile-sub">Explore the Learning Website</span>
-            <span class="pj-tile-cta">
-              <span>Visit Website</span>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                <polyline points="15 3 21 3 21 9"></polyline>
-                <line x1="10" y1="14" x2="21" y2="3"></line>
-              </svg>
-            </span>
-          </a>
+      <!-- =========================================================================
+           "MY PROJECTS" — 3D cards, ported verbatim from
+           reference/project-cards-preview.html
+           ========================================================================= -->
+      <section class="pj3d-sec" aria-label="My Projects">
+        <div class="pj3d-eyebrow">PORTFOLIO &amp; WORKS</div>
+        <h2 class="pj3d-title">My Projects</h2>
+        <p class="pj3d-sub">A compact showcase of live applications, educational web platforms, and generative AI motion.</p>
+        <div class="pj3d-grid">
+
+          <div class="pj3d-card" style="--i:0;--a:#DC3A2A;--sh:#7A0F0F;--o1:#FFB4A2;--o2:#7A0F0F">
+            <div class="pj3d-face">
+              <div class="pj3d-bg"></div>
+              <span class="pj3d-tag"><i></i>LIVE GAME</span>
+              <div class="pj3d-cube"><b>🎮</b><b>🎮</b><b>🎮</b><b>🎮</b><b>🎮</b><b>🎮</b></div>
+              <span class="pj3d-chip pj3d-c1">A</span>
+              <span class="pj3d-chip pj3d-c2">S</span>
+              <span class="pj3d-chip pj3d-c3">D</span>
+              <div class="pj3d-panel">
+                <h3>Typing Rush</h3>
+                <p>Let&rsquo;s Play Game</p>
+                <!-- TODO: real Typing Rush link goes here -->
+                <a class="pj3d-btn" href="#">Play Now →</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="pj3d-card" style="--i:1;--a:#7C3AED;--sh:#2A1B6B;--o1:#C4B5FD;--o2:#2A1B6B">
+            <div class="pj3d-face">
+              <div class="pj3d-bg"></div>
+              <span class="pj3d-tag"><i></i>LIVE WEBSITE</span>
+              <div class="pj3d-cube"><b>🌐</b><b>🌐</b><b>🌐</b><b>🌐</b><b>🌐</b><b>🌐</b></div>
+              <span class="pj3d-chip pj3d-c1">A+</span>
+              <span class="pj3d-chip pj3d-c2">📚</span>
+              <span class="pj3d-chip pj3d-c3">✨</span>
+              <div class="pj3d-panel">
+                <h3>Gyanix Academy</h3>
+                <p>Explore the Learning Website</p>
+                <!-- TODO: real Gyanix Academy link goes here -->
+                <a class="pj3d-btn" href="#">Visit Website ↗</a>
+              </div>
+            </div>
+          </div>
 
         </div>
-
-        <!-- =========================================================================
-             ROW 2: LIVE PREVIEWS - game & website running side by side
-             ========================================================================= -->
-        <div class="projects-live-row reveal-on-scroll">
-          <div class="pj-subhead">
-            <span class="section-label" style="background: rgba(163, 23, 18, 0.08); color: #A31712; border: 1px solid rgba(163, 23, 18, 0.16);">Running Live</span>
-            <h3 class="pj-subhead-title">Live Previews</h3>
-            <p class="pj-subhead-text">
-              Both deployments are live right now &mdash; play the game and browse the academy platform without leaving the page.
-            </p>
-          </div>
-
-          <div class="projects-live-grid">
-
-            <!-- Live Game -->
-            <div class="project-live-box">
-              <div class="project-live-box__head">
-                <span class="project-live-dot"></span>
-                <span>Typing Rush &middot; Live</span>
-              </div>
-              <div class="project-live-frame">
-                <iframe
-                  src="https://typing-rush-game.vercel.app"
-                  title="Typing Rush - live game"
-                  loading="lazy"
-                  allow="fullscreen; autoplay; clipboard-write"
-                  referrerpolicy="no-referrer"
-                ></iframe>
-              </div>
-              <p class="project-live-fallback">
-                Preview not loading?
-                <a class="project-live-fallback-link" href="https://typing-rush-game.vercel.app" target="_blank" rel="noopener noreferrer">Open in new tab</a>
-              </p>
-            </div>
-
-            <!-- Live Website -->
-            <div class="project-live-box">
-              <div class="project-live-box__head">
-                <span class="project-live-dot"></span>
-                <span>Gyanix Academy &middot; Live</span>
-              </div>
-              <div class="project-live-frame">
-                <iframe
-                  src="https://gyanix-acedemy-gyanix-academy-8bqc.vercel.app"
-                  title="Gyanix Academy - live website"
-                  loading="lazy"
-                  allow="fullscreen; autoplay; clipboard-write"
-                  referrerpolicy="no-referrer"
-                ></iframe>
-              </div>
-              <p class="project-live-fallback">
-                Preview not loading?
-                <a class="project-live-fallback-link" href="https://gyanix-acedemy-gyanix-academy-8bqc.vercel.app" target="_blank" rel="noopener noreferrer">Open in new tab</a>
-              </p>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- =========================================================================
-             ROW 3: AI VIDEOS (vertical 2-box showcase, red & light cream)
-             ========================================================================= -->
-        <div class="ai-videos-wrapper">
-          <div class="ai-videos-heading-area reveal-on-scroll">
-            <span class="section-label" style="background: rgba(163, 23, 18, 0.08); color: #A31712; border: 1px solid rgba(163, 23, 18, 0.16);">Motion &amp; Cinematic Direction</span>
-            <h3 class="ai-videos-main-title">AI Videos</h3>
-            <p class="ai-videos-main-subtitle">
-              Dynamic generative reels engineered with neural diffusion and real-time character landmark tracking.
-            </p>
-          </div>
-
-          <div class="ai-vertical-videos-grid">
-
-            <!-- Box 1: Left Animated Vertical Box -->
-            <div class="ai-vertical-card card-left reveal-on-scroll">
-              <div class="ai-vertical-card-header">
-                <span class="ai-loop-live-badge">
-                  <span class="ai-loop-dot"></span>
+      </section>
                   <span>AI Loop 01</span>
                 </span>
                 <span class="ai-video-fps-tag">60 FPS &middot; LIVE</span>
@@ -3405,15 +3534,13 @@
 
                 <video
                   id="ai-vid-1"
-                  autoplay
                   muted
                   loop
                   playsinline
-                  preload="auto"
+                  preload="none"
                   poster="port-video-poster.jpg"
                 >
                   <source src="port-video-1.mp4" type="video/mp4" />
-                  <source src="port.%20video%201.mp4" type="video/mp4" />
                 </video>
               </div>
 
@@ -3473,15 +3600,13 @@
 
                 <video
                   id="ai-vid-2"
-                  autoplay
                   muted
                   loop
                   playsinline
-                  preload="auto"
+                  preload="none"
                   poster="sakshi-video-poster.jpg"
                 >
                   <source src="sakshi-video.mp4" type="video/mp4" />
-                  <source src="port-video-1.mp4" type="video/mp4" />
                 </video>
               </div>
 
@@ -3724,12 +3849,12 @@
           <form class="contact-form" id="contact-form" onsubmit="handleFormSubmit(event)">
             <div class="form-group">
               <label for="name" class="form-label">Your Name</label>
-              <input type="text" id="name" name="name" class="form-input" placeholder="Alex Morgan" required />
+              <input type="text" id="name" name="name" class="form-input" placeholder="Your name" required />
             </div>
 
             <div class="form-group">
               <label for="email" class="form-label">Email Address</label>
-              <input type="email" id="email" name="email" class="form-input" placeholder="alex@company.com" required />
+              <input type="email" id="email" name="email" class="form-input" placeholder="your@email.com" required />
             </div>
 
             <div class="form-group">
@@ -4181,20 +4306,61 @@
         });
       });
 
-      // Ensure video loops seamlessly and clicking vertical video container toggles playback
+      // Ensure video loops seamlessly and clicking vertical video container toggles playback.
+      // These clips are large, so playback is deferred until the card is actually
+      // scrolled into view and paused again when it leaves - this keeps the
+      // initial page load small instead of pulling ~24MB up front.
+      const lazyVideos = [];
       ['ai-vid-1', 'ai-vid-2'].forEach(function (id) {
         const vid = document.getElementById(id);
-        if (vid) {
-          vid.muted = true;
-          vid.loop = true;
-          vid.setAttribute('playsinline', '');
+        if (!vid) return;
+        vid.muted = true;
+        vid.loop = true;
+        vid.setAttribute('playsinline', '');
+        vid.setAttribute('preload', 'none');
+        vid.removeAttribute('autoplay');
+        vid.dataset.userPaused = 'false';
+        vid.addEventListener('ended', function () {
+          vid.currentTime = 0;
           vid.play().catch(function () {});
-          vid.addEventListener('ended', function () {
-            vid.currentTime = 0;
-            vid.play().catch(function () {});
-          });
-        }
+        });
+        // The manual pause button wins over the scroll behaviour.
+        vid.addEventListener('play', function () {
+          if (!vid.dataset.skipFlag) vid.dataset.userPaused = 'false';
+        });
+        vid.addEventListener('pause', function () {
+          if (!vid.dataset.skipFlag) vid.dataset.userPaused = 'true';
+        });
+        lazyVideos.push(vid);
       });
+
+      if ('IntersectionObserver' in window && lazyVideos.length) {
+        const videoObserver = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              const vid = entry.target;
+              if (entry.isIntersecting && entry.intersectionRatio > 0.25) {
+                if (vid.dataset.userPaused === 'true') return;
+                vid.dataset.skipFlag = '1';
+                vid.play().catch(function () {});
+                delete vid.dataset.skipFlag;
+              } else if (!entry.isIntersecting) {
+                vid.dataset.skipFlag = '1';
+                vid.pause();
+                delete vid.dataset.skipFlag;
+              }
+            });
+          },
+          {threshold: [0, 0.25, 0.6]},
+        );
+        lazyVideos.forEach(function (vid) {
+          videoObserver.observe(vid);
+        });
+      } else {
+        lazyVideos.forEach(function (vid) {
+          vid.play().catch(function () {});
+        });
+      }
 
       const aiVerticalWraps = document.querySelectorAll('.ai-vertical-media-wrap, .ai-video-media-wrap');
       aiVerticalWraps.forEach(function (mediaWrap) {

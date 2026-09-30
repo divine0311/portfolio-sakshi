@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>My Projects | Sakshi Gill</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--red:#A31515;--bg:#FFF8F0;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html,body{margin:0}
+body{background:var(--bg);font-family:Inter,system-ui,sans-serif;color:#333}
+.sec{max-width:1000px;margin:0 auto;padding:72px 20px 96px;text-align:center}
+.eyebrow{font-size:13px;font-weight:700;letter-spacing:.3em;color:#555}
+h2{font-size:clamp(38px,6vw,56px);font-weight:800;color:var(--red);margin:10px 0 14px;line-height:1.1}
+.sub{max-width:660px;margin:0 auto;color:#666;font-size:18px;line-height:1.6}
+.grid{display:flex;flex-wrap:wrap;justify-content:center;gap:40px;margin-top:56px;padding-bottom:20px}
+.card{width:min(330px,88vw);height:410px;perspective:900px;animation:rise .8s cubic-bezier(.2,.7,.2,1) both,float 6s ease-in-out infinite;animation-delay:calc(var(--i)*.15s),calc(.9s + var(--i)*.6s)}
+.face{position:relative;height:100%;border-radius:26px;padding:20px;display:flex;flex-direction:column;transform-style:preserve-3d;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .2s ease-out,scale .25s ease;box-shadow:0 30px 40px -16px var(--sh),0 8px 14px rgba(26,8,8,.18);text-align:center;color:#fff}
+@media(hover:hover){.card:hover .face{scale:1.03}}
+.bg{position:absolute;inset:0;border-radius:inherit;background:linear-gradient(150deg,var(--a),var(--sh));overflow:hidden}
+.bg::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,255,255,.34),rgba(255,255,255,0) 45%)}
+.bg::before{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.28),transparent);transform:skewX(-15deg);animation:sweep 5s ease-in-out infinite;animation-delay:calc(var(--i)*1.5s)}
+.tag{position:relative;align-self:flex-start;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.12em;padding:7px 13px;border-radius:999px;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.4);backdrop-filter:blur(6px);transform:translateZ(30px)}
+.tag i{width:8px;height:8px;border-radius:50%;background:#4ADE80;box-shadow:0 0 0 0 rgba(74,222,128,.7);animation:pulse 1.8s infinite}
+.cube{position:absolute;left:50%;top:84px;width:84px;height:84px;margin-left:-42px;transform-style:preserve-3d;transform:translateZ(60px) rotateX(-20deg) rotateY(30deg);animation:spin 10s linear infinite}
+.cube b{position:absolute;inset:0;display:grid;place-items:center;font-size:38px;background:linear-gradient(135deg,var(--o1),var(--o2));border:1px solid rgba(255,255,255,.55);font-weight:400}
+.cube b:nth-child(1){transform:translateZ(42px)}
+.cube b:nth-child(2){transform:rotateY(180deg) translateZ(42px);filter:brightness(.6)}
+.cube b:nth-child(3){transform:rotateY(90deg) translateZ(42px);filter:brightness(.8)}
+.cube b:nth-child(4){transform:rotateY(-90deg) translateZ(42px);filter:brightness(.7)}
+.cube b:nth-child(5){transform:rotateX(90deg) translateZ(42px);filter:brightness(1.25)}
+.cube b:nth-child(6){transform:rotateX(-90deg) translateZ(42px);filter:brightness(.5)}
+.chip{position:absolute;width:42px;height:42px;border-radius:13px;display:grid;place-items:center;font-weight:800;font-size:16px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.5);backdrop-filter:blur(6px);box-shadow:0 10px 16px rgba(0,0,0,.25);transform:translateZ(50px);animation:bob 3.4s ease-in-out infinite}
+.c1{left:30px;top:108px}.c2{right:28px;top:96px;animation-delay:-1.1s}.c3{right:56px;top:190px;animation-delay:-2.2s}
+.panel{position:relative;margin-top:auto;padding:20px 18px 22px;border-radius:20px;background:rgba(8,3,3,.4);border:1px solid rgba(255,255,255,.28);backdrop-filter:blur(10px);transform:translateZ(40px)}
+.panel h3{margin:0 0 6px;font-size:28px;font-weight:800;text-shadow:0 2px 10px rgba(0,0,0,.5)}
+.panel p{margin:0;font-size:16px;font-weight:600;color:rgba(255,255,255,.94)}
+.btn{display:inline-flex;align-items:center;gap:8px;margin-top:18px;padding:12px 26px;border-radius:999px;background:#fff;color:var(--sh);font-weight:800;font-size:15px;text-decoration:none;transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 18px rgba(0,0,0,.3)}
+.btn:focus-visible{outline:3px solid #fff;outline-offset:3px}
+@keyframes rise{from{opacity:0;translate:0 50px}to{opacity:1;translate:0 0}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@keyframes spin{to{transform:translateZ(60px) rotateX(-20deg) rotateY(390deg)}}
+@keyframes bob{0%,100%{translate:0 0}50%{translate:0 -10px}}
+@keyframes sweep{0%,60%{left:-60%}100%{left:130%}}
+@keyframes pulse{70%{box-shadow:0 0 0 9px rgba(74,222,128,0)}100%{box-shadow:0 0 0 0 rgba(74,222,128,0)}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<section class="sec">
+  <div class="eyebrow">PORTFOLIO &amp; WORKS</div>
+  <h2>My Projects</h2>
+  <p class="sub">A compact showcase of live applications, educational web platforms, and generative AI motion.</p>
+  <div class="grid">
+    <div class="card" style="--i:0;--a:#DC3A2A;--sh:#7A0F0F;--o1:#FFB4A2;--o2:#7A0F0F"><div class="face"><div class="bg"></div><span class="tag"><i></i>LIVE GAME</span><div class="cube"><b>🎮</b><b>🎮</b><b>🎮</b><b>🎮</b><b>🎮</b><b>🎮</b></div><span class="chip c1">A</span><span class="chip c2">S</span><span class="chip c3">D</span><div class="panel"><h3>Typing Rush</h3><p>Let’s Play Game</p><a class="btn" href="#" onclick="return false">Play Now →</a></div></div></div>
+    <div class="card" style="--i:1;--a:#7C3AED;--sh:#2A1B6B;--o1:#C4B5FD;--o2:#2A1B6B"><div class="face"><div class="bg"></div><span class="tag"><i></i>LIVE WEBSITE</span><div class="cube"><b>🌐</b><b>🌐</b><b>🌐</b><b>🌐</b><b>🌐</b><b>🌐</b></div><span class="chip c1">A+</span><span class="chip c2">📚</span><span class="chip c3">✨</span><div class="panel"><h3>Gyanix Academy</h3><p>Explore the Learning Website</p><a class="btn" href="#" onclick="return false">Visit Website ↗</a></div></div></div>
+  </div>
+</section>
+<script>
+const calm=matchMedia("(prefers-reduced-motion:reduce)").matches;
+document.addEventListener("pointermove",e=>{if(calm||e.pointerType==="touch")return;const c=e.target.closest(".card");if(!c)return;const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5,f=c.firstChild;f.style.setProperty("--ry",(x*18)+"deg");f.style.setProperty("--rx",(-y*18)+"deg")});
+document.addEventListener("pointerout",e=>{const c=e.target.closest(".card");if(c&&!c.contains(e.relatedTarget)){c.firstChild.style.setProperty("--rx","0deg");c.firstChild.style.setProperty("--ry","0deg")}});
+</script>
+</body>
+</html>
