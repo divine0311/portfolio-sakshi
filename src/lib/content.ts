@@ -51,6 +51,13 @@ export interface BlogPost {
   category: string | null;
   read_time: string | null;
   created_at: string;
+  /* SEO + publishing columns. Optional so existing rows keep working. */
+  meta_title?: string | null;
+  meta_description?: string | null;
+  body?: string | null;
+  author?: string | null;
+  published?: boolean;
+  published_at?: string | null;
 }
 
 export type BlogPostInput = Omit<BlogPost, 'id' | 'created_at'>;
@@ -223,28 +230,58 @@ export async function deleteCapability(key: string): Promise<SaveResult> {
   return {ok: true};
 }
 
-const BLOG_COLUMNS = 'id,title,date,excerpt,content,thumbnail_url,slug,category,read_time,created_at';
+const BLOG_COLUMNS =
+  'id,title,date,excerpt,content,thumbnail_url,slug,category,read_time,created_at,meta_title,meta_description,body,author,published,published_at';
+
+/**
+ * Columns that only exist after `supabase/blog-modernisation.sql` has been
+ * run. Until then we read and write the legacy set only, so the site and the
+ * Admin Panel keep working instead of failing on an unknown column.
+ */
+const V2_COLUMNS = ['meta_title', 'meta_description', 'body', 'author', 'published', 'published_at'];
+const LEGACY_COLUMNS =
+  'id,title,date,excerpt,content,thumbnail_url,slug,category,read_time,created_at';
+
+let v2Available = true;
 
 export async function loadBlogPosts(): Promise<BlogPost[] | null> {
   if (!supabase) return null;
-  const result = await withTimeout(
+
+  let result = await withTimeout(
     supabase.from('blog_posts').select(BLOG_COLUMNS).order('created_at', {ascending: false}),
   );
+
+  // Missing new columns: fall back to the legacy set and remember it.
+  if (result?.error) {
+    v2Available = false;
+    result = await withTimeout(
+      supabase.from('blog_posts').select(LEGACY_COLUMNS).order('created_at', {ascending: false}),
+    );
+  }
+
   const rows = result?.data as BlogPost[] | null | undefined;
   if (!rows) return null;
   return rows;
 }
 
+/** Drops v2 keys when the database has not been migrated yet. */
+function shape(input: BlogPostInput): BlogPostInput {
+  if (v2Available) return input;
+  const out = {...input} as Record<string, unknown>;
+  V2_COLUMNS.forEach((key) => delete out[key]);
+  return out as BlogPostInput;
+}
+
 export async function createBlogPost(input: BlogPostInput): Promise<SaveResult & {id?: string}> {
   if (!supabase) return {ok: false, error: 'Supabase is not configured'};
-  const {data, error} = await supabase.from('blog_posts').insert(input).select('id').single();
+  const {data, error} = await supabase.from('blog_posts').insert(shape(input)).select('id').single();
   if (error) return {ok: false, error: error.message};
   return {ok: true, id: (data as {id: string}).id};
 }
 
 export async function updateBlogPost(id: string, input: BlogPostInput): Promise<SaveResult> {
   if (!supabase) return {ok: false, error: 'Supabase is not configured'};
-  const {error} = await supabase.from('blog_posts').update(input).eq('id', id);
+  const {error} = await supabase.from('blog_posts').update(shape(input)).eq('id', id);
   if (error) return {ok: false, error: error.message};
   return {ok: true};
 }

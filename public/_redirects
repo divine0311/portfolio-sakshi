@@ -1,0 +1,8 @@
+# Netlify-style rewrites. Every blog URL is a real static file produced by
+# `npm run prerender`, so these are 200 rewrites, not redirects.
+
+/blog            /blog/index.html            200
+/blog/           /blog/index.html            200
+/blog/*          /blog/:splat/index.html     200
+
+/admin           /admin.html                 200
