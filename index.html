@@ -365,28 +365,6 @@
       image-rendering: -webkit-optimize-contrast;
     }
 
-    /* Looping video element overlay */
-    .hero-tracking-canvas {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      border: none;
-      outline: none;
-      box-shadow: none;
-      border-radius: 0;
-      background-color: var(--hero-red);
-      z-index: 2;
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }
-
-    .hero-tracking-canvas.is-ready {
-      opacity: 1;
-    }
-
     /* Frosted glass nav - kept on top, never transformed. */
     .nav-pill-btn,
     .nav-link {
@@ -3280,22 +3258,28 @@
 
       <!-- RIGHT HALF: Looping character animation seamlessly on the right side (no box, no frame) -->
       <div class="hero-right">
-        <!-- Poster image from user's port. video 1.mp4 -->
+        <!-- Poster still, shown until the video decodes its first frame -->
         <img
           id="hero-portrait-img"
           class="hero-portrait-img"
-          src="port-video-poster.jpg"
+          src="/sakshi-video-poster.jpg"
           alt="Sakshi Gill Character Animation"
         />
 
-        <!-- Cursor-tracking character. Frames are pre-rendered WebP stills in
-             public/frames, so nothing is decoded or seeked at runtime. -->
-        <canvas
-          id="hero-tracking"
-          class="hero-tracking-canvas"
-          role="img"
-          aria-label="Animated portrait of Sakshi Gill that follows the cursor"
-        ></canvas>
+        <!-- Plain looping video. No canvas, no frame decoding, no pointer maths. -->
+        <video
+          id="hero-video"
+          class="hero-video-element is-active"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="auto"
+          poster="/sakshi-video-poster.jpg"
+          aria-label="Character animation of Sakshi Gill"
+        >
+          <source src="/sakshi-video.mp4" type="video/mp4" />
+        </video>
       </div>
 
     </div>
@@ -3446,20 +3430,6 @@
         </p>
       </div>
 
-      <div class="projects-stack">
-
-        <!-- =========================================================================
-             ROW 1: GAME & WEBSITE CARDS
-             ========================================================================= -->
-        <div class="projects-pair-grid reveal-on-scroll">
-
-          <!-- Game Card -->
-          <a
-            class="pj-tile"
-            href="https://typing-rush-game.vercel.app"
-            target="_blank"
-            rel="noopener noreferrer"
-
       <!-- =========================================================================
            "MY PROJECTS" — 3D cards, ported verbatim from
            reference/project-cards-preview.html
@@ -3482,7 +3452,7 @@
                 <h3>Typing Rush</h3>
                 <p>Let&rsquo;s Play Game</p>
                 <!-- TODO: real Typing Rush link goes here -->
-                <a class="pj3d-btn" href="#">Play Now →</a>
+                <a class="pj3d-btn" href="https://typing-rush-game.vercel.app" target="_blank" rel="noopener noreferrer">Play Now →</a>
               </div>
             </div>
           </div>
@@ -3498,14 +3468,27 @@
               <div class="pj3d-panel">
                 <h3>Gyanix Academy</h3>
                 <p>Explore the Learning Website</p>
-                <!-- TODO: real Gyanix Academy link goes here -->
-                <a class="pj3d-btn" href="#">Visit Website ↗</a>
+                <a class="pj3d-btn" href="https://gyanix-acedemy-gyanix-academy-8bqc.vercel.app" target="_blank" rel="noopener noreferrer">Visit Website ↗</a>
               </div>
             </div>
           </div>
 
         </div>
       </section>
+        <div class="ai-videos-wrapper">
+          <div class="ai-videos-heading-area reveal-on-scroll">
+            <span class="section-label" style="background: rgba(163, 23, 18, 0.08); color: #A31712; border: 1px solid rgba(163, 23, 18, 0.16);">Motion &amp; Cinematic Direction</span>
+            <h3 class="ai-videos-main-title">AI Videos</h3>
+            <p class="ai-videos-main-subtitle">
+              Dynamic generative reels engineered with neural diffusion and real-time character landmark tracking.
+            </p>
+          </div>
+          <div class="ai-vertical-videos-grid">
+            <!-- Box 1: Left Animated Vertical Box -->
+            <div class="ai-vertical-card card-left reveal-on-scroll">
+              <div class="ai-vertical-card-header">
+                <span class="ai-loop-live-badge">
+                  <span class="ai-loop-dot"></span>
                   <span>AI Loop 01</span>
                 </span>
                 <span class="ai-video-fps-tag">60 FPS &middot; LIVE</span>
@@ -3538,9 +3521,9 @@
                   loop
                   playsinline
                   preload="none"
-                  poster="port-video-poster.jpg"
+                  poster="/sakshi-video-poster.jpg"
                 >
-                  <source src="port-video-1.mp4" type="video/mp4" />
+                  <source src="/sakshi-video.mp4" type="video/mp4" />
                 </video>
               </div>
 
@@ -3637,8 +3620,6 @@
         </div>
 
       </div>
-
-    </div>
   </section>
 
   <!-- =========================================================================

@@ -3,7 +3,6 @@ import {loadBlogPosts, loadCapabilities, loadProjects, loadSiteContent} from '..
 import type {BlogPost, Capability, Project, SiteContent} from '../lib/content';
 import {isUploadedImageUrl, loadSiteImages, type SiteImage} from '../lib/images';
 import {DEFAULT_PROJECTS} from '../lib/defaults';
-import {mountTrackingCharacter} from './trackingCharacter';
 
 /* ------------------------------------------------------------------ *
  * Bridge to the inline <script> IIFE in index.html.
@@ -866,7 +865,5 @@ function installLivePreviewCovers(): void {
 }
 
 installLivePreviewCovers();
-
-mountTrackingCharacter();
 
 run();
