@@ -40,7 +40,7 @@ const AUTHOR = seed.author;
 
 /* Canonical URLs and the sitemap need a real origin. There is no deployment
  * URL in this repo, so it must come from SITE_URL rather than be guessed. */
-const rawSite = (env.SITE_URL || '').replace(/\/$/, '');
+const rawSite = (process.env.SITE_URL || env.SITE_URL || '').replace(/\/$/, '');
 if (!rawSite) {
   console.warn('  ! SITE_URL is not set in .env — canonical tags and sitemap.xml');
   console.warn('    will point at localhost. Set SITE_URL to your live domain.');
