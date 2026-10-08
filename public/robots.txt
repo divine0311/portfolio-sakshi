@@ -1,0 +1,37 @@
+# Robots.txt for Sakshi Gill Portfolio
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://sakshigill.com/sitemap.xml
+
+# Crawl-delay for polite crawling
+Crawl-delay: 10
+
+# Disallow admin/private routes (not accessible anyway)
+Disallow: /admin/
+Disallow: /api/
+Disallow: /_vercel/
+Disallow: /node_modules/
+Disallow: /src/
+Disallow: /scripts/
+Disallow: /supabase/
+Disallow: /*.json$
+Disallow: /*.md$
+Disallow: /*.ts$
+Disallow: /*.config.*
+Disallow: /package*.json
+
+# Allow important assets
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.png$
+Allow: /*.webp$
+Allow: /*.svg$
+Allow: /*.mp4$
+Allow: /*.mp3$
+Allow: /*.pdf$
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.woff$
+Allow: /*.woff2$
