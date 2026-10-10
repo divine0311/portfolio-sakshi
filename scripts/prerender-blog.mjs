@@ -334,9 +334,17 @@ for (const p of posts) {
   console.log(`  dist/blog/${p.slug}/index.html`);
 }
 
+/* home page: swap the __SITE_URL__ placeholder with the real origin */
+const indexPath = join(dist, 'index.html');
+if (existsSync(indexPath)) {
+  const home = readFileSync(indexPath, 'utf8');
+  writeFileSync(indexPath, home.split('__SITE_URL__').join(siteUrl));
+  console.log('  dist/index.html (SITE_URL injected)');
+}
+
 /* sitemap */
 const urls = [
-  {loc: `${siteUrl}/#home`, priority: '1.0'},
+  {loc: `${siteUrl}/`, priority: '1.0'},
   {loc: `${siteUrl}/blog`, priority: '0.8'},
   ...posts.map((p) => ({loc: `${siteUrl}/blog/${p.slug}`, lastmod: p.date, priority: '0.6'})),
 ];
