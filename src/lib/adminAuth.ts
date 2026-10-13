@@ -126,3 +126,28 @@ export async function sendResetEmail(email: string): Promise<{ok: true} | {ok: f
   }
   return {ok: true};
 }
+
+/**
+ * Called after visiting a reset link: the browser holds a recovery session,
+ * so `updateUser({password})` is allowed without knowing the old password.
+ */
+export async function setNewPassword(
+  newPassword: string,
+): Promise<{ok: true} | {ok: false; error: string}> {
+  if (!supabase) return {ok: false, error: 'Supabase is not configured.'};
+  if (newPassword.length < 8) {
+    return {ok: false, error: 'New password must be at least 8 characters.'};
+  }
+  const {error} = await supabase.auth.updateUser({password: newPassword});
+  if (error) return {ok: false, error: error.message};
+  return {ok: true};
+}
+
+/** Fires only for the PASSWORD_RECOVERY event (password reset link clicked). */
+export function onPasswordRecovery(listener: () => void): () => void {
+  if (!supabase) return () => {};
+  const {data: sub} = supabase.auth.onAuthStateChange((event) => {
+    if (event === 'PASSWORD_RECOVERY') listener();
+  });
+  return () => sub.subscription.unsubscribe();
+}

@@ -47,14 +47,17 @@ export const DEFAULT_SITE_CONTENT: SiteContent = {
   qualification_1_desc:
     'Achieved a rare 100% in 10th grade and 91.8% in 12th — proving that consistency, curiosity, and steadfast discipline build the strongest launchpad for creative growth.',
   qualification_1_timing: '2022-23',
+  qualification_1_institution: 'Secondary (10th: 100%) & Senior Secondary (12th: 91.8%)',
   qualification_2_title: 'Bachelor of Arts (B.A.)',
   qualification_2_desc:
     'Graduated with an exceptional 9.34 CGPA, honing deep analytical clarity, cultural empathy, and an instinct for what makes human stories truly resonate.',
   qualification_2_timing: '2023-26',
+  qualification_2_institution: 'Indira Gandhi College, Kurukshetra University (CGPA 9.34 / 10)',
   qualification_3_title: 'Digital Marketing with AI',
   qualification_3_desc:
     'The pivotal breakthrough — fusing strategic brand storytelling with cutting-edge AI tools to design high-impact, forward-looking content.',
   qualification_3_timing: '',
+  qualification_3_institution: 'Advanced Specialized Certification',
   journey_quotes: [
     '"Creativity is no longer just intuition; it is amplified imagination guided by data."',
     '"The boldest stories are written by those willing to dismantle yesterday’s assumptions."',

@@ -1,6 +1,6 @@
 import {useState, type FormEvent} from 'react';
 import {ArrowRight, Lock, Mail, UserPlus} from 'lucide-react';
-import {signIn, signUp, type AuthState} from '../lib/adminAuth';
+import {signIn, signUp, sendResetEmail, type AuthState} from '../lib/adminAuth';
 
 interface LoginScreenProps {
   onSuccess: () => void;
@@ -20,6 +20,23 @@ export default function LoginScreen({onSuccess}: LoginScreenProps) {
     setMode(next);
     setError('');
     setInfo('');
+  };
+
+  const handleForgot = async () => {
+    if (!email.trim()) {
+      setError('Enter your account email first, then tap "Send reset link".');
+      return;
+    }
+    setBusy(true);
+    setError('');
+    setInfo('');
+    const result = await sendResetEmail(email);
+    setBusy(false);
+    if (result.ok) {
+      setInfo(`Reset link sent to ${email.trim()}. Open it to set a new password.`);
+    } else {
+      setError(result.error);
+    }
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -158,6 +175,12 @@ export default function LoginScreen({onSuccess}: LoginScreenProps) {
         >
           {isSetup ? 'Already have an account? Login' : 'First time here? Create admin account'}
         </button>
+
+        {isSetup ? null : (
+          <button type="button" className="studio-linkbtn" onClick={handleForgot} disabled={busy}>
+            Forgot password? Send reset link
+          </button>
+        )}
       </form>
     </div>
   );

@@ -1,20 +1,19 @@
-import {useCallback, useEffect, useMemo, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import {
+  Briefcase,
   Eye,
+  GraduationCap,
   Image as ImageIcon,
   LayoutDashboard,
   LogOut,
   Newspaper,
-  Search,
   Settings,
-  Sparkles,
-  Target,
-  Telescope,
-  Trophy,
+  Star,
+  Zap,
 } from 'lucide-react';
 import {isSupabaseConfigured} from '../lib/supabase';
 import {
-loadCapabilities,
+  loadCapabilities,
   loadBlogPosts,
   loadProjects,
   loadSiteContent,
@@ -37,16 +36,15 @@ import SettingsSection from './sections/SettingsSection';
 
 const NAV = [
   {id: 'dashboard', label: 'Dashboard', Icon: LayoutDashboard},
-  {id: 'projects', label: 'Projects', Icon: Trophy},
+  {id: 'projects', label: 'Projects', Icon: Briefcase},
   {id: 'images', label: 'Images', Icon: ImageIcon},
-  {id: 'qualifications', label: 'Qualifications', Icon: Sparkles},
-  {id: 'capabilities', label: 'Capabilities', Icon: Target},
-  {id: 'vision', label: 'Vision', Icon: Telescope},
-  {id: 'blog', label: 'Blog', Icon: Newspaper},
+  {id: 'qualifications', label: 'Qualifications', Icon: GraduationCap},
+  {id: 'capabilities', label: 'Capabilities', Icon: Zap},
+  {id: 'vision', label: 'Vision', Icon: Star},
   {id: 'settings', label: 'Settings', Icon: Settings},
 ] as const;
 
-type NavId = (typeof NAV)[number]['id'];
+type NavId = (typeof NAV)[number]['id'] | 'blog';
 
 interface StudioDashboardProps {
   onLogout: () => void;
@@ -62,7 +60,6 @@ export default function StudioDashboard({onLogout, email}: StudioDashboardProps)
   // The Admin always mirrors the real database. The bundled seed is a public
   // fallback for the blog pages only, never a stand-in for stored rows.
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
-  const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(true);
   const [offline, setOffline] = useState(!isSupabaseConfigured);
 
@@ -73,16 +70,16 @@ export default function StudioDashboard({onLogout, email}: StudioDashboardProps)
         loadSiteContent(),
         loadCapabilities(),
         loadProjects(),
-loadSiteImages(),
-          loadBlogPosts(),
-        ]);
+        loadSiteImages(),
+        loadBlogPosts(),
+      ]);
       if (cancelled) return;
       if (site) setContent({...DEFAULT_SITE_CONTENT, ...site});
       else setOffline(true);
       if (caps && caps.length > 0) setCapabilities(caps);
       if (projs && projs.length > 0) setProjects(projs);
       if (imgs) setImages(imgs);
-        if (posts) setBlogPosts(posts);
+      if (posts) setBlogPosts(posts);
       setLoading(false);
     })();
     return () => {
@@ -94,46 +91,24 @@ loadSiteImages(),
     setContent((current) => ({...current, ...patch}));
   }, []);
 
-  const matches = useMemo(() => {
-    const term = query.trim().toLowerCase();
-    if (term === '') return [];
-    return NAV.filter((item) => item.label.toLowerCase().includes(term));
-  }, [query]);
-
-  const jumpTo = (id: NavId) => {
-    setActiveTab(id);
-    setQuery('');
-  };
-
-  const handleSearchKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter' && matches.length > 0) {
-      event.preventDefault();
-      jumpTo(matches[0].id);
-    }
-    if (event.key === 'Escape') setQuery('');
-  };
-
-  const active = NAV.find((item) => item.id === activeTab);
+  const activeLabel =
+    activeTab === 'blog' ? 'Blog' : NAV.find((item) => item.id === activeTab)?.label ?? '';
 
   return (
     <div className="studio-shell">
       <aside className="studio-sidebar">
-        <div className="studio-brand">
-          <span className="studio-brand__name">Sakshi</span>
-          <span className="studio-brand__role">Digital Marketer</span>
-        </div>
+        <h1 className="studio-sidebar__title">Admin Panel</h1>
 
         <nav className="studio-tabs" aria-label="Admin sections">
           {NAV.map(({id, label, Icon}) => {
             const isActive = id === activeTab;
-            const isDimmed = query.trim() !== '' && !matches.some((match) => match.id === id);
             return (
               <button
                 type="button"
                 key={id}
-                className={`studio-tab ${isActive ? 'studio-tab--active' : ''} ${isDimmed ? 'studio-tab--dim' : ''}`}
+                className={`studio-tab ${isActive ? 'studio-tab--active' : ''}`}
                 aria-current={isActive ? 'page' : undefined}
-                onClick={() => jumpTo(id)}
+                onClick={() => setActiveTab(id)}
               >
                 <Icon size={18} strokeWidth={2} aria-hidden="true" />
                 <span className="studio-tab__label">{label}</span>
@@ -143,7 +118,20 @@ loadSiteImages(),
         </nav>
 
         <div className="studio-sidebar__foot">
-          <a className="studio-btn studio-btn--ghost studio-btn--compact" href="/" target="_blank" rel="noopener noreferrer">
+          <button
+            type="button"
+            className={`studio-tab ${activeTab === 'blog' ? 'studio-tab--active' : ''}`}
+            onClick={() => setActiveTab('blog')}
+          >
+            <Newspaper size={18} strokeWidth={2} aria-hidden="true" />
+            <span className="studio-tab__label">Blog</span>
+          </button>
+          <a
+            className="studio-btn studio-btn--ghost studio-btn--compact"
+            href="/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <Eye size={16} strokeWidth={2} aria-hidden="true" />
             <span>View site</span>
           </a>
@@ -155,30 +143,6 @@ loadSiteImages(),
       </aside>
 
       <main className="studio-main">
-        <div className="studio-search">
-          <Search size={18} strokeWidth={2} aria-hidden="true" className="studio-search__icon" />
-          <input
-            className="studio-search__input"
-            type="search"
-            value={query}
-            placeholder="Search or jump to a section…"
-            aria-label="Search or jump to a section"
-            onChange={(event) => setQuery(event.target.value)}
-            onKeyDown={handleSearchKeyDown}
-          />
-          {matches.length > 0 ? (
-            <ul className="studio-search__results">
-              {matches.map((item) => (
-                <li key={item.id}>
-                  <button type="button" onClick={() => jumpTo(item.id)}>
-                    {item.label}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          ) : null}
-        </div>
-
         {offline ? (
           <p className="studio-banner">
             {isSupabaseConfigured
@@ -189,7 +153,7 @@ loadSiteImages(),
 
         <section className="studio-card">
           <header className="studio-card__head">
-            <h2 className="studio-card__title">{active?.label}</h2>
+            <h2 className="studio-card__title">{activeLabel}</h2>
             <span className={`studio-status ${offline ? 'studio-status--warn' : 'studio-status--ok'}`}>
               {loading ? 'Loading…' : offline ? 'Supabase offline' : 'Supabase connected'}
             </span>
@@ -229,7 +193,7 @@ loadSiteImages(),
           ) : null}
           {activeTab === 'vision' ? <VisionSection content={content} onPatch={handlePatch} /> : null}
           {activeTab === 'blog' ? <BlogSection posts={blogPosts} onChange={setBlogPosts} /> : null}
-      {activeTab === 'settings' ? <SettingsSection email={email} /> : null}
+          {activeTab === 'settings' ? <SettingsSection email={email} /> : null}
         </section>
       </main>
     </div>

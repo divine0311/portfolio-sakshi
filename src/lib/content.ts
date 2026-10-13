@@ -8,12 +8,15 @@ export interface SiteContent {
   qualification_1_title: string;
   qualification_1_desc: string;
   qualification_1_timing: string;
+  qualification_1_institution: string;
   qualification_2_title: string;
   qualification_2_desc: string;
   qualification_2_timing: string;
+  qualification_2_institution: string;
   qualification_3_title: string;
   qualification_3_desc: string;
   qualification_3_timing: string;
+  qualification_3_institution: string;
   journey_quotes: string[];
   contact_email: string;
   contact_phone: string;
@@ -110,6 +113,16 @@ function toToolList(value: unknown): CapabilityTool[] {
  * Explicit column list. Never use select('*') here: the publishable anon key
  * cannot introspect the schema, so a wildcard select fails with a 404.
  */
+/**
+ * Columns only present after `supabase/admin-panel-v2.sql` has run. Until then
+ * we read (and write) the legacy set so the site and admin keep working.
+ */
+const V2_CONTENT_COLUMNS = [
+  'qualification_1_institution',
+  'qualification_2_institution',
+  'qualification_3_institution',
+];
+
 const SITE_CONTENT_COLUMNS = [
   'hero_name',
   'hero_roles',
@@ -134,13 +147,30 @@ const SITE_CONTENT_COLUMNS = [
   'vision_subheading',
   'vision_headline',
   'vision_paragraph',
+  ...V2_CONTENT_COLUMNS,
 ].join(',');
+
+const LEGACY_SITE_CONTENT_COLUMNS = SITE_CONTENT_COLUMNS.split(',')
+  .filter((column) => !V2_CONTENT_COLUMNS.includes(column))
+  .join(',');
+
+let contentV2Available = true;
 
 export async function loadSiteContent(): Promise<SiteContent | null> {
   if (!supabase) return null;
-  const result = await withTimeout(
+
+  let result = await withTimeout(
     supabase.from('site_content').select(SITE_CONTENT_COLUMNS).eq('id', 'main').maybeSingle(),
   );
+
+  // Missing new columns: fall back to the legacy set and remember it.
+  if (result?.error) {
+    contentV2Available = false;
+    result = await withTimeout(
+      supabase.from('site_content').select(LEGACY_SITE_CONTENT_COLUMNS).eq('id', 'main').maybeSingle(),
+    );
+  }
+
   const row = result?.data as Partial<SiteContent> | null | undefined;
   if (!row) return null;
   return {
@@ -152,7 +182,13 @@ export async function loadSiteContent(): Promise<SiteContent | null> {
 
 export async function saveSiteContent(patch: SiteContentUpdate): Promise<SaveResult> {
   if (!supabase) return {ok: false, error: 'Supabase is not configured'};
-  const {error} = await supabase.from('site_content').upsert({id: 'main', ...patch});
+
+  const payload: Record<string, unknown> = {id: 'main', ...patch};
+  if (!contentV2Available) {
+    V2_CONTENT_COLUMNS.forEach((key) => delete payload[key]);
+  }
+
+  const {error} = await supabase.from('site_content').upsert(payload);
   if (error) return {ok: false, error: error.message};
   return {ok: true};
 }
@@ -189,13 +225,31 @@ export interface Project {
   beneficial_title: string;
   benefits: string[];
   position: number;
+  /* Added by admin-panel-v2.sql. Optional so legacy rows/tables keep working. */
+  description?: string;
+  image_url?: string;
 }
+
+const PROJECT_COLUMNS = 'key,kicker,title,url,beneficial_title,benefits,position,description,image_url';
+const LEGACY_PROJECT_COLUMNS = 'key,kicker,title,url,beneficial_title,benefits,position';
+const PROJECT_V2_COLUMNS = ['description', 'image_url'];
+
+let projectsV2Available = true;
 
 export async function loadProjects(): Promise<Project[] | null> {
   if (!supabase) return null;
-  const result = await withTimeout(
-    supabase.from('projects').select('key,kicker,title,url,beneficial_title,benefits,position').order('position'),
+
+  let result = await withTimeout(
+    supabase.from('projects').select(PROJECT_COLUMNS).order('position'),
   );
+
+  if (result?.error) {
+    projectsV2Available = false;
+    result = await withTimeout(
+      supabase.from('projects').select(LEGACY_PROJECT_COLUMNS).order('position'),
+    );
+  }
+
   const rows = result?.data as Array<Record<string, unknown>> | null | undefined;
   if (!rows) return null;
   return rows.map((row) => ({
@@ -206,12 +260,20 @@ export async function loadProjects(): Promise<Project[] | null> {
     beneficial_title: typeof row.beneficial_title === 'string' ? row.beneficial_title : '',
     benefits: toStringList(row.benefits),
     position: typeof row.position === 'number' ? row.position : 0,
+    description: typeof row.description === 'string' ? row.description : '',
+    image_url: typeof row.image_url === 'string' ? row.image_url : '',
   }));
 }
 
 export async function saveProject(project: Project): Promise<SaveResult> {
   if (!supabase) return {ok: false, error: 'Supabase is not configured'};
-  const {error} = await supabase.from('projects').upsert(project, {onConflict: 'key'});
+
+  const payload: Record<string, unknown> = {...project};
+  if (!projectsV2Available) {
+    PROJECT_V2_COLUMNS.forEach((key) => delete payload[key]);
+  }
+
+  const {error} = await supabase.from('projects').upsert(payload, {onConflict: 'key'});
   if (error) return {ok: false, error: error.message};
   return {ok: true};
 }

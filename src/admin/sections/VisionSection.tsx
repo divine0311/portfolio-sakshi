@@ -43,7 +43,7 @@ export default function VisionSection({content, onPatch}: VisionSectionProps) {
             vision_paragraph: content.vision_paragraph,
           })
         }
-        label="Save vision"
+        label="Save changes"
       />
     </div>
   );

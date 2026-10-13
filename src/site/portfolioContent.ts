@@ -164,6 +164,7 @@ function applyStory(content: SiteContent): void {
 
     setText(card.querySelector('.roadmap-title'), siteField(content, 'qualification_' + n + '_title'));
     setText(card.querySelector('.roadmap-takeaway'), siteField(content, 'qualification_' + n + '_desc'));
+    setText(card.querySelector('.roadmap-institution'), siteField(content, 'qualification_' + n + '_institution'));
 
     const timing = siteField(content, 'qualification_' + n + '_timing');
     if (!timing) continue;
@@ -495,103 +496,49 @@ function applyContact(content: SiteContent): void {
  * 6. Projects + Vision
  * ------------------------------------------------------------------ */
 
-/** Shallow-clone the shipped row (keeps its attributes), then rebuild the
-    children. Server copy only ever lands via textContent. */
-function buildBenefitItem(template: Element, benefit: string): HTMLLIElement {
-  const item = template.cloneNode(false) as HTMLLIElement;
-  item.className = 'benefit-keypoint-row';
-
-  const dot = document.createElement('span');
-  dot.className = 'benefit-dot-bullet';
-
-  const body = document.createElement('div');
-  const raw = text(benefit);
-  const split = raw.indexOf(': ');
-
-  if (split === -1) {
-    body.textContent = raw;
+/* The 3D project cards use .pj3d-* markup. The tag carries a decorative <i>
+   before its label, so only the trailing text node is rewritten. */
+function setTagLabel(tag: Element | null, value: string): void {
+  const clean = text(value);
+  if (!clean || !tag) return;
+  const last = tag.lastChild;
+  if (last && last.nodeType === Node.TEXT_NODE) {
+    last.textContent = clean;
   } else {
-    const label = document.createElement('strong');
-    label.textContent = raw.slice(0, split) + ':';
-    body.appendChild(label);
-    body.appendChild(document.createTextNode(' ' + raw.slice(split + 2)));
+    tag.appendChild(document.createTextNode(clean));
   }
-
-  item.appendChild(dot);
-  item.appendChild(body);
-  return item;
 }
 
-function applyBenefits(list: Element | null, benefits: string[]): void {
-  if (!list) return;
-
-  const incoming = benefits
-    .map(function (benefit) {
-      return text(benefit);
-    })
-    .filter(function (benefit) {
-      return benefit.length > 0;
-    });
-  if (!incoming.length) return;
-
-  const items = Array.prototype.slice.call(list.querySelectorAll('li')) as HTMLLIElement[];
-  if (!items.length) return;
-
-  const template = items[items.length - 1];
-
-  incoming.forEach(function (benefit, index) {
-    const built = buildBenefitItem(template, benefit);
-    const existing = items[index];
-    if (existing) {
-      list.replaceChild(built, existing);
-    } else {
-      list.appendChild(built);
-    }
-  });
-
-  /* Fewer benefits than the shipped list: drop the rows nothing maps to. */
-  items.slice(incoming.length).forEach(function (extra) {
-    if (extra && extra.parentNode) extra.parentNode.removeChild(extra);
-  });
-}
-
-/* The .project-box-preview-light mockups and the AI Videos wrapper are
-   page-authored art, so they are deliberately left alone here. */
-function applyProjectRow(row: Element, project: Project): void {
+/* Card art (cube emoji, floating chips, tag styling) is page-authored and is
+   deliberately left untouched; only the text, link and background change. */
+function applyProjectRow(card: Element, project: Project): void {
   if (!project) return;
 
-  const kicker = row.querySelector('.project-box-kicker');
-  if (kicker) {
-    const spans = kicker.querySelectorAll('span');
-    setText(spans[spans.length - 1], text(project.kicker));
+  if (text(project.title)) {
+    setText(card.querySelector('.pj3d-panel h3'), text(project.title));
   }
 
-  setText(row.querySelector('.project-box-title > span'), text(project.title));
+  // A descriptive body only lands when the admin filled one in; otherwise the
+  // page's own short line (e.g. "Let's Play Game") stays.
+  setText(card.querySelector('.pj3d-panel p'), text(project.description));
 
   const url = text(project.url);
   if (url) {
-    const action = row.querySelector('.project-box-action-btn');
+    const action = card.querySelector('.pj3d-btn');
     if (action) action.setAttribute('href', url);
-
-    const fallback = row.querySelector('.project-live-fallback-link');
-    if (fallback) fallback.setAttribute('href', url);
-
-    // Held in data-src so the live preview stays unloaded - and silent -
-    // until the visitor presses play. See installLivePreviewCovers().
-    const frame = row.querySelector('.project-live-frame iframe');
-    if (frame) {
-      frame.setAttribute('data-src', url);
-      frame.removeAttribute('src');
-      const frameWrap = frame.closest('.project-live-frame');
-      if (frameWrap) frameWrap.classList.remove('is-live');
-    }
   }
 
-  setText(row.querySelector('.beneficial-title'), text(project.beneficial_title));
+  setTagLabel(card.querySelector('.pj3d-tag'), text(project.kicker));
 
-  const benefits = Array.isArray(project.benefits) ? project.benefits : [];
-  if (benefits.length) {
-    applyBenefits(row.querySelector('.benefit-keypoints-list'), benefits);
+  const imageUrl = text(project.image_url);
+  if (imageUrl) {
+    const bg = card.querySelector('.pj3d-bg') as HTMLElement | null;
+    if (bg) {
+      const safeUrl = imageUrl.replace(/"/g, '%22');
+      bg.style.backgroundImage = 'url("' + safeUrl + '")';
+      bg.style.backgroundSize = 'cover';
+      bg.style.backgroundPosition = 'center';
+    }
   }
 }
 
@@ -611,8 +558,8 @@ function applyProjects(projects: Project[] | null, content: SiteContent | null):
 
   const source = Array.isArray(projects) && projects.length > 0 ? projects : DEFAULT_PROJECTS;
 
-  const rows = Array.prototype.slice.call(
-    document.querySelectorAll('#projects .project-showcase-row'),
+  const cards = Array.prototype.slice.call(
+    document.querySelectorAll('#projects .pj3d-card'),
   ) as Element[];
 
   source
@@ -621,9 +568,9 @@ function applyProjects(projects: Project[] | null, content: SiteContent | null):
       return (a.position || 0) - (b.position || 0);
     })
     .forEach(function (project, index) {
-      const row = rows[index];
-      if (!project || !row) return;
-      applyProjectRow(row, project);
+      const card = cards[index];
+      if (!project || !card) return;
+      applyProjectRow(card, project);
     });
 }
 

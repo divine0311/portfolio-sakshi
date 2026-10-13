@@ -387,8 +387,13 @@ body {
 }
 
 .studio-btn--danger {
-  background: var(--studio-danger);
-  color: var(--studio-white);
+  background: var(--studio-white);
+  color: var(--studio-danger);
+  box-shadow: inset 0 0 0 1.5px var(--studio-danger);
+}
+
+.studio-btn--danger:hover:not(:disabled) {
+  background: #fff5f4;
 }
 
 .studio-btn--ghost {

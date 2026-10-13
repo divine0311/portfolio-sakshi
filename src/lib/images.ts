@@ -89,6 +89,31 @@ export async function deleteSiteImage(slot: ImageSlot, storagePath: string): Pro
   return saveSiteImage({slot, storage_path: '', url: ''});
 }
 
+/** Uploads one project card image into the shared bucket; returns its URL. */
+export async function uploadProjectImage(
+  key: string,
+  file: File,
+): Promise<{ok: true; url: string} | {ok: false; error: string}> {
+  if (!supabase) return {ok: false, error: 'Supabase is not configured'};
+  const invalid = validateImageFile(file);
+  if (invalid) return {ok: false, error: invalid};
+
+  const ext = (file.name.split('.').pop() || 'jpg').toLowerCase().replace(/[^a-z0-9]/g, '');
+  const safe =
+    key
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '')
+      .slice(0, 40) || 'project';
+  const path = `projects/${safe}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+
+  const {error} = await supabase.storage
+    .from(BUCKET)
+    .upload(path, file, {cacheControl: '3600', upsert: false, contentType: file.type});
+  if (error) return {ok: false, error: error.message};
+  return {ok: true, url: publicUrl(path)};
+}
+
 export async function saveSiteImage(
   patch: Partial<SiteImage> & {slot: ImageSlot},
 ): Promise<SaveResult> {

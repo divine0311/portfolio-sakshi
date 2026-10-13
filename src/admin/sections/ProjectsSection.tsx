@@ -1,6 +1,7 @@
-import {useState} from 'react';
-import {ExternalLink, Pencil, Plus, Trash2, X} from 'lucide-react';
+import {useRef, useState} from 'react';
+import {ExternalLink, Pencil, Plus, Trash2, Upload, X} from 'lucide-react';
 import {Field, SaveBar, StudioInput, StudioTextarea} from '../fields';
+import {uploadProjectImage} from '../../lib/images';
 import {
   deleteProject,
   saveProject,
@@ -49,7 +50,9 @@ export default function ProjectsSection({
   const [draft, setDraft] = useState<Project | null>(null);
   const [editingKey, setEditingKey] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [notice, setNotice] = useState<{tone: 'ok' | 'bad'; text: string} | null>(null);
+  const imageInput = useRef<HTMLInputElement>(null);
 
   const flash = (tone: 'ok' | 'bad', text: string) => {
     setNotice({tone, text});
@@ -128,6 +131,19 @@ export default function ProjectsSection({
     }
     onProjectsChange(projects.filter((item) => item.key !== project.key));
     flash('ok', 'Project deleted.');
+  };
+
+  const handleImage = async (file: File | undefined | null) => {
+    if (!file || !draft) return;
+    setUploading(true);
+    const result = await uploadProjectImage(draft.key, file);
+    setUploading(false);
+    if (!result.ok) {
+      flash('bad', result.error);
+      return;
+    }
+    updateProject(draft.key, {image_url: result.url});
+    flash('ok', 'Project image uploaded.');
   };
 
   return (
@@ -227,6 +243,49 @@ export default function ProjectsSection({
               placeholder="https://your-app.vercel.app"
               onChange={(value) => updateProject(draft.key, {url: value})}
             />
+          </Field>
+          <Field label="Description" hint="Shown on the 3D project card. Leave blank to keep the current line.">
+            <StudioTextarea
+              rows={2}
+              value={draft.description ?? ''}
+              onChange={(value) => updateProject(draft.key, {description: value})}
+            />
+          </Field>
+          <Field label="Card image" hint="Optional background picture for the 3D card.">
+            <input
+              ref={imageInput}
+              type="file"
+              accept="image/jpeg,image/png,image/webp,image/gif,image/avif"
+              hidden
+              onChange={(event) => {
+                void handleImage(event.target.files?.[0]);
+                event.target.value = '';
+              }}
+            />
+            <div className="studio-inline-add">
+              <button
+                type="button"
+                className="studio-ghost-btn"
+                disabled={uploading}
+                onClick={() => imageInput.current?.click()}
+              >
+                <Upload size={16} strokeWidth={2} aria-hidden="true" />
+                <span>{uploading ? 'Uploading…' : draft.image_url ? 'Replace image' : 'Upload image'}</span>
+              </button>
+              {draft.image_url ? (
+                <button
+                  type="button"
+                  className="studio-ghost-btn studio-ghost-btn--danger"
+                  onClick={() => updateProject(draft.key, {image_url: ''})}
+                >
+                  <Trash2 size={16} strokeWidth={2} aria-hidden="true" />
+                  <span>Remove</span>
+                </button>
+              ) : null}
+            </div>
+            {draft.image_url ? (
+              <p className="studio-note">Image saved — shown on the card once the project is saved.</p>
+            ) : null}
           </Field>
           <Field label="Benefits heading">
             <StudioInput
