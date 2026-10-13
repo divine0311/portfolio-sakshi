@@ -14,9 +14,29 @@
     <link
       href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,400&display=swap"
       rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
     />
     <link rel="canonical" href="/blog" />
     <link rel="stylesheet" href="/src/site/blog.css" />
+
+    <meta name="bing-site-verification" content="PASTE-BING-VERIFICATION-CODE-HERE" />
+    <script>
+      (function () {
+        var GA4_ID = 'G-XXXXXXXXXX';
+        var isPlaceholder = GA4_ID === 'G-XXXXXXXXXX';
+        if (isPlaceholder) return;
+        if (/localhost|127\.0\.0\.1|192\.168\.|^0\.0\.0\.0/.test(location.hostname)) return;
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA4_ID;
+        document.head.appendChild(s);
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function () { dataLayer.push(arguments); };
+        window.gtag('js', new Date());
+        window.gtag('config', GA4_ID);
+      })();
+    </script>
   </head>
   <body class="blog-body">
     <div class="prog" id="prog" aria-hidden="true"></div>
