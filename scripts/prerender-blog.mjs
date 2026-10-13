@@ -248,17 +248,35 @@ const listing = applyHead(listTemplate.replace(/<main id="app"[\s\S]*?<\/main>/,
   canonical: `${siteUrl}/blog`,
   jsonLd: {
     '@context': 'https://schema.org',
-    '@type': 'Blog',
-    name: 'Sakshi Gill Blog',
-    url: `${siteUrl}/blog`,
-    description:
-      "Insights on AI-powered marketing, content strategy and creative tools from Kaithal's digital marketing specialist.",
-    blogPost: posts.map((p) => ({
-      '@type': 'BlogPosting',
-      headline: p.title,
-      url: `${siteUrl}/blog/${p.slug}`,
-      datePublished: p.date,
-    })),
+    '@graph': [
+      {
+        '@type': 'Blog',
+        '@id': `${siteUrl}/blog#blog`,
+        name: 'Sakshi Gill Blog',
+        url: `${siteUrl}/blog`,
+        description:
+          "Insights on AI-powered marketing, content strategy and creative tools from Kaithal's digital marketing specialist.",
+        inLanguage: 'en',
+        publisher: {
+          '@type': 'Person',
+          name: 'Sakshi Gill',
+          url: `${siteUrl}/#home`,
+        },
+        blogPost: posts.map((p) => ({
+          '@type': 'BlogPosting',
+          headline: p.title,
+          url: `${siteUrl}/blog/${p.slug}`,
+          datePublished: p.date,
+        })),
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {'@type': 'ListItem', position: 1, name: 'Home', item: siteUrl},
+          {'@type': 'ListItem', position: 2, name: 'Blog', item: `${siteUrl}/blog`},
+        ],
+      },
+    ],
   },
 });
 writeFileSync(join(listDir, 'index.html'), listing);
@@ -309,19 +327,42 @@ for (const p of posts) {
 
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'BlogPosting',
-    headline: p.title,
-    description: p.metaDescription,
-    url: `${siteUrl}/blog/${p.slug}`,
-    mainEntityOfPage: `${siteUrl}/blog/${p.slug}`,
-    datePublished: p.date,
-    dateModified: p.date,
-    articleSection: p.category,
-    wordcount: p.body.replace(/<[^>]*>/g, ' ').trim().split(/\s+/).length,
-    timeRequired: p.read,
-    inLanguage: 'en',
-    author: {'@type': 'Person', name: p.author || AUTHOR, url: `${siteUrl}/#home`},
-    publisher: {'@type': 'Person', name: AUTHOR, url: `${siteUrl}/#home`},
+    '@graph': [
+      {
+        '@type': 'BlogPosting',
+        headline: p.title,
+        description: p.metaDescription,
+        image: `${siteUrl}/sakshi_portrait.jpg`,
+        url: `${siteUrl}/blog/${p.slug}`,
+        mainEntityOfPage: `${siteUrl}/blog/${p.slug}`,
+        datePublished: p.date,
+        dateModified: p.date,
+        articleSection: p.category,
+        wordcount: p.body.replace(/<[^>]*>/g, ' ').trim().split(/\s+/).length,
+        timeRequired: p.read,
+        inLanguage: 'en',
+        author: {'@type': 'Person', name: p.author || AUTHOR, url: `${siteUrl}/#home`},
+        publisher: {
+          '@type': 'Person',
+          name: AUTHOR,
+          url: `${siteUrl}/#home`,
+          image: `${siteUrl}/sakshi_portrait.jpg`,
+        },
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {'@type': 'ListItem', position: 1, name: 'Home', item: siteUrl},
+          {'@type': 'ListItem', position: 2, name: 'Blog', item: `${siteUrl}/blog`},
+          {
+            '@type': 'ListItem',
+            position: 3,
+            name: p.title,
+            item: `${siteUrl}/blog/${p.slug}`,
+          },
+        ],
+      },
+    ],
   };
 
   const canonical = `${siteUrl}/blog/${p.slug}`;
