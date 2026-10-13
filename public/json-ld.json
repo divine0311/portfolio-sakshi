@@ -1,0 +1,58 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://sakshigill.com/#person",
+      "name": "Sakshi Gill",
+      "alternateName": ["Sakshi", "Sakshi Gill Portfolio"],
+      "url": "https://sakshigill.com/",
+      "image": "https://sakshigill.com/sakshi_portrait.jpg",
+      "jobTitle": "Digital Marketer, AI Developer & Creative Strategist",
+      "description": "Sakshi Gill is a Digital Marketer, AI Developer, Editor and Creative Strategist from Kaithal, Haryana, India, specializing in AI-powered marketing and content strategy.",
+      "email": "mailto:divinesakshi03@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Kaithal",
+        "addressRegion": "Haryana",
+        "addressCountry": "IN"
+      },
+      "nationality": {"@type": "Country", "name": "India"},
+      "knowsAbout": [
+        "Digital Marketing",
+        "Artificial Intelligence",
+        "Content Strategy",
+        "SEO",
+        "Generative AI",
+        "Web Design",
+        "Video Editing",
+        "Creative Strategy"
+      ],
+      "alumniOf": {
+        "@type": "CollegeOrUniversity",
+        "name": "Indira Gandhi College, Kurukshetra University"
+      },
+      "sameAs": [
+        "https://linkedin.com/in/sakshigill",
+        "https://github.com/divine0311"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://sakshigill.com/#website",
+      "url": "https://sakshigill.com/",
+      "name": "Sakshi Gill",
+      "description": "Official portfolio of Sakshi Gill — Digital Marketer, AI Developer & Creative Strategist.",
+      "inLanguage": "en",
+      "publisher": {"@id": "https://sakshigill.com/#person"}
+    },
+    {
+      "@type": "ProfilePage",
+      "@id": "https://sakshigill.com/#profilepage",
+      "url": "https://sakshigill.com/",
+      "name": "Sakshi Gill — Digital Marketer, AI Developer & Creative Strategist",
+      "isPartOf": {"@id": "https://sakshigill.com/#website"},
+      "mainEntity": {"@id": "https://sakshigill.com/#person"}
+    }
+  ]
+}
