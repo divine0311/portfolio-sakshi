@@ -386,9 +386,16 @@ if (existsSync(indexPath)) {
 }
 
 /* sitemap */
+const SERVICE_PAGES = [
+  {loc: `${siteUrl}/ai-developer`, priority: '0.7'},
+  {loc: `${siteUrl}/digital-marketer`, priority: '0.7'},
+  {loc: `${siteUrl}/editor`, priority: '0.7'},
+];
+
 const urls = [
   {loc: `${siteUrl}/`, priority: '1.0'},
   {loc: `${siteUrl}/blog`, priority: '0.8'},
+  ...SERVICE_PAGES,
   ...posts.map((p) => ({loc: `${siteUrl}/blog/${p.slug}`, lastmod: p.date, priority: '0.6'})),
 ];
 

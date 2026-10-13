@@ -51,9 +51,36 @@ function blogRoute(): Plugin {
   };
 }
 
+// SEO service pages: /ai-developer -> ai-developer.html, and the same pattern
+// for /digital-marketer and /editor, in both `vite dev` and `vite preview`.
+function serviceRoute(): Plugin {
+  const map: Record<string, string> = {
+    '/ai-developer': 'ai-developer.html',
+    '/digital-marketer': 'digital-marketer.html',
+    '/editor': 'editor.html',
+  };
+  const rewrite = (req: IncomingMessage, _res: ServerResponse, next: () => void) => {
+    const url = (req.url ?? '').split('?')[0];
+    const clean = url.endsWith('/') ? url.slice(0, -1) : url;
+    if (map[clean]) {
+      req.url = '/' + map[clean];
+    }
+    next();
+  };
+  return {
+    name: 'service-route',
+    configureServer(server) {
+      server.middlewares.use(rewrite);
+    },
+    configurePreviewServer(server) {
+      server.middlewares.use(rewrite);
+    },
+  };
+}
+
 export default defineConfig(() => {
   return {
-    plugins: [react(), tailwindcss(), adminRoute(), blogRoute()],
+    plugins: [react(), tailwindcss(), adminRoute(), blogRoute(), serviceRoute()],
     build: {
       rollupOptions: {
         input: {
@@ -61,6 +88,9 @@ export default defineConfig(() => {
           admin: path.resolve(__dirname, 'admin.html'),
           blog: path.resolve(__dirname, 'blog.html'),
           'blog-post': path.resolve(__dirname, 'blog-post.html'),
+          'ai-developer': path.resolve(__dirname, 'ai-developer.html'),
+          'digital-marketer': path.resolve(__dirname, 'digital-marketer.html'),
+          editor: path.resolve(__dirname, 'editor.html'),
         },
       },
     },

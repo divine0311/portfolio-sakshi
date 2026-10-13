@@ -19,6 +19,34 @@
     {
       "source": "/blog/:path*",
       "destination": "/blog/:path*/index.html"
+    },
+    {
+      "source": "/ai-developer",
+      "destination": "/ai-developer.html"
+    },
+    {
+      "source": "/ai-developer/",
+      "destination": "/ai-developer.html"
+    },
+    {
+      "source": "/digital-marketer",
+      "destination": "/digital-marketer.html"
+    },
+    {
+      "source": "/digital-marketer/",
+      "destination": "/digital-marketer.html"
+    },
+    {
+      "source": "/editor",
+      "destination": "/editor.html"
+    },
+    {
+      "source": "/editor/",
+      "destination": "/editor.html"
+    },
+    {
+      "source": "/404",
+      "destination": "/404.html"
     }
   ]
 }

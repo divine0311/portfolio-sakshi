@@ -3307,6 +3307,7 @@
     <ul class="floating-nav-list" id="nav-pill-list">
       <li><a href="#home" class="nav-pill-btn active" data-target="home">Home</a></li>
       <li><a href="#my-story" class="nav-pill-btn" data-target="my-story">My Journey</a></li>
+      <li><a href="#services" class="nav-pill-btn" data-target="services">Services</a></li>
       <li><a href="#projects" class="nav-pill-btn" data-target="projects">Projects</a></li>
       <li><a href="#vision" class="nav-pill-btn" data-target="vision">Vision</a></li>
       <li><a href="#connect" class="nav-pill-btn" data-target="connect">Connect</a></li>
@@ -3546,6 +3547,60 @@
           Every phase of my progression has been shaped by an obsession with mastery: diving into emerging AI tools before they became mainstream, deconstructing what makes narrative stick, and constantly testing new creative frameworks. Growth is not an accident — it is an intentional, relentless practice.
         </p>
 
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       6.5 SEO SERVICES (id="services")
+       Three short role summaries that link to the dedicated service pages:
+       /ai-developer, /digital-marketer and /editor. Light cream background,
+       hover lift cards, red accent labels — matches the site palette.
+       ========================================================================= -->
+  <style>
+    .seo-services { padding: 5.5rem 0; background: var(--warm-cream); }
+    .seo-services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2.25rem; }
+    .seo-service-card { background: #ffffff; border: 1px solid rgba(26,26,26,0.09); border-radius: 18px; padding: 1.75rem 1.6rem; box-shadow: 0 1px 2px rgba(26,26,26,0.04); transition: transform .22s ease, box-shadow .22s ease; }
+    .seo-service-card:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(26,26,26,0.10); }
+    .seo-service-card .section-label { color: var(--card-charcoal); }
+    .seo-service-card h3 { font-family: var(--font-serif); font-size: 1.45rem; margin: 0.65rem 0 0.6rem; color: var(--deep-charcoal); }
+    .seo-service-card p { font-size: 0.99rem; line-height: 1.75; color: var(--body-mid, #555); margin-bottom: 1.05rem; }
+    .seo-service-link { font-weight: 700; font-size: 0.95rem; color: var(--card-charcoal); text-decoration: none; }
+    .seo-service-link:hover { text-decoration: underline; }
+    @media (max-width: 900px) { .seo-services-grid { grid-template-columns: 1fr; } }
+  </style>
+
+  <section id="services" class="seo-services" aria-label="Services">
+    <div class="container">
+      <span class="section-label">Services</span>
+      <h2 class="editorial-quote-accent" style="font-style: normal; font-size: clamp(2.4rem, 4vw, 3.2rem); color: var(--deep-charcoal); letter-spacing: -0.02em; margin-bottom: 0.4rem;">
+        What I do for growing brands
+      </h2>
+      <p style="max-width: 620px; color: var(--body-mid, #555);">
+        Three areas where I help local businesses in Kaithal and beyond win attention and convert it into enquiries.
+      </p>
+
+      <div class="seo-services-grid">
+        <div class="seo-service-card">
+          <span class="section-label">AI Developer</span>
+          <h3>Practical AI for real business</h3>
+          <p>I build AI solutions that work inside your business — chatbots that answer customers 24×7, WhatsApp lead flows, content automation and AI-assisted websites that turn visitors into enquiries instead of sitting in a folder.</p>
+          <a class="seo-service-link" href="/ai-developer">AI Development in Kaithal →</a>
+        </div>
+
+        <div class="seo-service-card">
+          <span class="section-label">Digital Marketer</span>
+          <h3>Local marketing that brings enquiries</h3>
+          <p>Shops, clinics, coaching institutes and restaurants in Kaithal need to be found on Google and Instagram. I build simple plans around your Google Business Profile, consistent reels and posts, and tracking that measures calls and visits — not just likes.</p>
+          <a class="seo-service-link" href="/digital-marketer">Digital Marketing in Kaithal →</a>
+        </div>
+
+        <div class="seo-service-card">
+          <span class="section-label">Photo &amp; Video Editor</span>
+          <h3>Edits that hold the first two seconds</h3>
+          <p>I create scroll-stopping reels, YouTube Shorts, ads and photo sets for local brands — pacing, cut-on-beat edits, clean captions and colour work in InShot, CapCut and VN, finished on time and ready to post.</p>
+          <a class="seo-service-link" href="/editor">Photo &amp; Video Editing →</a>
+        </div>
       </div>
     </div>
   </section>
@@ -4105,6 +4160,13 @@
         <div>
           <div class="footer-brand">Sakshi <span>Gill</span></div>
           <div class="footer-copy">&copy; <span id="current-year">2026</span> Sakshi Gill. Crafted with passion, storytelling &amp; AI.</div>
+          <div class="footer-links" style="margin-top:10px; display:flex; flex-wrap:wrap; gap:10px; font-size:13px;">
+            <a href="/ai-developer" style="color:rgba(245,230,200,.85); text-decoration:none;">AI Development</a>
+            <span style="color:rgba(245,230,200,.4);">·</span>
+            <a href="/digital-marketer" style="color:rgba(245,230,200,.85); text-decoration:none;">Digital Marketing</a>
+            <span style="color:rgba(245,230,200,.4);">·</span>
+            <a href="/editor" style="color:rgba(245,230,200,.85); text-decoration:none;">Photo &amp; Video Editing</a>
+          </div>
         </div>
 
         <div class="footer-social-links">
@@ -4406,7 +4468,7 @@
 
       // 4. FLOATING NAVBAR ACTIVE SECTION DETECTION
       // Section IDs matching navbar items: #home, #my-story, #projects, #vision, #connect
-      const sectionIds = ['home', 'my-story', 'projects', 'vision', 'connect'];
+      const sectionIds = ['home', 'my-story', 'services', 'projects', 'vision', 'connect'];
       const navButtons = document.querySelectorAll('.nav-pill-btn[data-target]');
       let isBlogRoute = false;
 
