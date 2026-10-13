@@ -63,7 +63,7 @@ export const DEFAULT_SITE_CONTENT: SiteContent = {
     '"The boldest stories are written by those willing to dismantle yesterday’s assumptions."',
     'Every phase of my progression has been shaped by an obsession with mastery: diving into emerging AI tools before they became mainstream, deconstructing what makes narrative stick, and constantly testing new creative frameworks. Growth is not an accident — it is an intentional, relentless practice.',
   ],
-  contact_email: 'divinesakshi03gmail.com@gmail.com',
+  contact_email: 'divinesakshi03@gmail.com',
   contact_phone: '',
   contact_linkedin: 'https://www.linkedin.com/in/sakshigill',
   projects_label: 'Portfolio & Works',

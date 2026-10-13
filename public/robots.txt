@@ -5,9 +5,6 @@ Allow: /
 # Sitemap location
 Sitemap: https://sakshigill.com/sitemap.xml
 
-# Crawl-delay for polite crawling
-Crawl-delay: 10
-
 # Disallow admin/private routes (not accessible anyway)
 Disallow: /admin/
 Disallow: /api/

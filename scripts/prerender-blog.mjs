@@ -148,6 +148,8 @@ function applyHead(html, {title, description, canonical, jsonLd}) {
     `<meta property="og:description" content="${esc(description)}" />`,
     `<meta property="og:type" content="website" />`,
     `<meta property="og:url" content="${esc(canonical)}" />`,
+    `<meta property="og:image" content="${siteUrl}/sakshi_portrait.jpg" />`,
+    `<meta property="og:site_name" content="Sakshi Gill" />`,
     `<meta name="twitter:card" content="summary_large_image" />`,
   ].join('\n    ');
 
