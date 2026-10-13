@@ -132,6 +132,21 @@ function prettyDate(value) {
   return d.toLocaleDateString('en-IN', {day: 'numeric', month: 'short', year: 'numeric'});
 }
 
+/* Category -> relevant service page, used for internal SEO links. */
+const SERVICE_LINKS = {
+  'Digital Marketing': {href: '/digital-marketer', label: 'digital marketing services in Kaithal'},
+  'AI Tools': {href: '/ai-developer', label: 'AI development services in Kaithal'},
+  Editing: {href: '/editor', label: 'photo &amp; video editing services in Kaithal'},
+  'Web Design': {href: '/ai-developer', label: 'AI-assisted website design'},
+};
+
+function serviceCta(category = '') {
+  const s = SERVICE_LINKS[category];
+  return s
+    ? `<div class="go-deeper">Looking for this? Explore <a href="${s.href}">${s.label}</a> or <a href="/#projects">see my portfolio work</a>.</div>`
+    : '';
+}
+
 /* ---------------- head blocks ---------------- */
 
 function applyHead(html, {title, description, canonical, jsonLd}) {
@@ -305,6 +320,7 @@ for (const p of posts) {
     `<p>${esc(p.read)} • ${esc(p.author || AUTHOR)} • ${esc(prettyDate(p.date))}</p>` +
     '</header>' +
     `<div class="prose">${p.body}</div>` +
+    serviceCta(p.category) +
     '<div class="cta">Like this? I write about AI, marketing and creative tools every week. ' +
     'Read more at <a href="/blog">the blog</a>.</div>' +
     '<div class="author">' +

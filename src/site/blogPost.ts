@@ -26,6 +26,21 @@ function escapeHtml(value: string): string {
     .replace(/"/g, '&quot;');
 }
 
+/** Category -> relevant service page, used for internal SEO links. */
+const SERVICE_LINKS: Record<string, {href: string; label: string}> = {
+  'Digital Marketing': {href: '/digital-marketer', label: 'digital marketing services in Kaithal'},
+  'AI Tools': {href: '/ai-developer', label: 'AI development services in Kaithal'},
+  Editing: {href: '/editor', label: 'photo &amp; video editing services in Kaithal'},
+  'Web Design': {href: '/ai-developer', label: 'AI-assisted website design'},
+};
+
+function serviceCta(category = ''): string {
+  const s = SERVICE_LINKS[category];
+  return s
+    ? `<div class="go-deeper">Looking for this? Explore <a href="${s.href}">${s.label}</a> or <a href="/#projects">see my portfolio work</a>.</div>`
+    : '';
+}
+
 function dateOf(p: BlogPost): string {
   return p.published_at || p.date;
 }
@@ -165,6 +180,7 @@ function render(): void {
     `<p>${escapeHtml(p.read_time || '')} • ${escapeHtml(p.author || AUTHOR)} • ${escapeHtml(prettyDate(dateOf(p)))}</p>` +
     '</header>' +
     `<div class="prose">${bodyOf(p)}</div>` +
+    serviceCta(p.category || '') +
     '<div class="cta">Like this? I write about AI, marketing and creative tools every week. ' +
     `Read more at <a href="${LINKS.blog}">the blog</a>.</div>` +
     '<div class="author">' +

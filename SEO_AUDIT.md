@@ -88,3 +88,34 @@ Good Communicator / Chatbot Creator / Content Creator / Web Designer / Digital M
 - Inline Person/WebSite/ProfilePage JSON-LD.
 - Build-time sitemap/robots generation (once SITE_URL is set).
 - Alt text on the one real image; lazy/hidden content is script-rendered but prerendered HTML is crawlable.
+
+---
+
+## Blog post analysis (before)
+
+All 8 seed posts live in `src/site/blogSeed.json` (the single source used by both the runtime and the build-time prerender; Supabase `blog_posts` table is empty and the `published` column migration has not been run).
+
+| slug | title | words | category | meta desc | H1/H2 | internal links | images/alt | date |
+|---|---|---|---|---|---|---|---|---|
+| best-communicator-in-kaithal | Good Communicator: Clear Words That Win Clients | 225 | Digital Marketing | yes | 1 H1 / 5 H2 (build) | none in body; related block via prerender | none | 2026-09-30 |
+| best-chatbot-creator-in-kaithal | Chatbot Creator: Answers Customers 24/7 | 223 | AI Tools | yes | 1 H1 / 5 H2 | none | none | 2026-09-30 |
+| best-content-creator-in-kaithal | Best Content Creator in Kaithal | 206 | Digital Marketing | yes | 1 H1 / 5 H2 | none | none | 2026-09-30 |
+| best-web-designer-in-kaithal | Best Web Designer in Kaithal | 286 | Web Design | yes | 1 H1 / 6 H2 | none | none | 2026-09-30 |
+| best-digital-marketer-in-kaithal | Best Digital Marketer in Kaithal | 268 | Digital Marketing | yes | 1 H1 / 4 H2 | none | none | 2026-09-28 |
+| ai-skills-on-top-my-toolkit | AI Skills on Top: My Toolkit | 262 | AI Tools | yes | 1 H1 / 5 H2 | none | none | 2026-09-25 |
+| best-editor-in-kaithal | Best Video Editor in Kaithal | 247 | Editing | yes | 1 H1 / 5 H2 | none | none | 2026-09-22 |
+| top-content-strategist-in-kaithal | Top Content Strategist in Kaithal | 237 | Digital Marketing | yes | 1 H1 / 4 H2 | none | none | 2026-09-19 |
+
+Notes:
+- Slugs are already short and keyword-based (lowercase, hyphens, no dates/IDs) — no slug changes needed.
+- Weak titles that did not lead with the keyword: "Good Communicator…" and "Chatbot Creator…" → rewritten to lead with "Best … in Kaithal".
+- Prerender already injects "Related Articles" cross-links on each post; body text had no links to service pages or the homepage → added a category-based "Looking for this?" service link (go-deeper CTA) in prerender + runtime.
+- No images are used in blog cards/posts (CSS glyph cubes) → no alt-text work needed.
+- Publish dates present; `published`/`author` columns in Supabase need `supabase/blog-modernisation.sql` to run before Supabase can host new posts.
+
+## Suggested 5 new posts (user-selected topics, in priority order)
+1. **Google Business Profile for Kaithal Businesses: A Complete Checklist** — target "Google Business Profile Kaithal" / local SEO. Draft created at `content/drafts/google-business-profile-kaithal-checklist.md` (not published).
+2. **ChatGPT for Small Business Marketing: 10 Real Ways to Use It** — target "ChatGPT for business" / AI marketing tools.
+3. **WhatsApp Chatbots That Capture Leads While You Sleep** — target "WhatsApp chatbot for business" (distinct from the profile-level chatbot post: lead-flow focused).
+4. **Small Business Website SEO: A 7-Point Starter Checklist** — target "small business website SEO" (pairs with /ai-developer).
+5. **AI Video Editing for Reels: Cut, Caption and Colour Faster** — target "AI video editing" / "reels editing tips" (pairs with /editor).

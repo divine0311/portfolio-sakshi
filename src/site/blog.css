@@ -658,6 +658,21 @@ article p {
   max-width: 68ch;
 }
 
+.go-deeper {
+  margin: 28px 0 0;
+  padding: 14px 18px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--g1);
+  font-size: 15px;
+}
+
+.go-deeper a {
+  color: var(--cream);
+  font-weight: 600;
+}
+
 .cta {
   margin-top: 40px;
   background: var(--cg);
