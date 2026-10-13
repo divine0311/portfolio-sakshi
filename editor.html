@@ -45,11 +45,17 @@
     "@graph": [
       {
         "@type": "Service",
+        "@id": "https://sakshigill.com/editor#service",
         "name": "Photo & Video Editing in Kaithal",
         "url": "https://sakshigill.com/editor",
         "serviceType": "Video editing, reels, YouTube Shorts, ads and photo retouching",
-        "areaServed": {"@type": "City", "name": "Kaithal"},
+        "areaServed": [
+          {"@type": "City", "name": "Kaithal"},
+          {"@type": "Country", "name": "India"}
+        ],
+        "availableLanguage": ["en", "hi"],
         "provider": {"@id": "https://sakshigill.com/#person"},
+        "mainEntityOfPage": {"@type": "WebPage", "@id": "https://sakshigill.com/editor"},
         "description": "Sakshi Gill is a photo and video editor in Kaithal creating scroll-stopping reels, ads and photo sets for local brands, edited for the platform they are posted on."
       },
       {

@@ -132,6 +132,12 @@ function prettyDate(value) {
   return d.toLocaleDateString('en-IN', {day: 'numeric', month: 'short', year: 'numeric'});
 }
 
+/* "3 min read" -> ISO-8601 duration "PT3M" for schema.org timeRequired. */
+function toDuration(read = '') {
+  const n = parseInt(String(read).trim(), 10);
+  return Number.isFinite(n) && n > 0 ? `PT${n}M` : '';
+}
+
 /* Category -> relevant service page, used for internal SEO links. */
 const SERVICE_LINKS = {
   'Digital Marketing': {href: '/digital-marketer', label: 'digital marketing services in Kaithal'},
@@ -272,11 +278,7 @@ const listing = applyHead(listTemplate.replace(/<main id="app"[\s\S]*?<\/main>/,
         description:
           "Insights on AI-powered marketing, content strategy and creative tools from Kaithal's digital marketing specialist.",
         inLanguage: 'en',
-        publisher: {
-          '@type': 'Person',
-          name: 'Sakshi Gill',
-          url: `${siteUrl}/#home`,
-        },
+        publisher: {'@id': `${siteUrl}/#person`},
         blogPost: posts.map((p) => ({
           '@type': 'BlogPosting',
           headline: p.title,
@@ -341,27 +343,43 @@ for (const p of posts) {
     `<button class="btn" type="button" onclick="location.href='/#connect'">Get in touch</button>` +
     '</section>';
 
+  const canonical = `${siteUrl}/blog/${p.slug}`;
+
   const jsonLd = {
     '@context': 'https://schema.org',
     '@graph': [
       {
         '@type': 'BlogPosting',
+        '@id': `${canonical}#article`,
         headline: p.title,
         description: p.metaDescription,
-        image: `${siteUrl}/sakshi_portrait.jpg`,
-        url: `${siteUrl}/blog/${p.slug}`,
-        mainEntityOfPage: `${siteUrl}/blog/${p.slug}`,
+        image: {
+          '@type': 'ImageObject',
+          url: `${siteUrl}/sakshi_portrait.jpg`,
+          contentUrl: `${siteUrl}/sakshi_portrait.jpg`,
+          caption: `${p.title} — Sakshi Gill Blog`,
+          width: 1376,
+          height: 768,
+        },
+        url: canonical,
+        mainEntityOfPage: {'@type': 'WebPage', '@id': canonical},
         datePublished: p.date,
         dateModified: p.date,
         articleSection: p.category,
-        wordcount: p.body.replace(/<[^>]*>/g, ' ').trim().split(/\s+/).length,
-        timeRequired: p.read,
+        wordCount: p.body.replace(/<[^>]*>/g, ' ').trim().split(/\s+/).length,
+        timeRequired: toDuration(p.read),
+        keywords: [p.category],
         inLanguage: 'en',
-        author: {'@type': 'Person', name: p.author || AUTHOR, url: `${siteUrl}/#home`},
+        isPartOf: {'@type': 'Blog', '@id': `${siteUrl}/blog#blog`},
+        author: {
+          '@type': 'Person',
+          '@id': `${siteUrl}/#person`,
+          name: p.author || AUTHOR,
+        },
         publisher: {
           '@type': 'Person',
+          '@id': `${siteUrl}/#person`,
           name: AUTHOR,
-          url: `${siteUrl}/#home`,
           image: `${siteUrl}/sakshi_portrait.jpg`,
         },
       },
@@ -381,7 +399,6 @@ for (const p of posts) {
     ],
   };
 
-  const canonical = `${siteUrl}/blog/${p.slug}`;
   const html = applyHead(
     postTemplate.replace(/<main id="post"[\s\S]*?<\/main>/, `<main id="post" class="blog-wrap">${article}</main>`),
     {title: p.metaTitle, description: p.metaDescription, canonical, jsonLd},

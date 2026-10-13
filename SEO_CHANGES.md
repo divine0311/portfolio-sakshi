@@ -35,6 +35,12 @@ Commits (in order):
 - `public/json-ld.json` — same Person fixes (kept consistent).
 - `scripts/prerender-blog.mjs` — blog listing now emits **Blog + BreadcrumbList** (`@graph`); each post emits **BlogPosting + BreadcrumbList** (`@graph`) with `image`, and publisher Person now has `image`. All blocks validated with `JSON.parse`.
 - Home already had FAQPage, Person, WebSite, ProfilePage (verified valid).
+- **Final enrichment pass (see commit "seo: enrich structured data"):**
+  - `index.html` + `public/json-ld.json` — graph now a fully connected set of `@id`s: `ImageObject #portrait` (1376×768, caption, encodingFormat); Person gains `givenName`, `familyName`, `knowsLanguage ["en","hi"]` and an `image` ref to `#portrait`; WebSite gains `alternateName` + `isFamilyFriendly`; ProfilePage gains `description`/`inLanguage`/`image`.
+  - BlogPosting per post: added `@id #article`, `isPartOf` → `blog#blog`, `keywords`, fixed invalid `wordcount` → `wordCount`, `timeRequired` is now ISO-8601 (`"3 min read"` → `PT3M`) instead of a raw string, `mainEntityOfPage` is now a `WebPage` object with `@id`, `image` is an `ImageObject` with dimensions, author/publisher reference the `#person` node on the home page (connected graph).
+  - Listing Blog publisher points to the home `#person` node instead of a duplicate inline Person.
+  - Service pages: Service node gains `@id`, `areaServed` expanded to `[City Kaithal, Country India]`, plus `availableLanguage ["en","hi"]` and `mainEntityOfPage`.
+  - Every JSON-LD block on the built site re-validated (15/15 parse OK).
 
 ## Step 4 — On-page content + service pages
 - **New pages:** `ai-developer.html`, `digital-marketer.html`, `editor.html` — each a self-contained brand-styled page with unique title/H1/meta, Service + BreadcrumbList JSON-LD, ~300+ words of genuine content, CTA to `/#connect`, and cross-links to the other two services.

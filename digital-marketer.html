@@ -45,11 +45,17 @@
     "@graph": [
       {
         "@type": "Service",
+        "@id": "https://sakshigill.com/digital-marketer#service",
         "name": "Digital Marketing in Kaithal",
         "url": "https://sakshigill.com/digital-marketer",
         "serviceType": "Local SEO, social media content, short video and enquiry-focused marketing",
-        "areaServed": {"@type": "City", "name": "Kaithal"},
+        "areaServed": [
+          {"@type": "City", "name": "Kaithal"},
+          {"@type": "Country", "name": "India"}
+        ],
+        "availableLanguage": ["en", "hi"],
         "provider": {"@id": "https://sakshigill.com/#person"},
+        "mainEntityOfPage": {"@type": "WebPage", "@id": "https://sakshigill.com/digital-marketer"},
         "description": "Sakshi Gill is a digital marketer in Kaithal who builds simple marketing plans focused on enquiries, calls and store visits — not vanity metrics."
       },
       {
