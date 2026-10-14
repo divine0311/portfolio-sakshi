@@ -432,14 +432,51 @@ const urls = [
   ...posts.map((p) => ({loc: `${siteUrl}/blog/${p.slug}`, lastmod: p.date, priority: '0.6'})),
 ];
 
+/* Image sitemap — helps "Sakshi Gill" photos surface in Google image search */
+const HOME_IMAGES = [
+  {
+    loc: `${siteUrl}/sakshi_portrait.jpg`,
+    title: 'Sakshi Gill — AI Developer and Digital Marketer',
+    caption:
+      'Portrait of Sakshi Gill, AI Developer, Digital Marketer and Photo-Video Editor from Kaithal, Haryana.',
+  },
+  {
+    loc: `${siteUrl}/sakshi-gill-portrait.jpg`,
+    title: 'Sakshi Gill portrait',
+    caption: 'Sakshi Gill — AI Developer and Digital Marketer from Kaithal, Haryana.',
+  },
+  {
+    loc: `${siteUrl}/sakshi-gill-vision.jpg`,
+    title: 'Sakshi Gill — My Vision and Goals',
+    caption: 'Sakshi Gill sharing her vision and goals as an AI developer and digital marketer.',
+  },
+  {
+    loc: `${siteUrl}/sakshi-gill-journey.jpg`,
+    title: 'Sakshi Gill — My Journey',
+    caption: 'Sakshi Gill on her journey mastering AI tools, storytelling and creative frameworks.',
+  },
+];
+
+const imageXml =
+  '\n' +
+  HOME_IMAGES.map(
+    (i) =>
+      '    <image:image>\n' +
+      `      <image:loc>${esc(i.loc)}</image:loc>\n` +
+      `      <image:title>${esc(i.title)}</image:title>\n` +
+      `      <image:caption>${esc(i.caption)}</image:caption>\n` +
+      '    </image:image>',
+  ).join('\n');
+
 const sitemap =
   '<?xml version="1.0" encoding="UTF-8"?>\n' +
-  '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
+  '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n' +
   urls
     .map(
       (u) =>
         `  <url>\n    <loc>${esc(u.loc)}</loc>` +
         (u.lastmod ? `\n    <lastmod>${u.lastmod}</lastmod>` : '') +
+        (u.loc === `${siteUrl}/` ? imageXml : '') +
         `\n    <priority>${u.priority}</priority>\n  </url>`,
     )
     .join('\n') +

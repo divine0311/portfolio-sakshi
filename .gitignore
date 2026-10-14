@@ -12,4 +12,7 @@ dev.err.log
 # Local analysis scripts and generated preview images
 tools/
 
+# Unrelated nested project (separate git repo) — must not be tracked here
+2ndportfolio/
+
 .vercel

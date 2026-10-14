@@ -92,6 +92,36 @@
         "encodingFormat": "image/jpeg"
       },
       {
+        "@type": "ImageObject",
+        "@id": "__SITE_URL__/#sakshi-gill-portrait",
+        "url": "__SITE_URL__/sakshi-gill-portrait.jpg",
+        "contentUrl": "__SITE_URL__/sakshi-gill-portrait.jpg",
+        "name": "Sakshi Gill portrait",
+        "caption": "Sakshi Gill — AI Developer, Digital Marketer and Photo-Video Editor from Kaithal, Haryana",
+        "encodingFormat": "image/jpeg",
+        "inLanguage": "en"
+      },
+      {
+        "@type": "ImageObject",
+        "@id": "__SITE_URL__/#sakshi-gill-vision",
+        "url": "__SITE_URL__/sakshi-gill-vision.jpg",
+        "contentUrl": "__SITE_URL__/sakshi-gill-vision.jpg",
+        "name": "Sakshi Gill vision and goals",
+        "caption": "Sakshi Gill — vision, goals and future direction as an AI developer and digital marketer",
+        "encodingFormat": "image/jpeg",
+        "inLanguage": "en"
+      },
+      {
+        "@type": "ImageObject",
+        "@id": "__SITE_URL__/#sakshi-gill-journey",
+        "url": "__SITE_URL__/sakshi-gill-journey.jpg",
+        "contentUrl": "__SITE_URL__/sakshi-gill-journey.jpg",
+        "name": "Sakshi Gill journey",
+        "caption": "Sakshi Gill — her journey of mastering AI tools, storytelling and creative frameworks",
+        "encodingFormat": "image/jpeg",
+        "inLanguage": "en"
+      },
+      {
         "@type": "Person",
         "@id": "__SITE_URL__/#person",
         "givenName": "Sakshi",
@@ -99,7 +129,12 @@
         "name": "Sakshi Gill",
         "alternateName": ["Sakshi Kaithal", "Sakshi Gill Portfolio"],
         "url": "__SITE_URL__/",
-        "image": {"@id": "__SITE_URL__/#portrait"},
+        "image": [
+          {"@id": "__SITE_URL__/#portrait"},
+          {"@id": "__SITE_URL__/#sakshi-gill-portrait"},
+          {"@id": "__SITE_URL__/#sakshi-gill-vision"},
+          {"@id": "__SITE_URL__/#sakshi-gill-journey"}
+        ],
         "jobTitle": "AI Developer, Digital Marketer & Photo-Video Editor",
         "description": "Sakshi Gill is an AI Developer, Digital Marketer and Photo & Video Editor from Kaithal, Haryana, India, building AI-powered marketing, content and creative work.",
         "email": "mailto:divinesakshi03@gmail.com",
@@ -270,6 +305,13 @@
       .section-spacing {
         padding-top: 60px;
         padding-bottom: 60px;
+      }
+      .who-am-i-photo-wrapper {
+        max-width: 100% !important;
+      }
+      .who-am-i-photo-frame {
+        aspect-ratio: 16 / 9 !important;
+        max-width: 100% !important;
       }
     }
 
@@ -830,32 +872,46 @@
       }
     }
 
+    /* Phones: stack the text block on top and the video full-width underneath */
     @media (max-width: 680px) {
+      #home {
+        overflow: visible;
+      }
       .hero-wrapper {
         position: relative;
-        flex-direction: row;
+        flex-direction: column;
         min-height: 100vh;
-        overflow: hidden;
+        overflow: visible;
       }
       .hero-left {
-        flex: 1;
-        padding: 3.5rem 1rem 5rem 4vw;
+        flex: none;
+        width: 100%;
+        max-width: 100%;
+        padding: 6rem 1.25rem 2.5rem 1.25rem;
         z-index: 10;
-        max-width: 62%;
+      }
+      .hero-svg-title-wrap {
+        max-width: 100%;
       }
       .hero-right {
-        position: absolute;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        width: 48%;
-        min-height: 100%;
+        position: relative;
+        right: auto;
+        top: auto;
+        bottom: auto;
+        width: 100%;
+        flex: none;
+        min-height: 0;
+        height: 62vh;
         z-index: 2;
         padding: 0;
       }
       .hero-right::after {
-        width: 70px;
-        background: linear-gradient(to right, var(--hero-red) 0%, rgba(163, 23, 18, 0.7) 45%, transparent 100%);
+        width: 100%;
+        height: 90px;
+        top: 0;
+        bottom: auto;
+        left: 0;
+        background: linear-gradient(to bottom, var(--hero-red) 0%, rgba(163, 23, 18, 0.7) 45%, transparent 100%);
       }
     }
 
@@ -893,15 +949,6 @@
     .section-intro {
       background-color: var(--warm-cream);
       position: relative;
-    }
-
-    .intro-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2.25rem;
-      max-width: 860px;
-      margin: 0 auto;
-      text-align: center;
     }
 
     .editorial-quote-accent {
@@ -1266,55 +1313,22 @@
        Was a standalone near-black section; restored here as a deep red panel
        at the end of "My Journey" - serif quotes, gold quotation mark.
        ========================================================================== */
-    .journey-box {
+    .journey-photo-frame {
       max-width: 860px;
       margin: 5.5rem auto 0;
-      text-align: center;
-      background-color: var(--deep-charcoal);
-      color: #FFFFFF;
       border-radius: 18px;
-      padding: 2.25rem 2rem;
-      border: 1.5px solid rgba(0, 0, 0, 0.4);
-      box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.35), 0 4px 12px rgba(163, 23, 18, 0.25);
+      overflow: hidden;
+      border: 4px solid #FFFFFF;
+      box-shadow: 0 18px 44px -10px rgba(163, 21, 15, 0.35), 0 6px 16px rgba(0, 0, 0, 0.15);
     }
 
-    /* Gold quotation mark icon */
-    .quote-icon-gold {
-      width: 44px;
-      height: 44px;
-      color: #F4D03F;
-      margin: 0 auto 1.5rem auto;
+    .journey-photo-frame img {
+      width: 100%;
+      height: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      object-position: center center;
       display: block;
-      opacity: 0.95;
-    }
-
-    .journey-quotes-wrap {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-      margin-bottom: 2.75rem;
-    }
-
-    .journey-quote {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-size: clamp(1.4rem, 2.7vw, 1.95rem);
-      color: #FFFFFF;
-      line-height: 1.45;
-      font-weight: 400;
-    }
-
-    .journey-quote-highlight {
-      color: #F4D03F;
-    }
-
-    .journey-narrative {
-      font-size: 1.1rem;
-      line-height: 1.85;
-      color: rgba(255, 255, 255, 0.86);
-      max-width: 740px;
-      margin: 0 auto;
-      text-align: center;
     }
 
     /* ==========================================================================
@@ -2432,12 +2446,54 @@
       color: #FFFFFF;
     }
 
-    .vision-paragraph {
-      font-size: clamp(1.1rem, 2vw, 1.35rem);
-      line-height: 1.85;
-      color: rgba(255, 255, 255, 0.9);
-      margin-bottom: 2.2rem;
-      font-weight: 400;
+    .vision-photo-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 18px;
+      border: 4px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 22px 50px -12px rgba(0, 0, 0, 0.65), 0 6px 16px rgba(0, 0, 0, 0.35);
+      overflow: hidden;
+      margin: 0 auto 2.75rem auto;
+    }
+
+    .vision-photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      display: block;
+    }
+
+    .vision-goals {
+      display: grid;
+      gap: 1.15rem;
+      max-width: 620px;
+      margin: 0 auto 0.5rem auto;
+    }
+
+    .vision-goal {
+      position: relative;
+      font-family: var(--font-heading);
+      font-size: clamp(1.1rem, 2vw, 1.4rem);
+      line-height: 1.45;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: #FFFFFF;
+      margin: 0;
+      padding-left: 2rem;
+      text-align: left;
+    }
+
+    .vision-goal::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.7em;
+      width: 1.05rem;
+      height: 3px;
+      border-radius: 2px;
+      background: var(--accent-gold);
     }
 
     /* ==========================================================================
@@ -3321,6 +3377,287 @@
     @media (prefers-reduced-motion: reduce) {
       .pj3d-sec *, .pj3d-sec { animation: none !important; transition: none !important; }
     }
+
+    /* ==========================================================================
+       3D FLIP CARDS - CAPABILITIES SECTION
+       ========================================================================== */
+    .flip-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.75rem;
+      max-width: 960px;
+      margin: 0 auto;
+      perspective: 1100px;
+    }
+
+    .flip-card {
+      height: 300px;
+      position: relative;
+    }
+
+    .flip-card-inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+      border-radius: 20px;
+      box-shadow: 0 12px 32px -8px rgba(163, 23, 18, 0.15), 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .flip-card:hover .flip-card-inner,
+    .flip-card:focus-within .flip-card-inner,
+    .flip-card.is-flipped .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flip-card-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      transform-style: preserve-3d;
+    }
+
+    .flip-card-face.front {
+      background: var(--surface-white);
+      border: 1.5px solid rgba(163, 23, 18, 0.12);
+      z-index: 2;
+    }
+
+    .flip-card-face.back {
+      background: var(--hero-red);
+      color: #FFFFFF;
+      border: 1.5px solid rgba(0, 0, 0, 0.3);
+      transform: rotateY(180deg);
+    }
+
+    .flip-card-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      width: 100%;
+      transform-style: preserve-3d;
+    }
+
+    .flip-card-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 72px;
+      height: 72px;
+      border-radius: 18px;
+      background: rgba(163, 23, 18, 0.1);
+      color: var(--hero-red);
+      transition: transform 0.3s ease;
+    }
+
+    .flip-card:hover .flip-card-icon {
+      transform: translateZ(20px) scale(1.05);
+    }
+
+    .flip-card-face.back .flip-card-icon {
+      background: rgba(255, 255, 255, 0.15);
+      color: #FFFFFF;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .flip-card-label {
+      font-family: var(--font-heading);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--hero-red);
+      background: rgba(163, 23, 18, 0.1);
+      padding: 4px 12px;
+      border-radius: 9999px;
+    }
+
+    .flip-card-title {
+      font-family: var(--font-heading);
+      font-size: clamp(1.1rem, 2vw, 1.35rem);
+      font-weight: 700;
+      color: var(--deep-charcoal);
+      line-height: 1.35;
+      margin: 0;
+    }
+
+    .flip-card-face.back .flip-card-title {
+      color: #FFFFFF;
+    }
+
+    .flip-card-hint {
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      color: var(--muted-dark);
+      margin: 0;
+    }
+
+    .flip-card-face.back .flip-card-hint {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* Floating decorative circles on front face */
+    .flip-card-floating-circles {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      border-radius: 20px;
+    }
+
+    .flip-card-floating-circles .circle {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(244, 208, 63, 0.35), rgba(163, 23, 18, 0.15));
+      animation: floatCircle 6s ease-in-out infinite;
+    }
+
+    .flip-card-floating-circles .circle-1 {
+      width: 80px;
+      height: 80px;
+      top: -20px;
+      right: -20px;
+      animation-delay: 0s;
+    }
+
+    .flip-card-floating-circles .circle-2 {
+      width: 50px;
+      height: 50px;
+      bottom: 10%;
+      left: -15px;
+      animation-delay: -2s;
+    }
+
+    .flip-card-floating-circles .circle-3 {
+      width: 35px;
+      height: 35px;
+      top: 30%;
+      left: 10%;
+      animation-delay: -4s;
+    }
+
+    @keyframes floatCircle {
+      0%, 100% { transform: translateY(0) scale(1); opacity: 0.4; }
+      50% { transform: translateY(-20px) scale(1.1); opacity: 0.7; }
+    }
+
+    /* Back face content */
+    .flip-card-title-back {
+      font-family: var(--font-heading);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #F4D03F;
+      margin: 0 0 0.75rem;
+    }
+
+    .flip-card-desc {
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      line-height: 1.65;
+      color: rgba(255, 255, 255, 0.9);
+      margin: 0 0 1rem;
+    }
+
+    .flip-card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    .flip-card-tag {
+      font-family: var(--font-heading);
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: #F4D03F;
+      background: rgba(244, 208, 63, 0.15);
+      border: 1px solid rgba(244, 208, 63, 0.3);
+      padding: 4px 10px;
+      border-radius: 9999px;
+      letter-spacing: 0.02em;
+    }
+
+    .flip-card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-heading);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      background: #111111;
+      border: 1px solid rgba(0, 0, 0, 0.5);
+      padding: 0.65rem 1.1rem;
+      border-radius: 9999px;
+      transition: all 0.25s ease;
+    }
+
+    .flip-card-link:hover {
+      background: #262626;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Entry animation for flip cards */
+    .flip-card {
+      opacity: 0;
+      transform: translateY(40px) rotateX(-20deg);
+      animation: flipCardEnter 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .flip-card:nth-child(1) { animation-delay: 0.15s; }
+    .flip-card:nth-child(2) { animation-delay: 0.3s; }
+    .flip-card:nth-child(3) { animation-delay: 0.45s; }
+
+    @keyframes flipCardEnter {
+      to {
+        opacity: 1;
+        transform: translateY(0) rotateX(0);
+      }
+    }
+
+    /* Mobile fallback - touch devices */
+    @media (hover: none) and (pointer: coarse) {
+      .flip-card-inner {
+        transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+      .flip-card.is-flipped .flip-card-inner {
+        transform: rotateY(180deg);
+      }
+      /* Disable hover flip on touch */
+      .flip-card:hover .flip-card-inner {
+        transform: none;
+      }
+      .flip-card:focus-within .flip-card-inner {
+        transform: none;
+      }
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .flip-card,
+      .flip-card-inner,
+      .flip-card-floating-circles .circle {
+        animation: none !important;
+        transition: none !important;
+      }
+      .flip-card {
+        opacity: 1;
+        transform: none;
+      }
+    }
   </style>
 </head>
 
@@ -3352,11 +3689,10 @@
     <ul class="floating-nav-list" id="nav-pill-list">
       <li><a href="#home" class="nav-pill-btn active" data-target="home">Home</a></li>
       <li><a href="#my-story" class="nav-pill-btn" data-target="my-story">My Journey</a></li>
-      <li><a href="#services" class="nav-pill-btn" data-target="services">Services</a></li>
+      <li><a href="#capabilities" class="nav-pill-btn" data-target="capabilities">Capabilities</a></li>
       <li><a href="#projects" class="nav-pill-btn" data-target="projects">Projects</a></li>
       <li><a href="#vision" class="nav-pill-btn" data-target="vision">Vision</a></li>
       <li><a href="#connect" class="nav-pill-btn" data-target="connect">Connect</a></li>
-      <li><a href="#faq" class="nav-pill-btn" data-target="faq">FAQ</a></li>
       <li><a href="/blog" class="nav-pill-btn" data-target="blog" id="nav-btn-blog">Blog</a></li>
     </ul>
   </nav>
@@ -3450,7 +3786,8 @@
           id="hero-portrait-img"
           class="hero-portrait-img"
           src="/sakshi-video-poster.jpg"
-          alt="Sakshi Gill Character Animation"
+          alt="Sakshi Gill — AI Developer, Digital Marketer and Photo-Video Editor from Kaithal, Haryana"
+          title="Sakshi Gill | AI Developer and Digital Marketer in Kaithal"
         />
 
         <!-- Plain looping video. No canvas, no frame decoding, no pointer maths. -->
@@ -3477,481 +3814,6 @@
         <path d="m6 9 6 6 6-6"></path>
       </svg>
     </a>
-  </section>
-
-  <!-- =========================================================================
-       4. WHO AM I / QUALIFICATIONS (id="my-story")
-       Warm cream background (#FFF8F0), editorial narrative, 3 academic roadmap cards
-       ========================================================================= -->
-  <section id="my-story" class="section-spacing section-intro" aria-label="Who Am I and Qualifications">
-    <div class="container">
-      <!-- Part A: Who Am I Story Narrative -->
-      <div class="intro-grid reveal-on-scroll" style="margin-bottom: 5.5rem;">
-        <div>
-          <span class="section-label">Personal Narrative</span>
-          <h2 class="editorial-quote-accent" style="font-style: normal; font-size: clamp(2.4rem, 4vw, 3.2rem); color: var(--deep-charcoal); letter-spacing: -0.02em; margin-bottom: 1rem;">
-            Who Am I
-          </h2>
-        </div>
-
-        <div>
-          <!-- Narrative text: 5 sentences, first person, warm and honest, flowing through all 4 milestones -->
-          <p class="narrative-body">
-            I’m Sakshi Gill — someone driven by an honest love for visual storytelling and an endless curiosity about how creative ideas truly connect with people. Growing up through school, scoring a perfect 100% in 10th grade and 91.8% in 12th gave me a foundation of steady discipline, but it was my quiet, instinctive pull toward words, design, and creative expression that hinted at where I was headed. During my graduation, completing my B.A. from Indira Gandhi College, Kurukshetra University with a 9.34 CGPA, I learned to look at human emotions, culture, and narratives with deep analytical clarity. The defining turning point came when I discovered and completed my course in Digital Marketing with AI — suddenly, strategic communication and intelligent generative technology merged, giving my creative drive a clear and powerful purpose. Today, that journey shapes everything I build: turning raw ideas into captivating digital stories that people don't just scroll past, but genuinely remember.
-          </p>
-        </div>
-      </div>
-
-      <!-- Part B: Qualifications & Roadmap (Exactly 3 Boxes) -->
-      <div style="text-align: center; max-width: 680px; margin: 0 auto;" class="reveal-on-scroll">
-        <span class="section-label">Milestones &amp; Academics</span>
-        <h3 style="font-size: clamp(2rem, 3.5vw, 2.75rem); color: var(--deep-charcoal); margin-bottom: 1rem; font-family: var(--font-display);">
-          Qualifications &amp; Roadmap
-        </h3>
-        <p style="color: var(--muted-dark); font-size: 1.05rem;">
-          A visual roadmap of disciplined academic excellence and hands-on mastery in modern AI-powered marketing.
-        </p>
-      </div>
-
-      <!-- Roadmap Visual Diagram -->
-      <div class="roadmap-wrapper">
-        <!-- Subtle dashed track along the spine -->
-        <div class="roadmap-track-dash" aria-hidden="true"></div>
-
-        <!-- Node 1: Left Side - Schooling -->
-        <div class="roadmap-node node-left reveal-on-scroll">
-          <div class="roadmap-marker" title="Milestone 01">01</div>
-          <div class="roadmap-stem" aria-hidden="true"></div>
-          <div class="roadmap-card">
-            <div class="roadmap-card-header">
-              <span class="roadmap-year-badge">2022-23</span>
-              <span class="roadmap-step-badge">NODE 01</span>
-            </div>
-            <h4 class="roadmap-title">Schooling &amp; Academic Foundation</h4>
-            <div class="roadmap-institution">Secondary (10th: 100%) &amp; Senior Secondary (12th: 91.8%)</div>
-            <p class="roadmap-takeaway">
-              Achieved a rare 100% in 10th grade and 91.8% in 12th — proving that consistency, curiosity, and steadfast discipline build the strongest launchpad for creative growth.
-            </p>
-          </div>
-        </div>
-
-        <!-- Node 2: Right Side - Graduation -->
-        <div class="roadmap-node node-right reveal-on-scroll">
-          <div class="roadmap-marker" title="Milestone 02">02</div>
-          <div class="roadmap-stem" aria-hidden="true"></div>
-          <div class="roadmap-card">
-            <div class="roadmap-card-header">
-              <span class="roadmap-year-badge">2023-26</span>
-              <span class="roadmap-step-badge">NODE 02</span>
-            </div>
-            <h4 class="roadmap-title">Bachelor of Arts (B.A.)</h4>
-            <div class="roadmap-institution">Indira Gandhi College, Kurukshetra University (CGPA 9.34 / 10)</div>
-            <p class="roadmap-takeaway">
-              Graduated with an exceptional 9.34 CGPA, honing deep analytical clarity, cultural empathy, and an instinct for what makes human stories truly resonate.
-            </p>
-          </div>
-        </div>
-
-        <!-- Node 3: Left Side - Digital Marketing with AI -->
-        <div class="roadmap-node node-left reveal-on-scroll">
-          <div class="roadmap-marker" title="Milestone 03">03</div>
-          <div class="roadmap-stem" aria-hidden="true"></div>
-          <div class="roadmap-card">
-            <div class="roadmap-card-header" style="justify-content: flex-end;">
-              <span class="roadmap-step-badge">NODE 03</span>
-            </div>
-            <h4 class="roadmap-title">Digital Marketing with AI</h4>
-            <div class="roadmap-institution">Advanced Specialized Certification</div>
-            <p class="roadmap-takeaway">
-              The pivotal breakthrough — fusing strategic brand storytelling with cutting-edge AI tools to design high-impact, forward-looking content.
-            </p>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Part C: My Journey (Journey panel, gold quote mark) -->
-      <div class="journey-box reveal-on-scroll">
-
-        <!-- Gold quotation mark icon -->
-        <svg class="quote-icon-gold" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-8.983z"></path>
-        </svg>
-
-        <!-- Quotes: static fallback; superseded by site_content.journey_quotes when present -->
-        <div class="journey-quotes-wrap">
-          <blockquote class="journey-quote">
-            "Creativity is no longer just intuition; it is <span class="journey-quote-highlight">amplified imagination</span> guided by data."
-          </blockquote>
-          <blockquote class="journey-quote" style="font-size: clamp(1.2rem, 2.2vw, 1.6rem); color: rgba(255,255,255,0.85);">
-            "The boldest stories are written by those willing to dismantle yesterday’s assumptions."
-          </blockquote>
-        </div>
-
-        <p class="journey-narrative">
-          Every phase of my progression has been shaped by an obsession with mastery: diving into emerging AI tools before they became mainstream, deconstructing what makes narrative stick, and constantly testing new creative frameworks. Growth is not an accident — it is an intentional, relentless practice.
-        </p>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- =========================================================================
-       6.5 SEO SERVICES (id="services")
-       Three short role summaries that link to the dedicated service pages:
-       /ai-developer, /digital-marketer and /editor. Light cream background,
-       hover lift cards, red accent labels — matches the site palette.
-       ========================================================================= -->
-  <style>
-    .seo-services { padding: 5.5rem 0; background: var(--warm-cream); }
-    .seo-services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2.25rem; }
-    .seo-service-card { background: #ffffff; border: 1px solid rgba(26,26,26,0.09); border-radius: 18px; padding: 1.75rem 1.6rem; box-shadow: 0 1px 2px rgba(26,26,26,0.04); transition: transform .22s ease, box-shadow .22s ease; }
-    .seo-service-card:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(26,26,26,0.10); }
-    .seo-service-card .section-label { color: var(--card-charcoal); }
-    .seo-service-card h3 { font-family: var(--font-serif); font-size: 1.45rem; margin: 0.65rem 0 0.6rem; color: var(--deep-charcoal); }
-    .seo-service-card p { font-size: 0.99rem; line-height: 1.75; color: var(--body-mid, #555); margin-bottom: 1.05rem; }
-    .seo-service-link { font-weight: 700; font-size: 0.95rem; color: var(--card-charcoal); text-decoration: none; }
-    .seo-service-link:hover { text-decoration: underline; }
-    @media (max-width: 900px) { .seo-services-grid { grid-template-columns: 1fr; } }
-  </style>
-
-  <section id="services" class="seo-services" aria-label="Services">
-    <div class="container">
-      <span class="section-label">Services</span>
-      <h2 class="editorial-quote-accent" style="font-style: normal; font-size: clamp(2.4rem, 4vw, 3.2rem); color: var(--deep-charcoal); letter-spacing: -0.02em; margin-bottom: 0.4rem;">
-        What I do for growing brands
-      </h2>
-      <p style="max-width: 620px; color: var(--body-mid, #555);">
-        Three areas where I help local businesses in Kaithal and beyond win attention and convert it into enquiries.
-      </p>
-
-      <div class="seo-services-grid">
-        <div class="seo-service-card">
-          <span class="section-label">AI Developer</span>
-          <h3>Practical AI for real business</h3>
-          <p>I build AI solutions that work inside your business — chatbots that answer customers 24×7, WhatsApp lead flows, content automation and AI-assisted websites that turn visitors into enquiries instead of sitting in a folder.</p>
-          <a class="seo-service-link" href="/ai-developer">AI Development in Kaithal →</a>
-        </div>
-
-        <div class="seo-service-card">
-          <span class="section-label">Digital Marketer</span>
-          <h3>Local marketing that brings enquiries</h3>
-          <p>Shops, clinics, coaching institutes and restaurants in Kaithal need to be found on Google and Instagram. I build simple plans around your Google Business Profile, consistent reels and posts, and tracking that measures calls and visits — not just likes.</p>
-          <a class="seo-service-link" href="/digital-marketer">Digital Marketing in Kaithal →</a>
-        </div>
-
-        <div class="seo-service-card">
-          <span class="section-label">Photo &amp; Video Editor</span>
-          <h3>Edits that hold the first two seconds</h3>
-          <p>I create scroll-stopping reels, YouTube Shorts, ads and photo sets for local brands — pacing, cut-on-beat edits, clean captions and colour work in InShot, CapCut and VN, finished on time and ready to post.</p>
-          <a class="seo-service-link" href="/editor">Photo &amp; Video Editing →</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- =========================================================================
-       6. MY PROJECTS (id="projects", HORIZONTAL CAROUSEL)
-       A single horizontal sliding track holding four items in order:
-       Typing Rush game tile, Gyanix Academy website tile, then two tilted
-       polaroid cards for the AI video loops. Warm cream stage, hero red
-       accents, arrow buttons on desktop and dot indicators below.
-       ========================================================================= -->
-  <section id="projects" class="section-spacing" aria-label="My Projects">
-    <div class="container">
-      
-      <!-- Compact Headline & Subtitle -->
-      <div class="projects-header reveal-on-scroll">
-        <span class="section-label">Portfolio &amp; Works</span>
-        <h2 style="font-size: clamp(2rem, 3.2vw, 2.6rem); color: var(--deep-charcoal); font-family: var(--font-display); margin-bottom: 0.5rem; letter-spacing: -0.02em;">
-          My Projects
-        </h2>
-        <p style="color: var(--muted-dark); font-size: 0.96rem; max-width: 600px; margin: 0 auto; line-height: 1.55;">
-          A compact showcase of live applications, educational web platforms, and generative AI motion.
-        </p>
-      </div>
-
-      <!-- =========================================================================
-           "MY PROJECTS" — 3D cards, ported verbatim from
-           reference/project-cards-preview.html
-           ========================================================================= -->
-      <section class="pj3d-sec" aria-label="My Projects">
-        <div class="pj3d-grid">
-
-          <div class="pj3d-card" style="--i:0;--a:#DC3A2A;--sh:#7A0F0F;--o1:#FFB4A2;--o2:#7A0F0F">
-            <div class="pj3d-face">
-              <div class="pj3d-bg"></div>
-              <span class="pj3d-tag"><i></i>LIVE GAME</span>
-              <div class="pj3d-cube"><b>🎮</b><b>🎮</b><b>🎮</b><b>🎮</b><b>🎮</b><b>🎮</b></div>
-              <span class="pj3d-chip pj3d-c1">A</span>
-              <span class="pj3d-chip pj3d-c2">S</span>
-              <span class="pj3d-chip pj3d-c3">D</span>
-              <div class="pj3d-panel">
-                <h3>Typing Rush</h3>
-                <p>Let&rsquo;s Play Game</p>
-                <!-- TODO: real Typing Rush link goes here -->
-                <a class="pj3d-btn" href="https://typing-rush-game.vercel.app" target="_blank" rel="noopener noreferrer">Play Now →</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="pj3d-card" style="--i:1;--a:#7C3AED;--sh:#2A1B6B;--o1:#C4B5FD;--o2:#2A1B6B">
-            <div class="pj3d-face">
-              <div class="pj3d-bg"></div>
-              <span class="pj3d-tag"><i></i>LIVE WEBSITE</span>
-              <div class="pj3d-cube"><b>🌐</b><b>🌐</b><b>🌐</b><b>🌐</b><b>🌐</b><b>🌐</b></div>
-              <span class="pj3d-chip pj3d-c1">A+</span>
-              <span class="pj3d-chip pj3d-c2">📚</span>
-              <span class="pj3d-chip pj3d-c3">✨</span>
-              <div class="pj3d-panel">
-                <h3>Gyanix Academy</h3>
-                <p>Explore the Learning Website</p>
-                <a class="pj3d-btn" href="https://gyanix-acedemy-gyanix-academy-8bqc.vercel.app" target="_blank" rel="noopener noreferrer">Visit Website ↗</a>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      </div>
-  </section>
-
-  <!-- =========================================================================
-       7. CAPABILITIES (id="capabilities", NEUTRAL)
-       Cream background (#FFF8F0), exactly 5 minimal large buttons, click opens modal
-       ========================================================================= -->
-  <section id="capabilities" class="section-spacing" aria-label="Capabilities and AI Tools">
-    <div class="container">
-      <div style="text-align: center; max-width: 680px; margin: 0 auto;" class="reveal-on-scroll">
-        <span class="section-label">Toolkit &amp; Expertise</span>
-        <h2 style="font-size: clamp(2rem, 3.5vw, 2.75rem); color: var(--deep-charcoal); margin-bottom: 0.85rem;">
-          Capabilities &amp; AI Craft
-        </h2>
-        <p style="color: var(--muted-dark); font-size: 1.05rem;">
-          Select any discipline below to view the dedicated toolkit, platforms, and AI engines used in production.
-        </p>
-      </div>
-
-      <div class="capabilities-button-grid reveal-on-scroll">
-        <!-- 1. Digital Marketing -->
-        <button
-          type="button"
-          class="capability-btn"
-          data-category="digital-marketing"
-          aria-haspopup="dialog"
-          aria-expanded="false"
-        >
-          <span>Digital Marketing</span>
-        </button>
-
-        <!-- 2. AI Tools -->
-        <button
-          type="button"
-          class="capability-btn"
-          data-category="ai-tools"
-          aria-haspopup="dialog"
-          aria-expanded="false"
-        >
-          <span>AI Tools</span>
-        </button>
-
-        <!-- 3. Video Creating with AI -->
-        <button
-          type="button"
-          class="capability-btn"
-          data-category="video-ai"
-          aria-haspopup="dialog"
-          aria-expanded="false"
-        >
-          <span>Video Creating with AI</span>
-        </button>
-
-        <!-- 4. Social Media -->
-        <button
-          type="button"
-          class="capability-btn"
-          data-category="social-media"
-          aria-haspopup="dialog"
-          aria-expanded="false"
-        >
-          <span>Social Media</span>
-        </button>
-
-        <!-- 5. Editing -->
-        <button
-          type="button"
-          class="capability-btn"
-          data-category="editing"
-          aria-haspopup="dialog"
-          aria-expanded="false"
-        >
-          <span>Editing</span>
-        </button>
-      </div>
-    </div>
-  </section>
-
-  <!-- CAPABILITIES TOOLKIT MODAL LIGHTBOX OVERLAY -->
-  <div
-    id="capabilities-modal-overlay"
-    class="capabilities-modal-overlay"
-    role="dialog"
-    aria-modal="true"
-    aria-hidden="true"
-  >
-    <div class="capabilities-modal-dialog" id="capabilities-modal-dialog">
-      <button
-        type="button"
-        class="capabilities-modal-close"
-        id="capabilities-modal-close"
-        aria-label="Close dialog"
-        title="Close"
-      >
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="18" y1="6" x2="6" y2="18"></line>
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
-      </button>
-
-      <div style="margin-bottom: 0.6rem;">
-        <span class="capabilities-modal-kicker" id="capabilities-modal-kicker">✦ CAPABILITY TOOLKIT</span>
-        <h3 class="capabilities-modal-title" id="capabilities-modal-title">Capability Title</h3>
-      </div>
-
-      <div class="capabilities-tools-grid" id="capabilities-tools-grid">
-        <!-- Injected via JavaScript -->
-      </div>
-    </div>
-  </div>
-
-  <!-- =========================================================================
-       8. VISION SECTION (id="vision", DARK NEUTRAL - NOT RED)
-       Full deep charcoal (#1A1A1A) background, white text, centered, large elegant typography
-       ========================================================================= -->
-  <section id="vision" class="section-spacing" aria-label="Vision">
-    <div class="container">
-      <div class="vision-container reveal-on-scroll">
-        <span class="vision-subheading">Looking Forward</span>
-        <h2 class="vision-headline">
-          The Future Belongs to Storytellers Who Master Intelligent Machines.
-        </h2>
-        <p class="vision-paragraph">
-          My vision is to architect campaigns and digital platforms that don’t merely adapt to the AI revolution — they shape its cultural trajectory. By uniting human vulnerability and machine intelligence, we can build brands that inspire enduring loyalty and profound resonance.
-        </p>
-        <div style="margin-top: 2.5rem;">
-          <a href="#connect" class="btn-gold-solid" style="font-size: 1.05rem; padding: 0.95rem 2.2rem;">
-            <span>Collaborate With Me</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 12h14"></path>
-              <path d="m12 5 7 7-7 7"></path>
-            </svg>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- =========================================================================
-       9. CONNECT / ENQUIRY SECTION (id="connect", NEUTRAL)
-       Warm cream background, form with Name, Email, Message, gold submit button
-       ========================================================================= -->
-  <section id="connect" class="section-spacing" aria-label="Connect and Contact">
-    <div class="container">
-      <div style="text-align: center; max-width: 720px; margin: 0 auto;" class="reveal-on-scroll">
-        <span class="section-label">Start A Conversation</span>
-        <h2 style="font-size: clamp(2rem, 3.5vw, 2.75rem); color: var(--deep-charcoal); margin-bottom: 1rem;">
-          If you'd like to begin this journey together, I'd love to hear from you.
-        </h2>
-        <p style="color: var(--muted-dark); font-size: 1.05rem;">
-          Whether you're looking to scale an AI product, revolutionize your digital marketing, or direct an unforgettable campaign — my inbox is open.
-        </p>
-      </div>
-
-      <div class="connect-grid">
-        
-        <!-- Left: Contact Information (Replace placeholder email/social as needed) -->
-        <div class="reveal-on-scroll">
-          <p class="connect-intro-text">
-            Available for select full-time opportunities, high-impact consulting, creative direction, and speaking engagements worldwide.
-          </p>
-
-          <!-- Email -->
-          <a href="mailto:divinesakshi03@gmail.com" class="contact-item" target="_blank" rel="noopener">
-            <div class="contact-icon-box">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect width="20" height="16" x="2" y="4" rx="2"></rect>
-                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-              </svg>
-            </div>
-            <div>
-              <div class="contact-label">Direct Email</div>
-              <div class="contact-value">divinesakshi03@gmail.com</div>
-            </div>
-          </a>
-
-          <!-- LinkedIn -->
-          <a href="https://linkedin.com/in/sakshigill" target="_blank" rel="noopener" class="contact-item">
-            <div class="contact-icon-box">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                <rect width="4" height="12" x="2" y="9"></rect>
-                <circle cx="4" cy="4" r="2"></circle>
-              </svg>
-            </div>
-            <div>
-              <div class="contact-label">Professional Network</div>
-              <div class="contact-value">linkedin.com/in/sakshigill</div>
-            </div>
-          </a>
-
-          <!-- Location & Availability -->
-          <div class="contact-item">
-            <div class="contact-icon-box">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
-                <circle cx="12" cy="10" r="3"></circle>
-              </svg>
-            </div>
-            <div>
-              <div class="contact-label">Availability &amp; Base</div>
-              <div class="contact-value">Available Globally / Remote &amp; Hybrid</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right: Message Form -->
-        <div class="reveal-on-scroll">
-          <form class="contact-form" id="contact-form" onsubmit="handleFormSubmit(event)">
-            <div class="form-group">
-              <label for="name" class="form-label">Your Name</label>
-              <input type="text" id="name" name="name" class="form-input" placeholder="Your name" required />
-            </div>
-
-            <div class="form-group">
-              <label for="email" class="form-label">Email Address</label>
-              <input type="email" id="email" name="email" class="form-input" placeholder="your@email.com" required />
-            </div>
-
-            <div class="form-group">
-              <label for="message" class="form-label">Your Message</label>
-              <textarea id="message" name="message" rows="4" class="form-textarea" placeholder="Tell me about your project, vision, or timeline..." required></textarea>
-            </div>
-
-            <button type="submit" class="btn-submit-gold" id="submit-btn">
-              <span>Send Message</span>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="22" y1="2" x2="11" y2="13"></line>
-                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-              </svg>
-            </button>
-
-            <div class="form-feedback" id="form-feedback" role="status" aria-live="polite"></div>
-          </form>
-        </div>
-
-      </div>
-    </div>
   </section>
 
   <!-- =========================================================================
@@ -4196,6 +4058,660 @@
   </style>
 
   <!-- =========================================================================
+       4. WHO AM I / QUALIFICATIONS (id="my-story")
+       Warm cream background (#FFF8F0), editorial narrative, 3 academic roadmap cards
+       ========================================================================= -->
+  <section id="my-story" class="section-spacing section-intro" aria-label="Who Am I and Qualifications">
+    <div class="container">
+<!-- Part A: Who Am I Story Narrative -->
+      <div class="who-am-i-section reveal-on-scroll" style="margin-bottom: 5.5rem;">
+        <div class="who-am-i-photo-wrapper" style="max-width: 860px; margin: 0 auto 2.25rem auto;">
+          <div class="who-am-i-photo-frame" style="position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 18px; border: 4px solid #FFFFFF; box-shadow: 0 18px 44px -10px rgba(163, 21, 15, 0.45), 0 6px 16px rgba(163, 21, 15, 0.25); overflow: hidden; cursor: grab; touch-action: none;">
+            <img
+              id="draggablePhoto"
+                src="/sakshi-gill-portrait.jpg"
+              alt="Portrait of Sakshi Gill — AI developer and digital marketer from Kaithal, Haryana"
+              title="Sakshi Gill — AI Developer and Digital Marketer, Kaithal"
+              style="width: 100%; height: 100%; object-fit: cover; object-position: center center; display: block; user-select: none; pointer-events: none;"
+              draggable="false"
+            >
+          </div>
+        </div>
+
+        <div class="who-am-i-header" style="text-align: center; margin-bottom: 2.5rem;">
+          <span class="who-am-i-eyebrow" style="display: inline-block; font-family: var(--font-heading); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: #a3150f; margin-bottom: 0.75rem;">PERSONAL NARRATIVE</span>
+          <h2 class="who-am-i-title" style="font-family: var(--font-serif); font-size: clamp(2.4rem, 4vw, 3.2rem); color: #a3150f; letter-spacing: -0.02em; font-style: normal; font-weight: 600;">Who Am I</h2>
+        </div>
+
+        <div class="who-am-i-text" style="max-width: 860px; margin: 0 auto;">
+            <!-- Narrative text: 5 sentences, first person, warm and honest, flowing through all 4 milestones -->
+            <p class="narrative-body" style="font-size: 1.12rem; line-height: 1.85; color: var(--body-dark); text-align: left; margin-bottom: 1.25rem;">
+              I'm Sakshi Gill — someone driven by an honest love for visual storytelling and an endless curiosity about how creative ideas truly connect with people. Growing up through school, scoring a perfect 100% in 10th grade and 91.8% in 12th gave me a foundation of steady discipline, but it was my quiet, instinctive pull toward words, design, and creative expression that hinted at where I was headed. During my graduation, completing my B.A. from Indira Gandhi College, Kurukshetra University with a 9.34 CGPA, I learned to look at human emotions, culture, and narratives with deep analytical clarity. The defining turning point came when I discovered and completed my course in Digital Marketing with AI — suddenly, strategic communication and intelligent generative technology merged, giving my creative drive a clear and powerful purpose. Today, that journey shapes everything I build: turning raw ideas into captivating digital stories that people don't just scroll past, but genuinely remember.
+            </p>
+        </div>
+      </div>
+
+      <script>
+      (function() {
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReducedMotion) return;
+
+        const photoFrame = document.querySelector('.who-am-i-photo-frame');
+        const photo = document.getElementById('draggablePhoto');
+        if (!photoFrame || !photo) return;
+
+        let isDragging = false;
+        let startX = 0;
+        let startY = 0;
+        let currentX = 0;
+        let currentY = 0;
+        let velocityX = 0;
+        let velocityY = 0;
+        let lastX = 0;
+        let lastY = 0;
+        let lastTime = 0;
+        let animationId = null;
+
+        function applyTransform(x, y, rotation) {
+          photo.style.transform = `translate(${x}px, ${y}px) rotate(${rotation}deg)`;
+        }
+
+        function animate() {
+          if (!isDragging) {
+            const friction = 0.92;
+            velocityX *= friction;
+            velocityY *= friction;
+            currentX += velocityX;
+            currentY += velocityY;
+
+            const rotation = currentX * 0.04;
+            applyTransform(currentX, currentY, rotation);
+
+            if (Math.abs(velocityX) > 0.05 || Math.abs(velocityY) > 0.05 || Math.abs(currentX) > 0.05 || Math.abs(currentY) > 0.05) {
+              animationId = requestAnimationFrame(animate);
+            } else {
+              currentX = 0;
+              currentY = 0;
+              velocityX = 0;
+              velocityY = 0;
+              photo.style.transition = 'transform 0.7s cubic-bezier(.34,1.56,.64,1)';
+              applyTransform(0, 0, 0);
+              setTimeout(() => {
+                photo.style.transition = '';
+              }, 700);
+            }
+          }
+        }
+
+        function onPointerDown(e) {
+          if (e.button !== 0 && e.pointerType !== 'touch') return;
+          isDragging = true;
+          photoFrame.style.cursor = 'grabbing';
+          photo.style.transition = 'none';
+
+          const rect = photoFrame.getBoundingClientRect();
+          startX = e.clientX - rect.left - currentX;
+          startY = e.clientY - rect.top - currentY;
+
+          lastX = e.clientX;
+          lastY = e.clientY;
+          lastTime = performance.now();
+
+          velocityX = 0;
+          velocityY = 0;
+
+          if (animationId) cancelAnimationFrame(animationId);
+
+          e.preventDefault();
+        }
+
+        function onPointerMove(e) {
+          if (!isDragging) return;
+
+          const now = performance.now();
+          const dt = now - lastTime;
+          if (dt > 0) {
+            velocityX = (e.clientX - lastX) / dt * 16;
+            velocityY = (e.clientY - lastY) / dt * 16;
+          }
+
+          const rect = photoFrame.getBoundingClientRect();
+          currentX = e.clientX - rect.left - startX;
+          currentY = e.clientY - rect.top - startY;
+
+          const maxDrag = 40;
+          currentX = Math.max(-maxDrag, Math.min(maxDrag, currentX));
+          currentY = Math.max(-maxDrag, Math.min(maxDrag, currentY));
+
+          const rotation = currentX * 0.04;
+          applyTransform(currentX, currentY, rotation);
+
+          lastX = e.clientX;
+          lastY = e.clientY;
+          lastTime = now;
+        }
+
+        function onPointerUp(e) {
+          if (!isDragging) return;
+          isDragging = false;
+          photoFrame.style.cursor = 'grab';
+
+          animationId = requestAnimationFrame(animate);
+        }
+
+        photoFrame.addEventListener('pointerdown', onPointerDown);
+        window.addEventListener('pointermove', onPointerMove);
+        window.addEventListener('pointerup', onPointerUp);
+        window.addEventListener('pointercancel', onPointerUp);
+      })();
+      </script>
+
+      <!-- Part B: Qualifications & Roadmap (Exactly 3 Boxes) -->
+      <div style="text-align: center; max-width: 680px; margin: 0 auto;" class="reveal-on-scroll">
+        <span class="section-label">Milestones &amp; Academics</span>
+        <h3 style="font-size: clamp(2rem, 3.5vw, 2.75rem); color: var(--deep-charcoal); margin-bottom: 1rem; font-family: var(--font-display);">
+          Qualifications &amp; Roadmap
+        </h3>
+        <p style="color: var(--muted-dark); font-size: 1.05rem;">
+          A visual roadmap of disciplined academic excellence and hands-on mastery in modern AI-powered marketing.
+        </p>
+      </div>
+
+      <!-- Roadmap Visual Diagram -->
+      <div class="roadmap-wrapper">
+        <!-- Subtle dashed track along the spine -->
+        <div class="roadmap-track-dash" aria-hidden="true"></div>
+
+        <!-- Node 1: Left Side - Schooling -->
+        <div class="roadmap-node node-left reveal-on-scroll">
+          <div class="roadmap-marker" title="Milestone 01">01</div>
+          <div class="roadmap-stem" aria-hidden="true"></div>
+          <div class="roadmap-card">
+            <div class="roadmap-card-header">
+              <span class="roadmap-year-badge">2022-23</span>
+              <span class="roadmap-step-badge">NODE 01</span>
+            </div>
+            <h4 class="roadmap-title">Schooling &amp; Academic Foundation</h4>
+            <div class="roadmap-institution">Secondary (10th: 100%) &amp; Senior Secondary (12th: 91.8%)</div>
+            <p class="roadmap-takeaway">
+              Achieved a rare 100% in 10th grade and 91.8% in 12th — proving that consistency, curiosity, and steadfast discipline build the strongest launchpad for creative growth.
+            </p>
+          </div>
+        </div>
+
+        <!-- Node 2: Right Side - Graduation -->
+        <div class="roadmap-node node-right reveal-on-scroll">
+          <div class="roadmap-marker" title="Milestone 02">02</div>
+          <div class="roadmap-stem" aria-hidden="true"></div>
+          <div class="roadmap-card">
+            <div class="roadmap-card-header">
+              <span class="roadmap-year-badge">2023-26</span>
+              <span class="roadmap-step-badge">NODE 02</span>
+            </div>
+            <h4 class="roadmap-title">Bachelor of Arts (B.A.)</h4>
+            <div class="roadmap-institution">Indira Gandhi College, Kurukshetra University (CGPA 9.34 / 10)</div>
+            <p class="roadmap-takeaway">
+              Graduated with an exceptional 9.34 CGPA, honing deep analytical clarity, cultural empathy, and an instinct for what makes human stories truly resonate.
+            </p>
+          </div>
+        </div>
+
+        <!-- Node 3: Left Side - Digital Marketing with AI -->
+        <div class="roadmap-node node-left reveal-on-scroll">
+          <div class="roadmap-marker" title="Milestone 03">03</div>
+          <div class="roadmap-stem" aria-hidden="true"></div>
+          <div class="roadmap-card">
+            <div class="roadmap-card-header" style="justify-content: flex-end;">
+              <span class="roadmap-step-badge">NODE 03</span>
+            </div>
+            <h4 class="roadmap-title">Digital Marketing with AI</h4>
+            <div class="roadmap-institution">Advanced Specialized Certification</div>
+            <p class="roadmap-takeaway">
+              The pivotal breakthrough — fusing strategic brand storytelling with cutting-edge AI tools to design high-impact, forward-looking content.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Part C: My Journey photo -->
+      <div class="journey-photo-frame reveal-on-scroll">
+        <img
+          src="/sakshi-gill-journey.jpg"
+          alt="Sakshi Gill — my journey of mastering AI tools, storytelling and creative frameworks"
+          title="Sakshi Gill — AI Tools, Storytelling and Creative Frameworks"
+          loading="lazy"
+        >
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       6. MY PROJECTS (id="projects", HORIZONTAL CAROUSEL)
+       A single horizontal sliding track holding four items in order:
+       Typing Rush game tile, Gyanix Academy website tile, then two tilted
+       polaroid cards for the AI video loops. Warm cream stage, hero red
+       accents, arrow buttons on desktop and dot indicators below.
+       ========================================================================= -->
+  <section id="projects" class="section-spacing" aria-label="My Projects">
+    <div class="container">
+      
+      <!-- Compact Headline & Subtitle -->
+      <div class="projects-header reveal-on-scroll">
+        <span class="section-label">Portfolio &amp; Works</span>
+        <h2 style="font-size: clamp(2rem, 3.2vw, 2.6rem); color: var(--deep-charcoal); font-family: var(--font-display); margin-bottom: 0.5rem; letter-spacing: -0.02em;">
+          My Projects
+        </h2>
+        <p style="color: var(--muted-dark); font-size: 0.96rem; max-width: 600px; margin: 0 auto; line-height: 1.55;">
+          A compact showcase of live applications, educational web platforms, and generative AI motion.
+        </p>
+      </div>
+
+      <!-- =========================================================================
+           "MY PROJECTS" — 3D cards, ported verbatim from
+           reference/project-cards-preview.html
+           ========================================================================= -->
+      <section class="pj3d-sec" aria-label="My Projects">
+        <div class="pj3d-grid">
+
+          <div class="pj3d-card" style="--i:0;--a:#DC3A2A;--sh:#7A0F0F;--o1:#FFB4A2;--o2:#7A0F0F">
+            <div class="pj3d-face">
+              <div class="pj3d-bg"></div>
+              <span class="pj3d-tag"><i></i>LIVE GAME</span>
+              <div class="pj3d-cube"><b>🎮</b><b>🎮</b><b>🎮</b><b>🎮</b><b>🎮</b><b>🎮</b></div>
+              <span class="pj3d-chip pj3d-c1">A</span>
+              <span class="pj3d-chip pj3d-c2">S</span>
+              <span class="pj3d-chip pj3d-c3">D</span>
+              <div class="pj3d-panel">
+                <h3>Typing Rush</h3>
+                <p>Let&rsquo;s Play Game</p>
+                <!-- TODO: real Typing Rush link goes here -->
+                <a class="pj3d-btn" href="https://typing-rush-game.vercel.app" target="_blank" rel="noopener noreferrer">Play Now →</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="pj3d-card" style="--i:1;--a:#7C3AED;--sh:#2A1B6B;--o1:#C4B5FD;--o2:#2A1B6B">
+            <div class="pj3d-face">
+              <div class="pj3d-bg"></div>
+              <span class="pj3d-tag"><i></i>LIVE WEBSITE</span>
+              <div class="pj3d-cube"><b>🌐</b><b>🌐</b><b>🌐</b><b>🌐</b><b>🌐</b><b>🌐</b></div>
+              <span class="pj3d-chip pj3d-c1">A+</span>
+              <span class="pj3d-chip pj3d-c2">📚</span>
+              <span class="pj3d-chip pj3d-c3">✨</span>
+              <div class="pj3d-panel">
+                <h3>Gyanix Academy</h3>
+                <p>Explore the Learning Website</p>
+                <a class="pj3d-btn" href="https://gyanix-acedemy-gyanix-academy-8bqc.vercel.app" target="_blank" rel="noopener noreferrer">Visit Website ↗</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      </div>
+  </section>
+
+<!-- =========================================================================
+        7. CAPABILITIES (id="capabilities", NEUTRAL)
+        Cream background (#FFF8F0), 3D flip cards + existing capability buttons
+        ========================================================================= -->
+  <section id="capabilities" class="section-spacing" aria-label="Capabilities and AI Tools">
+    <div class="container">
+      <!-- Section Heading -->
+      <div style="text-align: center; max-width: 680px; margin: 0 auto 3rem;" class="reveal-on-scroll">
+        <span class="section-label">My Expertise</span>
+        <h2 style="font-size: clamp(2rem, 3.5vw, 2.75rem); color: var(--deep-charcoal); margin-bottom: 0.5rem;">
+          My Capabilities
+        </h2>
+      </div>
+
+      <!-- 3D Flip Cards Grid -->
+      <div class="flip-cards-grid" role="list" aria-label="Core capabilities">
+        <!-- Card 1: AI DEVELOPER -->
+        <article class="flip-card" role="listitem" tabindex="0" aria-label="AI Developer capability">
+          <div class="flip-card-inner">
+            <div class="flip-card-face front">
+              <div class="flip-card-floating-circles">
+                <span class="circle circle-1"></span>
+                <span class="circle circle-2"></span>
+                <span class="circle circle-3"></span>
+              </div>
+              <div class="flip-card-content">
+                <div class="flip-card-icon" style="transform: translateZ(20px);">
+                  <svg class="ti ti-robot" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v1"></path><path d="M17 3h4"></path><path d="M3 11h18"></path><path d="M3 11v9a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-9"></path><path d="M8 15v-1"></path><path d="M16 15v-1"></path><path d="M9 19h6"></path></svg>
+                </div>
+                <div class="flip-card-label" style="transform: translateZ(10px);">AI DEVELOPER</div>
+                <h3 class="flip-card-title" style="transform: translateZ(15px);">Practical AI for real business</h3>
+                <p class="flip-card-hint" style="transform: translateZ(5px);">Hover karke dekhein</p>
+              </div>
+            </div>
+            <div class="flip-card-face back">
+              <div class="flip-card-content">
+                <h3 class="flip-card-title-back">AI DEVELOPER</h3>
+                <p class="flip-card-desc">Chatbots that answer customers 24x7, WhatsApp lead flows and AI-assisted websites that turn visitors into enquiries.</p>
+                <div class="flip-card-tags">
+                  <span class="flip-card-tag">Chatbots</span>
+                  <span class="flip-card-tag">WhatsApp</span>
+                  <span class="flip-card-tag">AI websites</span>
+                </div>
+                <a href="#connect" class="flip-card-link">AI Development in Kaithal <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 2: DIGITAL MARKETER -->
+        <article class="flip-card" role="listitem" tabindex="0" aria-label="Digital Marketer capability">
+          <div class="flip-card-inner">
+            <div class="flip-card-face front" style="background: #fbe3de;">
+              <div class="flip-card-floating-circles">
+                <span class="circle circle-1"></span>
+                <span class="circle circle-2"></span>
+                <span class="circle circle-3"></span>
+              </div>
+              <div class="flip-card-content" style="color: #A31712;">
+                <div class="flip-card-icon" style="transform: translateZ(20px);">
+                  <svg class="ti ti-chart-bar" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"></path><path d="M7 16l4-8 4 4 6-12"></path></svg>
+                </div>
+                <h3 class="flip-card-title" style="transform: translateZ(15px);">Local marketing that brings enquiries</h3>
+                <p class="flip-card-hint" style="transform: translateZ(5px);">Hover karke dekhein</p>
+              </div>
+            </div>
+            <div class="flip-card-face back">
+              <div class="flip-card-content">
+                <h3 class="flip-card-title-back">DIGITAL MARKETER</h3>
+                <p class="flip-card-desc">Google Business Profile, consistent reels and posts, and tracking that measures calls and visits, not just likes.</p>
+                <div class="flip-card-tags">
+                  <span class="flip-card-tag">Google Business</span>
+                  <span class="flip-card-tag">Reels</span>
+                  <span class="flip-card-tag">Tracking</span>
+                </div>
+                <a href="#connect" class="flip-card-link">Digital Marketing in Kaithal <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 3: PHOTO & VIDEO EDITOR -->
+        <article class="flip-card" role="listitem" tabindex="0" aria-label="Photo & Video Editor capability">
+          <div class="flip-card-inner">
+            <div class="flip-card-face front">
+              <div class="flip-card-floating-circles">
+                <span class="circle circle-1"></span>
+                <span class="circle circle-2"></span>
+                <span class="circle circle-3"></span>
+              </div>
+              <div class="flip-card-content">
+                <div class="flip-card-icon" style="transform: translateZ(20px);">
+                  <svg class="ti ti-video" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"></path><path d="M18 19a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2z"></path></svg>
+                </div>
+                <h3 class="flip-card-title" style="transform: translateZ(15px);">Edits that hold the first two seconds</h3>
+                <p class="flip-card-hint" style="transform: translateZ(5px);">Hover karke dekhein</p>
+              </div>
+            </div>
+            <div class="flip-card-face back">
+              <div class="flip-card-content">
+                <h3 class="flip-card-title-back">PHOTO & VIDEO EDITOR</h3>
+                <p class="flip-card-desc">Scroll-stopping reels, YouTube Shorts, ads and photo sets with cut-on-beat edits and clean colour work.</p>
+                <div class="flip-card-tags">
+                  <span class="flip-card-tag">Reels</span>
+                  <span class="flip-card-tag">Shorts</span>
+                  <span class="flip-card-tag">Ads</span>
+                </div>
+                <a href="#connect" class="flip-card-link">Photo & Video Editing <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- More Capabilities Section -->
+      <div style="margin-top: 4.5rem;">
+        <div style="text-align: center; max-width: 680px; margin: 0 auto 2.5rem;" class="reveal-on-scroll">
+          <span class="section-label" style="color: var(--muted-dark);">More Capabilities</span>
+          <h3 style="font-size: clamp(1.5rem, 2.5vw, 2rem); color: var(--deep-charcoal); margin-bottom: 0.5rem;">
+            Specialized Toolkits
+          </h3>
+        </div>
+
+        <div class="capabilities-button-grid reveal-on-scroll">
+          <!-- 1. Digital Marketing -->
+          <button
+            type="button"
+            class="capability-btn"
+            data-category="digital-marketing"
+            aria-haspopup="dialog"
+            aria-expanded="false"
+          >
+            <span>Digital Marketing</span>
+          </button>
+
+          <!-- 2. AI Tools -->
+          <button
+            type="button"
+            class="capability-btn"
+            data-category="ai-tools"
+            aria-haspopup="dialog"
+            aria-expanded="false"
+          >
+            <span>AI Tools</span>
+          </button>
+
+          <!-- 3. Video Creating with AI -->
+          <button
+            type="button"
+            class="capability-btn"
+            data-category="video-ai"
+            aria-haspopup="dialog"
+            aria-expanded="false"
+          >
+            <span>Video Creating with AI</span>
+          </button>
+
+          <!-- 4. Social Media -->
+          <button
+            type="button"
+            class="capability-btn"
+            data-category="social-media"
+            aria-haspopup="dialog"
+            aria-expanded="false"
+          >
+            <span>Social Media</span>
+          </button>
+
+          <!-- 5. Editing -->
+          <button
+            type="button"
+            class="capability-btn"
+            data-category="editing"
+            aria-haspopup="dialog"
+            aria-expanded="false"
+          >
+            <span>Editing</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAPABILITIES TOOLKIT MODAL LIGHTBOX OVERLAY -->
+  <div
+    id="capabilities-modal-overlay"
+    class="capabilities-modal-overlay"
+    role="dialog"
+    aria-modal="true"
+    aria-hidden="true"
+  >
+    <div class="capabilities-modal-dialog" id="capabilities-modal-dialog">
+      <button
+        type="button"
+        class="capabilities-modal-close"
+        id="capabilities-modal-close"
+        aria-label="Close dialog"
+        title="Close"
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+
+      <div style="margin-bottom: 0.6rem;">
+        <span class="capabilities-modal-kicker" id="capabilities-modal-kicker">✦ CAPABILITY TOOLKIT</span>
+        <h3 class="capabilities-modal-title" id="capabilities-modal-title">Capability Title</h3>
+      </div>
+
+      <div class="capabilities-tools-grid" id="capabilities-tools-grid">
+        <!-- Injected via JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       8. VISION SECTION (id="vision", DARK NEUTRAL - NOT RED)
+       Full deep charcoal (#1A1A1A) background, white text, centered, large elegant typography
+       ========================================================================= -->
+  <section id="vision" class="section-spacing" aria-label="Vision">
+    <div class="container">
+      <div class="vision-container reveal-on-scroll">
+        <span class="vision-subheading">Looking Forward</span>
+        <h2 class="vision-headline">My Vision</h2>
+
+        <div class="vision-photo-frame">
+          <img
+            src="/sakshi-gill-vision.jpg"
+            alt="Sakshi Gill — vision, goals and future direction as an AI developer and digital marketer from Kaithal"
+            title="Sakshi Gill — My Vision, Goals and Future Direction"
+            loading="lazy"
+          >
+        </div>
+
+        <div class="vision-goals">
+          <p class="vision-goal">Build AI-powered brands that grow beyond borders.</p>
+          <p class="vision-goal">Turn local stories into global opportunities.</p>
+          <p class="vision-goal">Blend human creativity with intelligent systems.</p>
+          <p class="vision-goal">Create work that earns trust, not just attention.</p>
+        </div>
+        <div style="margin-top: 2.5rem;">
+          <a href="#connect" class="btn-gold-solid" style="font-size: 1.05rem; padding: 0.95rem 2.2rem;">
+            <span>Collaborate With Me</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14"></path>
+              <path d="m12 5 7 7-7 7"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       9. CONNECT / ENQUIRY SECTION (id="connect", NEUTRAL)
+       Warm cream background, form with Name, Email, Message, gold submit button
+       ========================================================================= -->
+  <section id="connect" class="section-spacing" aria-label="Connect and Contact">
+    <div class="container">
+      <div style="text-align: center; max-width: 720px; margin: 0 auto;" class="reveal-on-scroll">
+        <span class="section-label">Start A Conversation</span>
+        <h2 style="font-size: clamp(2rem, 3.5vw, 2.75rem); color: var(--deep-charcoal); margin-bottom: 1rem;">
+          If you'd like to begin this journey together, I'd love to hear from you.
+        </h2>
+        <p style="color: var(--muted-dark); font-size: 1.05rem;">
+          Whether you're looking to scale an AI product, revolutionize your digital marketing, or direct an unforgettable campaign — my inbox is open.
+        </p>
+      </div>
+
+      <div class="connect-grid">
+        
+        <!-- Left: Contact Information (Replace placeholder email/social as needed) -->
+        <div class="reveal-on-scroll">
+          <p class="connect-intro-text">
+            Available for select full-time opportunities, high-impact consulting, creative direction, and speaking engagements worldwide.
+          </p>
+
+          <!-- Email -->
+          <a href="mailto:divinesakshi03@gmail.com" class="contact-item" target="_blank" rel="noopener">
+            <div class="contact-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+              </svg>
+            </div>
+            <div>
+              <div class="contact-label">Direct Email</div>
+              <div class="contact-value">divinesakshi03@gmail.com</div>
+            </div>
+          </a>
+
+          <!-- LinkedIn -->
+          <a href="https://linkedin.com/in/sakshigill" target="_blank" rel="noopener" class="contact-item">
+            <div class="contact-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                <rect width="4" height="12" x="2" y="9"></rect>
+                <circle cx="4" cy="4" r="2"></circle>
+              </svg>
+            </div>
+            <div>
+              <div class="contact-label">Professional Network</div>
+              <div class="contact-value">linkedin.com/in/sakshigill</div>
+            </div>
+          </a>
+
+          <!-- Location & Availability -->
+          <div class="contact-item">
+            <div class="contact-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+            </div>
+            <div>
+              <div class="contact-label">Availability &amp; Base</div>
+              <div class="contact-value">Available Globally / Remote &amp; Hybrid</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Message Form -->
+        <div class="reveal-on-scroll">
+          <form class="contact-form" id="contact-form" onsubmit="handleFormSubmit(event)">
+            <div class="form-group">
+              <label for="name" class="form-label">Your Name</label>
+              <input type="text" id="name" name="name" class="form-input" placeholder="Your name" required />
+            </div>
+
+            <div class="form-group">
+              <label for="email" class="form-label">Email Address</label>
+              <input type="email" id="email" name="email" class="form-input" placeholder="your@email.com" required />
+            </div>
+
+            <div class="form-group">
+              <label for="message" class="form-label">Your Message</label>
+              <textarea id="message" name="message" rows="4" class="form-textarea" placeholder="Tell me about your project, vision, or timeline..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit-gold" id="submit-btn">
+              <span>Send Message</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+            </button>
+
+            <div class="form-feedback" id="form-feedback" role="status" aria-live="polite"></div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- =========================================================================
        10. FOOTER (DARK NEUTRAL)
        Deep charcoal (#1A1A1A) background, white text, copyright, social icons, back to top
        ========================================================================= -->
@@ -4211,6 +4727,8 @@
             <a href="/digital-marketer" style="color:rgba(245,230,200,.85); text-decoration:none;">Digital Marketing</a>
             <span style="color:rgba(245,230,200,.4);">·</span>
             <a href="/editor" style="color:rgba(245,230,200,.85); text-decoration:none;">Photo &amp; Video Editing</a>
+            <span style="color:rgba(245,230,200,.4);">·</span>
+            <a href="#faq" style="color:rgba(245,230,200,.85); text-decoration:none;">FAQ</a>
           </div>
         </div>
 
@@ -4513,7 +5031,7 @@
 
       // 4. FLOATING NAVBAR ACTIVE SECTION DETECTION
       // Section IDs matching navbar items: #home, #my-story, #projects, #vision, #connect
-      const sectionIds = ['home', 'my-story', 'services', 'projects', 'vision', 'connect'];
+      const sectionIds = ['home', 'my-story', 'capabilities', 'projects', 'vision', 'connect'];
       const navButtons = document.querySelectorAll('.nav-pill-btn[data-target]');
       let isBlogRoute = false;
 

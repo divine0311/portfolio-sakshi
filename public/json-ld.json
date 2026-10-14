@@ -12,6 +12,36 @@
       "encodingFormat": "image/jpeg"
     },
     {
+      "@type": "ImageObject",
+      "@id": "https://sakshigill.com/#sakshi-gill-portrait",
+      "url": "https://sakshigill.com/sakshi-gill-portrait.jpg",
+      "contentUrl": "https://sakshigill.com/sakshi-gill-portrait.jpg",
+      "name": "Sakshi Gill portrait",
+      "caption": "Sakshi Gill — AI Developer, Digital Marketer and Photo-Video Editor from Kaithal, Haryana",
+      "encodingFormat": "image/jpeg",
+      "inLanguage": "en"
+    },
+    {
+      "@type": "ImageObject",
+      "@id": "https://sakshigill.com/#sakshi-gill-vision",
+      "url": "https://sakshigill.com/sakshi-gill-vision.jpg",
+      "contentUrl": "https://sakshigill.com/sakshi-gill-vision.jpg",
+      "name": "Sakshi Gill vision and goals",
+      "caption": "Sakshi Gill — vision, goals and future direction as an AI developer and digital marketer",
+      "encodingFormat": "image/jpeg",
+      "inLanguage": "en"
+    },
+    {
+      "@type": "ImageObject",
+      "@id": "https://sakshigill.com/#sakshi-gill-journey",
+      "url": "https://sakshigill.com/sakshi-gill-journey.jpg",
+      "contentUrl": "https://sakshigill.com/sakshi-gill-journey.jpg",
+      "name": "Sakshi Gill journey",
+      "caption": "Sakshi Gill — her journey of mastering AI tools, storytelling and creative frameworks",
+      "encodingFormat": "image/jpeg",
+      "inLanguage": "en"
+    },
+    {
       "@type": "Person",
       "@id": "https://sakshigill.com/#person",
       "givenName": "Sakshi",
@@ -19,7 +49,12 @@
       "name": "Sakshi Gill",
       "alternateName": ["Sakshi Kaithal", "Sakshi Gill Portfolio"],
       "url": "https://sakshigill.com/",
-      "image": {"@id": "https://sakshigill.com/#portrait"},
+      "image": [
+        {"@id": "https://sakshigill.com/#portrait"},
+        {"@id": "https://sakshigill.com/#sakshi-gill-portrait"},
+        {"@id": "https://sakshigill.com/#sakshi-gill-vision"},
+        {"@id": "https://sakshigill.com/#sakshi-gill-journey"}
+      ],
       "jobTitle": "AI Developer, Digital Marketer & Photo-Video Editor",
       "description": "Sakshi Gill is an AI Developer, Digital Marketer and Photo & Video Editor from Kaithal, Haryana, India, building AI-powered marketing, content and creative work.",
       "email": "mailto:divinesakshi03@gmail.com",

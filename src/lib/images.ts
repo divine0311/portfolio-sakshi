@@ -128,8 +128,8 @@ export async function saveSiteImage(
 /** Resets a slot to the checked-in static asset that ships with the site. */
 export const SLOT_DEFAULTS: Record<ImageSlot, string> = {
   hero: '/sakshi_portrait.jpg',
-  about: '/Character_head_tracking_animation_20260923172045.jpeg',
-  journey: '/sakshi_portrait.jpg',
+  about: '/sakshi-gill-portrait.jpg',
+  journey: '/sakshi-gill-journey.jpg',
 };
 
 /**
