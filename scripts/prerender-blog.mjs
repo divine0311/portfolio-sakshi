@@ -40,12 +40,13 @@ const AUTHOR = seed.author;
 
 /* Canonical URLs and the sitemap need a real origin. There is no deployment
  * URL in this repo, so it must come from SITE_URL rather than be guessed. */
+const DEFAULT_SITE_URL = 'https://portfolio-sakshi-swart.vercel.app';
 const rawSite = (process.env.SITE_URL || env.SITE_URL || '').replace(/\/$/, '');
 if (!rawSite) {
-  console.warn('  ! SITE_URL is not set in .env — canonical tags and sitemap.xml');
-  console.warn('    will point at localhost. Set SITE_URL to your live domain.');
+  console.warn('  ! SITE_URL is not set in .env — using the default site URL.');
+  console.warn(`    Set SITE_URL on Vercel if the domain ever changes. Currently: ${DEFAULT_SITE_URL}`);
 }
-const siteUrl = rawSite || 'http://localhost:4173';
+const siteUrl = rawSite || DEFAULT_SITE_URL;
 
 /* ---------------- fetch ---------------- */
 
@@ -169,7 +170,9 @@ function applyHead(html, {title, description, canonical, jsonLd}) {
     `<meta property="og:description" content="${esc(description)}" />`,
     `<meta property="og:type" content="website" />`,
     `<meta property="og:url" content="${esc(canonical)}" />`,
-    `<meta property="og:image" content="${siteUrl}/sakshi_portrait.jpg" />`,
+    `<meta property="og:image" content="${siteUrl}/og-image-1200x630.jpg" />`,
+    `<meta property="og:image:width" content="1200" />`,
+    `<meta property="og:image:height" content="630" />`,
     `<meta property="og:site_name" content="Sakshi Gill" />`,
     `<meta name="twitter:card" content="summary_large_image" />`,
   ].join('\n    ');
@@ -435,25 +438,31 @@ const urls = [
 /* Image sitemap — helps "Sakshi Gill" photos surface in Google image search */
 const HOME_IMAGES = [
   {
-    loc: `${siteUrl}/sakshi_portrait.jpg`,
+    loc: `${siteUrl}/sakshi_portrait.webp`,
     title: 'Sakshi Gill — AI Developer and Digital Marketer',
     caption:
       'Portrait of Sakshi Gill, AI Developer, Digital Marketer and Photo-Video Editor from Kaithal, Haryana.',
   },
   {
-    loc: `${siteUrl}/sakshi-gill-portrait.jpg`,
+    loc: `${siteUrl}/sakshi-gill-portrait.webp`,
     title: 'Sakshi Gill portrait',
     caption: 'Sakshi Gill — AI Developer and Digital Marketer from Kaithal, Haryana.',
   },
   {
-    loc: `${siteUrl}/sakshi-gill-vision.jpg`,
+    loc: `${siteUrl}/sakshi-gill-vision.webp`,
     title: 'Sakshi Gill — My Vision and Goals',
     caption: 'Sakshi Gill sharing her vision and goals as an AI developer and digital marketer.',
   },
   {
-    loc: `${siteUrl}/sakshi-gill-journey.jpg`,
+    loc: `${siteUrl}/sakshi-gill-journey.webp`,
     title: 'Sakshi Gill — My Journey',
     caption: 'Sakshi Gill on her journey mastering AI tools, storytelling and creative frameworks.',
+  },
+  {
+    loc: `${siteUrl}/og-image-1200x630.jpg`,
+    title: 'Sakshi Gill portfolio',
+    caption:
+      'Sakshi Gill — AI Developer, Digital Marketer and Photo-Video Editor. AI chatbots, websites, digital marketing and video editing.',
   },
 ];
 

@@ -3,9 +3,9 @@
   "@graph": [
     {
       "@type": "ImageObject",
-      "@id": "https://sakshigill.com/#portrait",
-      "url": "https://sakshigill.com/sakshi_portrait.jpg",
-      "contentUrl": "https://sakshigill.com/sakshi_portrait.jpg",
+      "@id": "https://portfolio-sakshi-swart.vercel.app/#portrait",
+      "url": "https://portfolio-sakshi-swart.vercel.app/sakshi_portrait.webp",
+      "contentUrl": "https://portfolio-sakshi-swart.vercel.app/sakshi_portrait.webp",
       "caption": "Sakshi Gill — AI Developer, Digital Marketer & Photo-Video Editor",
       "width": 1376,
       "height": 768,
@@ -13,9 +13,9 @@
     },
     {
       "@type": "ImageObject",
-      "@id": "https://sakshigill.com/#sakshi-gill-portrait",
-      "url": "https://sakshigill.com/sakshi-gill-portrait.jpg",
-      "contentUrl": "https://sakshigill.com/sakshi-gill-portrait.jpg",
+      "@id": "https://portfolio-sakshi-swart.vercel.app/#sakshi-gill-portrait",
+      "url": "https://portfolio-sakshi-swart.vercel.app/sakshi-gill-portrait.webp",
+      "contentUrl": "https://portfolio-sakshi-swart.vercel.app/sakshi-gill-portrait.webp",
       "name": "Sakshi Gill portrait",
       "caption": "Sakshi Gill — AI Developer, Digital Marketer and Photo-Video Editor from Kaithal, Haryana",
       "encodingFormat": "image/jpeg",
@@ -23,9 +23,9 @@
     },
     {
       "@type": "ImageObject",
-      "@id": "https://sakshigill.com/#sakshi-gill-vision",
-      "url": "https://sakshigill.com/sakshi-gill-vision.jpg",
-      "contentUrl": "https://sakshigill.com/sakshi-gill-vision.jpg",
+      "@id": "https://portfolio-sakshi-swart.vercel.app/#sakshi-gill-vision",
+      "url": "https://portfolio-sakshi-swart.vercel.app/sakshi-gill-vision.webp",
+      "contentUrl": "https://portfolio-sakshi-swart.vercel.app/sakshi-gill-vision.webp",
       "name": "Sakshi Gill vision and goals",
       "caption": "Sakshi Gill — vision, goals and future direction as an AI developer and digital marketer",
       "encodingFormat": "image/jpeg",
@@ -33,9 +33,9 @@
     },
     {
       "@type": "ImageObject",
-      "@id": "https://sakshigill.com/#sakshi-gill-journey",
-      "url": "https://sakshigill.com/sakshi-gill-journey.jpg",
-      "contentUrl": "https://sakshigill.com/sakshi-gill-journey.jpg",
+      "@id": "https://portfolio-sakshi-swart.vercel.app/#sakshi-gill-journey",
+      "url": "https://portfolio-sakshi-swart.vercel.app/sakshi-gill-journey.webp",
+      "contentUrl": "https://portfolio-sakshi-swart.vercel.app/sakshi-gill-journey.webp",
       "name": "Sakshi Gill journey",
       "caption": "Sakshi Gill — her journey of mastering AI tools, storytelling and creative frameworks",
       "encodingFormat": "image/jpeg",
@@ -43,17 +43,17 @@
     },
     {
       "@type": "Person",
-      "@id": "https://sakshigill.com/#person",
+      "@id": "https://portfolio-sakshi-swart.vercel.app/#person",
       "givenName": "Sakshi",
       "familyName": "Gill",
       "name": "Sakshi Gill",
       "alternateName": ["Sakshi Kaithal", "Sakshi Gill Portfolio"],
-      "url": "https://sakshigill.com/",
+      "url": "https://portfolio-sakshi-swart.vercel.app/",
       "image": [
-        {"@id": "https://sakshigill.com/#portrait"},
-        {"@id": "https://sakshigill.com/#sakshi-gill-portrait"},
-        {"@id": "https://sakshigill.com/#sakshi-gill-vision"},
-        {"@id": "https://sakshigill.com/#sakshi-gill-journey"}
+        {"@id": "https://portfolio-sakshi-swart.vercel.app/#portrait"},
+        {"@id": "https://portfolio-sakshi-swart.vercel.app/#sakshi-gill-portrait"},
+        {"@id": "https://portfolio-sakshi-swart.vercel.app/#sakshi-gill-vision"},
+        {"@id": "https://portfolio-sakshi-swart.vercel.app/#sakshi-gill-journey"}
       ],
       "jobTitle": "AI Developer, Digital Marketer & Photo-Video Editor",
       "description": "Sakshi Gill is an AI Developer, Digital Marketer and Photo & Video Editor from Kaithal, Haryana, India, building AI-powered marketing, content and creative work.",
@@ -82,32 +82,29 @@
         "@type": "CollegeOrUniversity",
         "name": "Indira Gandhi College, Kurukshetra University"
       },
-      "sameAs": [
-        "https://linkedin.com/in/sakshigill",
-        "https://github.com/divine0311"
-      ]
+      "sameAs": []
     },
     {
       "@type": "WebSite",
-      "@id": "https://sakshigill.com/#website",
-      "url": "https://sakshigill.com/",
+      "@id": "https://portfolio-sakshi-swart.vercel.app/#website",
+      "url": "https://portfolio-sakshi-swart.vercel.app/",
       "name": "Sakshi Gill",
       "alternateName": "Sakshi Gill Portfolio",
       "description": "Official portfolio of Sakshi Gill — AI Developer, Digital Marketer & Photo-Video Editor.",
       "inLanguage": "en",
       "isFamilyFriendly": true,
-      "publisher": {"@id": "https://sakshigill.com/#person"}
+      "publisher": {"@id": "https://portfolio-sakshi-swart.vercel.app/#person"}
     },
     {
       "@type": "ProfilePage",
-      "@id": "https://sakshigill.com/#profilepage",
-      "url": "https://sakshigill.com/",
+      "@id": "https://portfolio-sakshi-swart.vercel.app/#profilepage",
+      "url": "https://portfolio-sakshi-swart.vercel.app/",
       "name": "Sakshi Gill — AI Developer, Digital Marketer & Photo-Video Editor",
       "description": "Official portfolio of Sakshi Gill — AI Developer, Digital Marketer & Photo-Video Editor from Kaithal, Haryana, India.",
       "inLanguage": "en",
-      "image": {"@id": "https://sakshigill.com/#portrait"},
-      "isPartOf": {"@id": "https://sakshigill.com/#website"},
-      "mainEntity": {"@id": "https://sakshigill.com/#person"}
+      "image": {"@id": "https://portfolio-sakshi-swart.vercel.app/#portrait"},
+      "isPartOf": {"@id": "https://portfolio-sakshi-swart.vercel.app/#website"},
+      "mainEntity": {"@id": "https://portfolio-sakshi-swart.vercel.app/#person"}
     }
   ]
 }
