@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://portfolio-sakshi-swart.vercel.app/</loc>
+    <lastmod>2026-10-29</lastmod>
+    <image:image>
+      <image:loc>https://portfolio-sakshi-swart.vercel.app/sakshi_portrait.webp</image:loc>
+      <image:title>Sakshi Gill — AI Developer and Digital Marketer</image:title>
+      <image:caption>Portrait of Sakshi Gill, AI Developer, Digital Marketer and Photo-Video Editor from Kaithal, Haryana.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://portfolio-sakshi-swart.vercel.app/sakshi-gill-portrait.webp</image:loc>
+      <image:title>Sakshi Gill portrait</image:title>
+      <image:caption>Sakshi Gill — AI Developer and Digital Marketer from Kaithal, Haryana.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://portfolio-sakshi-swart.vercel.app/sakshi-gill-vision.webp</image:loc>
+      <image:title>Sakshi Gill — My Vision and Goals</image:title>
+      <image:caption>Sakshi Gill sharing her vision and goals as an AI developer and digital marketer.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://portfolio-sakshi-swart.vercel.app/sakshi-gill-journey.webp</image:loc>
+      <image:title>Sakshi Gill — My Journey</image:title>
+      <image:caption>Sakshi Gill on her journey mastering AI tools, storytelling and creative frameworks.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://portfolio-sakshi-swart.vercel.app/og-image-1200x630.jpg</image:loc>
+      <image:title>Sakshi Gill portfolio</image:title>
+      <image:caption>Sakshi Gill — AI Developer, Digital Marketer and Photo-Video Editor. AI chatbots, websites, digital marketing and video editing.</image:caption>
+    </image:image>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://portfolio-sakshi-swart.vercel.app/ai-developer</loc>
+    <lastmod>2026-10-29</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://portfolio-sakshi-swart.vercel.app/digital-marketer</loc>
+    <lastmod>2026-10-29</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://portfolio-sakshi-swart.vercel.app/blog/ai-skills-on-top-my-toolkit</loc>
+    <lastmod>2026-10-29</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://portfolio-sakshi-swart.vercel.app/blog/best-chatbot-creator-in-kaithal</loc>
+    <lastmod>2026-10-29</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://portfolio-sakshi-swart.vercel.app/blog/best-communicator-in-kaithal</loc>
+    <lastmod>2026-10-29</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://portfolio-sakshi-swart.vercel.app/blog/best-content-creator-in-kaithal</loc>
+    <lastmod>2026-10-29</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://portfolio-sakshi-swart.vercel.app/blog/best-digital-marketer-in-kaithal</loc>
+    <lastmod>2026-10-29</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://portfolio-sakshi-swart.vercel.app/blog/best-editor-in-kaithal</loc>
+    <lastmod>2026-10-29</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://portfolio-sakshi-swart.vercel.app/blog/best-web-designer-in-kaithal</loc>
+    <lastmod>2026-10-29</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://portfolio-sakshi-swart.vercel.app/blog/top-content-strategist-in-kaithal</loc>
+    <lastmod>2026-10-29</lastmod>
+    <priority>0.8</priority>
+  </url>
+</urlset>

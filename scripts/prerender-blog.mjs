@@ -38,15 +38,24 @@ const env = readEnv();
 const seed = JSON.parse(readFileSync(join(root, 'src/site/blogSeed.json'), 'utf8'));
 const AUTHOR = seed.author;
 
-/* Canonical URLs and the sitemap need a real origin. There is no deployment
- * URL in this repo, so it must come from SITE_URL rather than be guessed. */
-const DEFAULT_SITE_URL = 'https://portfolio-sakshi-swart.vercel.app';
-const rawSite = (process.env.SITE_URL || env.SITE_URL || '').replace(/\/$/, '');
-if (!rawSite) {
-  console.warn('  ! SITE_URL is not set in .env — using the default site URL.');
-  console.warn(`    Set SITE_URL on Vercel if the domain ever changes. Currently: ${DEFAULT_SITE_URL}`);
-}
-const siteUrl = rawSite || DEFAULT_SITE_URL;
+/* Canonical URLs and the sitemap must use the real production origin.
+ * This is the live Vercel URL. If the site moves to a custom domain, change
+ * it here, in public/robots.txt and in the service HTML files. */
+const siteUrl = 'https://portfolio-sakshi-swart.vercel.app';
+
+/* The sitemap is deliberately limited to the pages that are ready to index:
+ * the homepage, the two service pages and the eight published articles. */
+const SITEMAP_BLOG_SLUGS = [
+  'ai-skills-on-top-my-toolkit',
+  'best-chatbot-creator-in-kaithal',
+  'best-communicator-in-kaithal',
+  'best-content-creator-in-kaithal',
+  'best-digital-marketer-in-kaithal',
+  'best-editor-in-kaithal',
+  'best-web-designer-in-kaithal',
+  'top-content-strategist-in-kaithal',
+];
+const TODAY = new Date().toISOString().slice(0, 10);
 
 /* ---------------- fetch ---------------- */
 
@@ -156,7 +165,7 @@ function serviceCta(category = '') {
 
 /* ---------------- head blocks ---------------- */
 
-function applyHead(html, {title, description, canonical, jsonLd}) {
+function applyHead(html, {title, description, canonical, jsonLd, type = 'website'}) {
   let out = html;
 
   out = out.replace(/<title>[\s\S]*?<\/title>/, `<title>${esc(title)}</title>`);
@@ -168,7 +177,7 @@ function applyHead(html, {title, description, canonical, jsonLd}) {
   const og = [
     `<meta property="og:title" content="${esc(title)}" />`,
     `<meta property="og:description" content="${esc(description)}" />`,
-    `<meta property="og:type" content="website" />`,
+    `<meta property="og:type" content="${esc(type)}" />`,
     `<meta property="og:url" content="${esc(canonical)}" />`,
     `<meta property="og:image" content="${siteUrl}/og-image-1200x630.jpg" />`,
     `<meta property="og:image:width" content="1200" />`,
@@ -404,7 +413,7 @@ for (const p of posts) {
 
   const html = applyHead(
     postTemplate.replace(/<main id="post"[\s\S]*?<\/main>/, `<main id="post" class="blog-wrap">${article}</main>`),
-    {title: p.metaTitle, description: p.metaDescription, canonical, jsonLd},
+    {title: p.metaTitle, description: p.metaDescription, canonical, jsonLd, type: 'article'},
   );
 
   const dir = join(dist, 'blog', p.slug);
@@ -421,19 +430,28 @@ if (existsSync(indexPath)) {
   console.log('  dist/index.html (SITE_URL injected)');
 }
 
-/* sitemap */
+/* sitemap: homepage + 2 service pages + 8 articles = 11 URLs */
 const SERVICE_PAGES = [
-  {loc: `${siteUrl}/ai-developer`, priority: '0.7'},
-  {loc: `${siteUrl}/digital-marketer`, priority: '0.7'},
-  {loc: `${siteUrl}/editor`, priority: '0.7'},
+  {loc: `${siteUrl}/ai-developer`, priority: '0.9'},
+  {loc: `${siteUrl}/digital-marketer`, priority: '0.9'},
 ];
+
+const postsBySlug = new Map(posts.map((p) => [p.slug, p]));
+const sitemapPosts = SITEMAP_BLOG_SLUGS.map((slug) => {
+  const post = postsBySlug.get(slug);
+  if (!post) console.warn(`  ! sitemap: missing post ${slug}`);
+  return post;
+}).filter(Boolean);
 
 const urls = [
   {loc: `${siteUrl}/`, priority: '1.0'},
-  {loc: `${siteUrl}/blog`, priority: '0.8'},
   ...SERVICE_PAGES,
-  ...posts.map((p) => ({loc: `${siteUrl}/blog/${p.slug}`, lastmod: p.date, priority: '0.6'})),
+  ...sitemapPosts.map((p) => ({loc: `${siteUrl}/blog/${p.slug}`, priority: '0.8'})),
 ];
+
+if (urls.length !== 11) {
+  console.warn(`  ! sitemap has ${urls.length} URLs; expected 11`);
+}
 
 /* Image sitemap — helps "Sakshi Gill" photos surface in Google image search */
 const HOME_IMAGES = [
@@ -484,7 +502,7 @@ const sitemap =
     .map(
       (u) =>
         `  <url>\n    <loc>${esc(u.loc)}</loc>` +
-        (u.lastmod ? `\n    <lastmod>${u.lastmod}</lastmod>` : '') +
+        `\n    <lastmod>${TODAY}</lastmod>` +
         (u.loc === `${siteUrl}/` ? imageXml : '') +
         `\n    <priority>${u.priority}</priority>\n  </url>`,
     )
@@ -495,7 +513,15 @@ writeFileSync(join(dist, 'sitemap.xml'), sitemap);
 console.log('  dist/sitemap.xml');
 
 /* robots */
-const robots = `User-agent: *\nAllow: /\nSitemap: ${siteUrl}/sitemap.xml\n`;
+const robots =
+  'User-agent: *\n' +
+  'Allow: /\n' +
+  '\n' +
+  '# Private areas\n' +
+  'Disallow: /admin/\n' +
+  'Disallow: /api/\n' +
+  '\n' +
+  `Sitemap: ${siteUrl}/sitemap.xml\n`;
 writeFileSync(join(dist, 'robots.txt'), robots);
 console.log('  dist/robots.txt');
 

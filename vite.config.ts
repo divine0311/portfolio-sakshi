@@ -1,5 +1,6 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
+import {existsSync} from 'fs';
 import path from 'path';
 import {defineConfig, type Plugin} from 'vite';
 import type {IncomingMessage, ServerResponse} from 'http';
@@ -30,7 +31,8 @@ function adminRoute(): Plugin {
 // The article shell is one build output; the slug is read from the URL at
 // runtime and matched against Supabase, so adding a post needs no rebuild.
 function blogRoute(): Plugin {
-  const rewrite = (req: IncomingMessage, _res: ServerResponse, next: () => void) => {
+  // In `vite dev` the article shell is used and the slug is read at runtime.
+  const devRewrite = (req: IncomingMessage, _res: ServerResponse, next: () => void) => {
     const url = req.url ?? '';
     const clean = url.split('?')[0];
     if (clean === '/blog' || clean === '/blog/') {
@@ -40,13 +42,34 @@ function blogRoute(): Plugin {
     }
     next();
   };
+
+  // In `vite preview`, prefer the static HTML produced by `npm run prerender`
+  // so local previews match what Google and Vercel serve.
+  const previewRewrite = (req: IncomingMessage, _res: ServerResponse, next: () => void) => {
+    const url = req.url ?? '';
+    const clean = url.split('?')[0];
+    if (clean === '/blog' || clean === '/blog/') {
+      const file = path.resolve(__dirname, 'dist/blog/index.html');
+      req.url = existsSync(file) ? '/blog/index.html' : '/blog.html';
+    } else {
+      const match = clean.match(/^\/blog\/([^/]+)\/?$/);
+      if (match) {
+        const file = path.resolve(__dirname, 'dist/blog', decodeURIComponent(match[1]), 'index.html');
+        req.url = existsSync(file)
+          ? `/blog/${encodeURIComponent(match[1])}/index.html`
+          : '/blog-post.html' + url.slice(clean.length);
+      }
+    }
+    next();
+  };
+
   return {
     name: 'blog-route',
     configureServer(server) {
-      server.middlewares.use(rewrite);
+      server.middlewares.use(devRewrite);
     },
     configurePreviewServer(server) {
-      server.middlewares.use(rewrite);
+      server.middlewares.use(previewRewrite);
     },
   };
 }
