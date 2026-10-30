@@ -1,0 +1,10 @@
+﻿import fs from "fs";
+const s = fs.readFileSync("C:/Users/HP/Desktop/portfolio-sakshi/dist/ai-developer.html", "utf8");
+const t = s.match(/<title>(.*?)<\/title>/is);
+console.log(t ? t[1] : "");
+const d = s.match(/name=["']description["'][^>]+content=["']([^"']*)["']/is);
+console.log(d ? d[1] : "");
+const c = s.match(/rel=["']canonical["'][^>]+href=["']([^"']*)["']/is);
+console.log(c ? c[1] : "");
+const h = s.match(/<h1[^>]*>(.*?)<\/h1>/is);
+console.log(h ? h[1].replace(/<[^>]+>/g, "") : "");

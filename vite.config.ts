@@ -69,7 +69,22 @@ function blogRoute(): Plugin {
       server.middlewares.use(devRewrite);
     },
     configurePreviewServer(server) {
+<<<<<<< HEAD
       server.middlewares.use(previewRewrite);
+=======
+      server.middlewares.use((req, _res, next) => {
+        const url = req.url ?? '';
+        const clean = url.split('?')[0];
+        if (/^\/blog\/[^/]+\/?$/.test(clean)) {
+          const route = clean.endsWith('/') ? clean.slice(0, -1) : clean;
+          req.url = `${route}/index.html${url.slice(clean.length)}`;
+        } else {
+          rewrite(req, _res, next);
+          return;
+        }
+        next();
+      });
+>>>>>>> 7297d78 (Remove unused 2ndportfolio folder)
     },
   };
 }

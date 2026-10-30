@@ -38,6 +38,7 @@ const env = readEnv();
 const seed = JSON.parse(readFileSync(join(root, 'src/site/blogSeed.json'), 'utf8'));
 const AUTHOR = seed.author;
 
+<<<<<<< HEAD
 /* Canonical URLs and the sitemap must use the real production origin.
  * This is the live Vercel URL. If the site moves to a custom domain, change
  * it here, in public/robots.txt and in the service HTML files. */
@@ -56,6 +57,11 @@ const SITEMAP_BLOG_SLUGS = [
   'top-content-strategist-in-kaithal',
 ];
 const TODAY = new Date().toISOString().slice(0, 10);
+=======
+/* Use the public origin that owns the requested Google Search Console URLs. */
+const DEFAULT_SITE_URL = 'https://portfolio-sakshi-swart.vercel.app';
+const siteUrl = DEFAULT_SITE_URL;
+>>>>>>> 7297d78 (Remove unused 2ndportfolio folder)
 
 /* ---------------- fetch ---------------- */
 
@@ -110,9 +116,12 @@ function normalise(row) {
 }
 
 const rows = (await fetchPosts()).map(normalise);
-const posts = rows.length ? rows : seed.posts.map(normalise);
-const source = rows.length ? 'Supabase' : 'seed';
-console.log(`  posts: ${posts.length} (${source})`);
+const targetSlugs = new Set(seed.posts.map((p) => p.slug));
+const targetPosts = seed.posts.map(normalise);
+const posts = rows.length
+  ? [...targetPosts, ...rows.filter((p) => !targetSlugs.has(p.slug))]
+  : targetPosts;
+console.log(`  posts: ${posts.length} (${rows.length ? 'seed targets + Supabase extras' : 'seed'})`);
 
 /* ---------------- helpers ---------------- */
 
@@ -430,11 +439,25 @@ if (existsSync(indexPath)) {
   console.log('  dist/index.html (SITE_URL injected)');
 }
 
+<<<<<<< HEAD
 /* sitemap: homepage + 2 service pages + 8 articles = 11 URLs */
 const SERVICE_PAGES = [
   {loc: `${siteUrl}/ai-developer`, priority: '0.9'},
   {loc: `${siteUrl}/digital-marketer`, priority: '0.9'},
+=======
+/* sitemap */
+const INDEXED_BLOG_SLUGS = [
+  'ai-skills-on-top-my-toolkit',
+  'best-chatbot-creator-in-kaithal',
+  'best-communicator-in-kaithal',
+  'best-content-creator-in-kaithal',
+  'best-digital-marketer-in-kaithal',
+  'best-editor-in-kaithal',
+  'best-web-designer-in-kaithal',
+  'top-content-strategist-in-kaithal',
+>>>>>>> 7297d78 (Remove unused 2ndportfolio folder)
 ];
+const today = new Date().toISOString().slice(0, 10);
 
 const postsBySlug = new Map(posts.map((p) => [p.slug, p]));
 const sitemapPosts = SITEMAP_BLOG_SLUGS.map((slug) => {
@@ -444,9 +467,20 @@ const sitemapPosts = SITEMAP_BLOG_SLUGS.map((slug) => {
 }).filter(Boolean);
 
 const urls = [
+<<<<<<< HEAD
   {loc: `${siteUrl}/`, priority: '1.0'},
   ...SERVICE_PAGES,
   ...sitemapPosts.map((p) => ({loc: `${siteUrl}/blog/${p.slug}`, priority: '0.8'})),
+=======
+  {loc: `${siteUrl}/`, lastmod: today, priority: '1.0'},
+  {loc: `${siteUrl}/ai-developer`, lastmod: today, priority: '0.7'},
+  ...INDEXED_BLOG_SLUGS.map((slug) => ({
+    loc: `${siteUrl}/blog/${slug}`,
+    lastmod: today,
+    priority: '0.6',
+  })),
+  {loc: `${siteUrl}/digital-marketer`, lastmod: today, priority: '0.7'},
+>>>>>>> 7297d78 (Remove unused 2ndportfolio folder)
 ];
 
 if (urls.length !== 11) {
